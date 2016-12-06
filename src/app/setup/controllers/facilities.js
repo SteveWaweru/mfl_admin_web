@@ -866,9 +866,9 @@
         "$stateParams","$state","mfl.common.forms.changes","toasty",
         function ($scope,adminApi,$stateParams,$state,formChanges,toasty) {
             $scope.clearUiSelect = function($event, $select) {
-                  $event.stopPropagation();
-                  $select.selected = '';
-                  $select.search = null;
+                $event.stopPropagation();
+                $select.selected = "";
+                $select.search = null;
             };
 
             $scope.wrapper = adminApi.facility_types;
