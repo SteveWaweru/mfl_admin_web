@@ -14,7 +14,7 @@
                 "icon": "fa-hospital-o"
             };
             $scope.filters = {
-                "fields": "id,county,county_name,sub_county,sub_county_name,"+
+                "fields": "id,code,county,county_name,sub_county,sub_county_name,"+
                           "name,job_title_name,email,"+
                           "phone_number,is_national"
             };
