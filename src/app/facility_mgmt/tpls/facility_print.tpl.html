@@ -8,7 +8,7 @@
 </div>
 <div class="row" ng-class="{'margin-t--15' : print}" ng-if="!spinner">
     <div class="col-xs-12">
-        <h3><b>{{facility.code}}</b> | {{facility.official_name | uppercase}}</h3>
+        <h3><b>{{facility.code}}</b> | {{facility.official_name}}</h3>
     </div>
     <div class="col-xs-6 fs-16">
         <label class="text-black fw-600">Type: </label>
@@ -22,10 +22,25 @@
         <label class="text-black fw-600">Regulatory status: </label>
         {{facility.regulatory_status_name}}
     </div>
-    <div class="col-md-6 col-xs-12 content-right fs-16" ng-if="facility.regulatory_body_name !== null">
+    <div class="col-md-6 col-xs-12 content-right fs-16">
         <label class="text-black fw-600" >Regulatory Body: </label>
         {{facility.regulatory_body_name}}
     </div>
+     <div class="col-md-6 col-xs-12 fs-16">
+        <label class="text-black fw-600">License Number: </label>
+        {{facility.license_number}}
+    </div>
+    <div class="col-md-6 col-xs-12 content-right fs-16">
+        <label class="text-black fw-600" >Registration Number: </label>
+        {{facility.registration_number}}
+    </div>
+     <div class="col-md-6 col-xs-12 fs-16" ng-if="facility.is_classified">
+        <label class="text-black fw-600">Military Facility</label>
+        <span ng-if="facility.is_classified" class="text-success">
+            <i class="fa fa-check-circle-o fa-1x fs-15"></i>
+        </span>
+    </div>
+
     <div class="col-xs-12"><hr class="line-divider"></div>
     <!-- Basic Details -->
     <div class="row">
@@ -66,14 +81,30 @@
                     <i class="fa fa-times-circle-o fa-1x fs-15"></i>
                 </span>
             </span>
+
+            <span  class="content-right  col-md-6 col-xs-12">
+                <label class="text-black">Date Established: </label>
+                {{facility.date_established | date}}
+            </span>
+             <span class="pull-left col-md-6 col-xs-12">
+                <label class="text-black">Open from  8 A.M to 5 P.M </label>
+                <span ng-if="facility.open_normal_day" class="text-success">
+                    <i class="fa fa-check-circle-o fa-1x fs-15"></i>
+                </span>
+                <span ng-if="!facility.open_normal_day" class="text-danger">
+                    <i class="fa fa-times-circle-o fa-1x fs-15"></i>
+                </span>
+            </span>
             <span class="content-right col-md-6 col-xs-12">
                 <label class="text-black">Keph Level: </label>
                 {{facility.keph_level_name}}
             </span>
+
             <span ng-if="facility.facility_catchment_population" class="col-xs-12">
                 <label class="text-black">Facility Catchment Population: </label>
                 {{facility.facility_catchment_population}}
             </span>
+
             <div class="col-xs-12"><hr class="line-divider"></div>
             <div class="col-xs-12 margin-t-5">
                 <h4 class="fw-600">Location Details</h4>
@@ -82,12 +113,17 @@
                  <label class="text-black">County:</label> {{facility.county | titlecase}}
             </span>
             <span class="content-right col-md-6 col-xs-12">
-                <label class="text-black">Sub-County:</label> {{facility.constituency | titlecase}}
+                <label class="text-black">Sub-County:</label> {{facility.sub_county_name | titlecase}}
             </span>
-            <span class="pull-left col-md-6 col-xs-12 margin-t-10">
+
+            <span class="pull-left col-md-6 col-xs-12">
                 <label class="text-black">Ward:</label> {{facility.ward_name | titlecase}}
             </span>
-            <span class="content-right col-md-6 col-xs-12 margin-t-10">
+             <span class="content-right col-md-6 col-xs-12">
+                <label class="text-black">Constituency:</label> {{facility.constituency_name | titlecase}}
+            </span>
+
+            <span class="pull-left col-md-6 col-xs-12">
                 <label class="text-black">Town:</label> {{facility.town_name}}
             </span>
             <!-- Geo -->
@@ -185,21 +221,29 @@
     <!-- End of basic details -->
     <div class="col-xs-12 margin-t-10 margin-b-10" ng-if="fac_units.length !== 0 || facility.facility_services.length !== 0"><hr class="line-divider"></div>
     <div class="col-xs-12 margin-t-10" ng-if="fac_units.length !== 0">
-        <h4 class="fw-600">Regulation</h4>
+        <h4 class="fw-600">Departments Regulation</h4>
     </div>
     <div class="col-xs-12" ng-if="fac_units.length !== 0">
         <table class="table fs-14 table-hover table-condensed table-stripped">
             <thead>
-                <th class="col-xs-8">Name</th>
-                <th class="col-xs-4 text-center">Regulating Body</th>
+                <th class="col-xs-4">Name</th>
+                <th class="col-xs-5">Regulating Body</th>
+                <th class="col-xs-4">License Number</th>
+                <th class="col-xs-4">Registration Number</th>
             </thead>
             <tbody>
                 <tr ng-repeat="unit in fac_units">
                     <td>
                         {{unit.unit_name}}
                     </td>
-                    <td class="text-center">
+                    <td>
                         {{unit.regulating_body_name}}
+                    </td>
+                      <td>
+                        {{unit.license_number}}
+                    </td>
+                    <td>
+                        {{unit.registration_number}}
                     </td>
                 </tr>
             </tbody>

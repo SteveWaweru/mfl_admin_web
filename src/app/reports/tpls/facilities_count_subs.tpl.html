@@ -1,0 +1,54 @@
+<div class="content-header">
+   <div class="action-container content-header-extra">
+       <div class="action-container content-header-extra pad-r-5">
+            <button tooltip-placement="bottom"  class="btn btn-primary" ng-click="exportToExcel()">
+                Export To Excel
+            </button>
+       </div>
+   </div>
+   <h2 class="content-title">
+        <span class="main-title">Facility Report by Sub-County</span>
+   </h2>
+</div>
+<section class="margin-t-10">
+    <div class="col-sm-12">
+        <div class="col-xs-12 margin-t-40" ng-if="spinner">
+        <div class="map-change-state">
+              <div class="loader"></div>
+              <div class="row">
+                  <h3 class="text-center loader-text">Please wait...</h3>
+              </div>
+          </div>
+        </div>
+        <div ng-if="!spinner" class="content-card col-xs-12">
+           <div class="col-sm-4">
+               <input class="form-control" type="text"  ng-model="search" placeholder="Search sub-county.."/>
+           </div>
+           <div ng-show="search!==''" class="col-sm-1"><button class="btn btn-default" ng-click="search=''">Clear</button></div>
+            <div class="col-xs-12 margin-b-20">
+                <table class="table table-hover table-condensed fs-14 margin-t-20" id="no-more-tables">
+                    <thead>
+                        <th class="col-xs-9 text-wrap">Sub-County</th>
+                        <th class="col-xs-3 text-center text-wrap">Number of Facilities</th>
+                        <th class="col-xs-3 text-center text-wrap">Action</th>
+                    </thead>
+                    <tbody class="fade-content">
+                        <tr ng-repeat="county in county_facilities | filter:search">
+                            <td>
+                              <a ui-sref="reports.facilities_count_wards({sub_county_id : county.area_id})" tooltip="View Facilities in the county sub-counties">
+                                  {{::county.area_name | titlecase}}
+                              </a>
+                            </td>
+                            <td data-title="Facilities:">{{::county.number_of_facilities}}</td>
+                             <td class="text-right">
+                              <a href="#/reports/facilities?sub_county={{county.area_id}}" class="btn btn-success" tooltip="View Facilities in the sub-county">
+                                  View Facilities
+                              </a>
+                          </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

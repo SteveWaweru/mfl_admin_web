@@ -79,7 +79,10 @@
             .error(function (data) {
                 $scope.errors = data;
             });
-            $scope.facility_no = {"page_size" : 100000};
+            $scope.facility_no = {
+                "page_size" : 100000
+            };
+
             wrappers.facilities.filter($scope.facility_no)
             .success(function (data) {
                 $scope.facilities = data.results;
@@ -249,21 +252,19 @@
                 $scope.workers.health_unit_workers =
                     $scope.unit.health_unit_workers;
                 if($scope.workers.health_unit_workers.length > 0){
-                    var save_msg = $scope.create ? "Added" : "Updated";
                     wrappers.chuls.update($scope.unit_id, $scope.workers)
                     .success(function () {
-                        toasty.success({
-                            title: "Community Unit " + save_msg,
-                            msg: "Community Unit successfully " + save_msg
-                        });
-                        $state.go("community_units", {reload: true});
+                        $state.go("community_units.create_unit.services",
+                            {unit_id : $state.params.unit_id, furthest : 3},
+                            {reload : true}
+                        );
                     })
                     .error(function (data) {
                         $scope.errors = data;
                     });
                 }
             };
-            /*Wait for facility to be defined*/
+            /*Wait for unit to be defined*/
             $scope.$watch("unit", function (u) {
                 if (_.isUndefined(u)){
                     return;
@@ -273,6 +274,85 @@
                 }
             });
         }]
-    );
+    )
+    .controller("mfl.chul.controllers.edit_chul.services", [
+        "$scope", "mfl.chul.services.wrappers","$stateParams",
+        "toasty", "$state",
+        function($scope, wrapper, $stateParams, toasty, $state){
+            wrapper.services.filter({page_size:1000, fields:"id,name"})
+            .success(function(data){
+                $scope.services = data.results;
+            })
+            .error(function(data){
+                $scope.errors = data;
+            });
+            console.log("Hapa Hivi");
+
+            wrapper.chuls.get($stateParams.unit_id)
+            .success(function(data){
+                $scope.unit = data;
+            })
+            .error(function(data){
+                $scope.errors = data;
+            });
+            $scope.select_values = {
+                chu_services: {}
+            };
+
+            $scope.$watch("unit", function (u) {
+                $scope.update_chu_services = [];
+                if (_.isUndefined(u)){
+
+                    return;
+                }else{
+                    $scope.update_chu_services = $scope.unit.services;
+                }
+            });
+            $scope.filterChuServices = function(a){
+                var service_ids = _.pluck($scope.update_chu_services, "service");
+                return !_.contains(service_ids, a.id);
+            };
+
+            $scope.track_service_updates = function(){
+
+                $scope.update_chu_services.push(
+                    {
+                        "service": $scope.select_values.chu_services.id,
+                        "name": $scope.select_values.chu_services.name,
+                        "health_unit": $scope.unit.id
+                    }
+                );
+            };
+            $scope.update_services = function(){
+                console.log($scope.update_chu_services);
+                $scope.unit.services =  _.map(
+                    $scope.update_chu_services, function(obj){
+                        return _.pick(obj, "service", "health_unit");
+                    }
+                );
+                var changes = {
+                    services: $scope.unit.services
+                };
+                wrapper.chuls.update($stateParams.unit_id, changes)
+                .success(function(){
+                    toasty.success({
+                        title: "Community Unit",
+                        msg: "Community Unit Updated successfully "
+                    });
+                    $state.go("community_units", {reload: true});
+                })
+                .error(function(data){
+                    $scope.errors = data;
+                });
+            };
+
+            $scope.remove_service = function(service_obj){
+                $scope.update_chu_services = _.without(
+                    $scope.update_chu_services, _.findWhere(
+                    $scope.update_chu_services, service_obj)
+                );
+            };
+        }
+    ]);
 
 })(window.angular, window._);

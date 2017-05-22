@@ -35,7 +35,22 @@
         $scope.new_facility = $state.params.facility_id;
         $scope.facility_id = $state.params.facility_id;
         $scope.furthest = $stateParams.furthest;
-        //intializing ui select values
+
+        $scope.selectReload = function (wrapper, search_term, scope_var, extra_filters) {
+            if (! _.isString(search_term)) {
+                return $q.reject();
+            }
+            var filters = _.isEmpty(search_term) ? {} : {"search_auto": search_term};
+            return wrapper.filter(_.extend(filters, extra_filters))
+            .success(function (data) {
+                $scope[scope_var] = data.results;
+            })
+            .error(function (data) {
+                $log.error(data);
+            });
+        };
+
+        //initializing ui select values
         if(_.isEmpty($state.params.facility_id)){
             $scope.select_values = {};
         } else {
@@ -50,7 +65,7 @@
                         },
                         facility_type: {
                             "id": $scope.facility.facility_type,
-                            "name": $scope.facility.facility_type_name
+                            "name": $scope.facility.facility_type_parent
                         },
                         facility_type_details: {
                             "id": $scope.facility.facility_type,
@@ -86,19 +101,7 @@
                     $log.error(data);
                 });
         }
-        $scope.selectReload = function (wrapper, search_term, scope_var, extra_filters) {
-            if (! _.isString(search_term)) {
-                return $q.reject();
-            }
-            var filters = _.isEmpty(search_term) ? {} : {"search_auto": search_term};
-            return wrapper.filter(_.extend(filters, extra_filters))
-            .success(function (data) {
-                $scope[scope_var] = data.results;
-            })
-            .error(function (data) {
-                $log.error(data);
-            });
-        };
+
         $scope.steps = facilityMultistepService.facilityObject();
         //multistep config
         $scope.nextState = function () {

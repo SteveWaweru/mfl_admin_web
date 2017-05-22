@@ -2,14 +2,15 @@
 
     "use strict";
 
-    angular.module("mfl.reports.controllers.facilities", [
+    angular.module("mfl.reports.controllers.facilities.reports", [
         "mfl.reports.states",
         "mfl.reports.services",
         "mfl.auth.oauth2"
     ])
 
     .controller("mfl.reports.controllers.facilities", ["$scope","$stateParams",
-        "mfl.reports.services.wrappers","$state","URL_SEARCH_PARAMS","$window","api.oauth2",
+        "mfl.reports.services.wrappers","$state","URL_SEARCH_PARAMS","$window",
+        "api.oauth2",
         function($scope,filterParams,wrappers,$state, URL_SEARCH_PARAMS,$window,auth){
         var filter_keys = _.keys(filterParams);
         var params = _.reduce(filter_keys, function (memo, b) {
@@ -18,8 +19,9 @@
             }
             return memo;
         }, {
-            "fields": "id,code,official_name,regulatory_status_name,updated," +
-                      "facility_type_name,owner_name,county,constituency,ward_name,keph_level"
+            "fields": "id,code,name,official_name,regulatory_status_name,updated," +
+                      "facility_type_name,owner_name,county,sub_county_name,"+
+                      "ward_name,keph_level,keph_level_name,constituency_name"
         });
         $scope.tooltip = {
             "title": "tooltip",
@@ -37,12 +39,17 @@
                 number_of_cots: "",
                 open_public_holidays: "",
                 open_weekends: "",
-                open_whole_day: ""
+                open_whole_day: "",
+                open_normal_day: "",
+                created_after: "",
+                created_before: "",
+                is_classified: ""
             },
             multiple: {
                 county: [],
                 facility_type: [],
                 constituency: [],
+                sub_county: [],
                 ward: [],
                 operation_status: [],
                 service_category: [],
@@ -57,6 +64,7 @@
             $scope.filters.single.open_weekends = "";
             $scope.filters.single.open_whole_day = "";
             $scope.filters.single.open_public_holidays = "";
+            $scope.filters.single.open_normal_day = "";
         };
 
         var updateSingleFilters = function (params) {
@@ -84,6 +92,7 @@
             // update ui-select with relationships
             var relationships = [
                 {child: "ward", parent: "constituency"},
+                {child: "ward", parent: "sub_county"},
                 {child: "constituency", parent: "county"}
             ];
             _.each(relationships, function (r) {
@@ -121,9 +130,13 @@
                 var county_ids = _.pluck($scope.filters.multiple.county, "id");
                 return _.contains(county_ids, a.county);
             },
+            subFilter: function (a) {
+                var county_ids = _.pluck($scope.filters.multiple.county, "id");
+                return _.contains(county_ids, a.county);
+            },
             wardFilter: function (a) {
-                var const_ids = _.pluck($scope.filters.multiple.constituency, "id");
-                return _.contains(const_ids, a.constituency);
+                var const_ids = _.pluck($scope.filters.multiple.sub_county, "id");
+                return _.contains(const_ids, a.sub_county);
             },
             ownerFilter: function (a) {
                 var owner_types = _.pluck($scope.filters.multiple.owner_type, "id");
@@ -141,7 +154,7 @@
 
         wrappers.filters.filter({"fields": ["county", "facility_type",
             "constituency", "ward", "operation_status", "service_category",
-            "owner_type", "owner", "service", "keph_level"
+            "owner_type", "owner", "service", "keph_level", "sub_county"
         ]})
         .success(function (data) {
             $scope.filter_summaries = data;

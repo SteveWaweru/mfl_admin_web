@@ -18,7 +18,8 @@
         "mfl.common.forms",
         "leaflet-directive",
         "nemLogging",
-        "mfl.common.constants"
+        "mfl.common.constants",
+        "mfl.common.filters"
     ])
 
 
@@ -32,8 +33,8 @@
      */
     .controller("mfl.facility_mgmt.controllers.services_helper",
         ["$log", "mfl.facility_mgmt.services.wrappers", "mfl.error.messages",
-        "$state", "toasty",
-        function ($log, wrappers, errorMessages, $state, toasty) {
+        "$state", "toasty", "$stateParams",
+        function ($log, wrappers, errorMessages, $state, toasty, $stateParams) {
             var loadData = function ($scope) {
                 wrappers.services.filter({page_size: 100, ordering: "name"})
                 .success(function (data) {
@@ -234,7 +235,14 @@
                         msg : "Facility successfully updated"
                     };
                     toasty.success(update_msg);
-                    $state.go("facilities");
+                    if($scope.facility.approved){
+                        $state.go("facilities.facility_view_changes",
+                            {facility_id: $stateParams.facility_id});
+                    }
+                    else{
+                        $state.go("facilities");
+                    }
+
                 };
                 $scope.$watch("new_service.service", function (newVal) {
                     var s = _.findWhere($scope.services, {"id": newVal});
@@ -291,7 +299,7 @@
                         },
                         facility_type: {
                             "id": $scope.facility.facility_type,
-                            "name": $scope.facility.facility_type_name
+                            "name": $scope.facility.facility_type_parent
                         },
                         facility_type_details: {
                             "id": $scope.facility.facility_type,
@@ -317,20 +325,36 @@
                             "id": $scope.facility.keph_level,
                             "name": $scope.facility.keph_level_name
                         },
-                        sub_county: {
-                            "id": $scope.facility.sub_county,
-                            "name": $scope.facility.sub_county_name
-                        },
                         town: {
                             "id": $scope.facility.town,
                             "name": $scope.facility.town_name
+                        },
+                        county: {
+                            "id": $scope.facility.county_id,
+                            "name": $scope.facility.county_name
+                        },
+                        sub_county: {
+                            "id": $scope.facility.sub_county_id,
+                            "name": $scope.facility.sub_county_name,
+                            "county": $scope.facility.county_id
+                        },
+                        constituency: {
+                            "id": $scope.facility.constituency_id,
+                            "name": $scope.facility.constituency,
+                            "county": $scope.facility.county_id
+                        },
+                        regulation_status: {
+                            "id": $scope.facility.regulation_status,
+                            "name": $scope.facility.regulatory_status_name
                         }
                     };
+
                     if($scope.facility.hasOwnProperty
                         ("officer_in_charge") && !_.isNull($scope.facility.officer_in_charge)){
                         $scope.off_contacts =
                             $scope.facility.officer_in_charge.contacts;
                     }
+
                 })
                 .error(function (data) {
                     $log.error(data);
@@ -339,6 +363,8 @@
                     errorMessages.facility_details;
                 });
 
+
+
             $scope.selectReload = function (wrapper, search_term, scope_var, extra_filters) {
                 if (! _.isString(search_term)) {
                     return $q.reject();
@@ -346,6 +372,7 @@
                 var filters = _.isEmpty(search_term) ? {} : {"search_auto": search_term};
                 return wrapper.filter(_.extend(filters, extra_filters))
                 .success(function (data) {
+
                     $scope[scope_var] = data.results;
                 })
                 .error(function (data) {
@@ -368,6 +395,7 @@
             };
             $scope.printFacility = wrappers.printFacility;
             $scope.nxtState = true;
+
             $scope.setNxt = function (arg) {
                 $scope.nxtState = arg;
             };
@@ -454,6 +482,11 @@
                 $scope.nextState();
                 $scope.facilityOfficers($scope.facility);
             }
+
+            $scope.FilterForFacilityTypeParents = function(obj){
+                return obj.parent === null;
+            };
+
             $scope.initUniqueName = function(frm) {
                 if(_.isUndefined($scope.facility.name)) {
                     $scope.facility.name = $scope.facility.official_name;
@@ -461,6 +494,77 @@
                     frm.name.$render();
                 }
             };
+            $scope.populate_operational_hours = function(){
+                if($scope.facility.open_whole_day){
+                    $scope.facility.open_late_night = true;
+                    $scope.facility.open_public_holidays = true;
+                    $scope.facility.open_weekends = true;
+                    $scope.facility.open_normal_day = true;
+                }
+                else{
+                    $scope.facility.open_late_night = false;
+                    $scope.facility.open_public_holidays = false;
+                    $scope.facility.open_weekends = false;
+                    $scope.facility.open_normal_day = false;
+                }
+            };
+            var ward_filters = {
+                fields: "id,name,sub_county,constituency",
+                page_size:10000
+            };
+            var county_filters = {
+                fields: "id,name",
+                page_size:10000
+            };
+            var const_filters = {
+                fields: "id,name,county",
+                page_size:10000
+            };
+            var sub_county_filters = {
+                fields: "id,name,county",
+                page_size:10000
+            };
+
+            $scope.operationStatusFilter = function (a) {
+                return a.name !== "Closed";
+            };
+
+            $scope.filterFxns = {
+                subFilter: function (a) {
+                    if(!_.isUndefined($scope.select_values)){
+                        return a.county === $scope.select_values.county;
+                    }
+                    else{
+                        return false;
+                    }
+                },
+                constFilter: function (a) {
+                    if(!_.isUndefined($scope.select_values)){
+                        return a.county === $scope.select_values.county;
+                    }
+                    else{
+                        return false;
+                    }
+                },
+                wardConstFilter: function (a) {
+                    if(!_.isUndefined($scope.select_values)){
+                        return a.constituency === $scope.select_values.constituency;
+                    }
+                    else{
+                        return false;
+                    }
+                },
+                wardSubFilter: function (a) {
+                    if(!_.isUndefined($scope.select_values)){
+                        return a.sub_county === $scope.select_values.sub_county;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+            };
+
+
             $scope.contacts = [{type: "", contact : ""}];
             $scope.login_user = loginService.getUser();
             $scope.selectReload(wrappers.facility_owners, "", "owners");
@@ -468,25 +572,31 @@
                 "owner_types");
             $scope.selectReload(wrappers.operation_status, "", "operation_status");
             $scope.selectReload(wrappers.keph_levels, "", "keph_levels");
-            $scope.selectReload(
-                wrappers.wards, "", "wards", {"constituency": $scope.login_user.constituency}
-            );
+
             $scope.selectReload(wrappers.regulating_bodies, "", "regulating_bodies");
+            $scope.selectReload(wrappers.regulation_status, "", "regulation_statuses");
             $scope.selectReload(wrappers.facility_types, "", "facility_types");
             $scope.selectReload(wrappers.towns, "", "towns");
-            $scope.selectReload(wrappers.sub_counties, "", "sub_counties");
+            $scope.selectReload(wrappers.wards, "", "wards", ward_filters);
+            $scope.selectReload(wrappers.sub_counties, "", "sub_counties", sub_county_filters);
+            $scope.selectReload(wrappers.constituencies, "", "constituencies", const_filters);
+            $scope.selectReload(wrappers.counties, "", "counties", county_filters);
+
             $scope.save = function (frm) {
+
                 $scope.finish = ($scope.nxtState ? "facilities" :
                     "facilities.facility_edit.geolocation");
                 var changes = formChanges.whatChanged(frm);
+                console.log(changes);
                 $scope.facility.ward = $scope.select_values.ward;
                 $scope.facility.keph_level = $scope.select_values.keph_level;
-                $scope.facility.facility_type = $scope.select_values.facility_type;
+                $scope.facility.facility_type = $scope.select_values.facility_type_details;
                 $scope.facility.owner = $scope.select_values.owner;
                 $scope.facility.operation_status = $scope.select_values.operation_status;
                 $scope.facility.regulatory_body = $scope.select_values.regulatory_body;
                 $scope.facility.town = $scope.select_values.town;
-                $scope.facility.sub_county = $scope.select_values.sub_county;
+                $scope.facility.sub_county = $scope.select_values.sub_county.id;
+                $scope.facility.regulation_status = $scope.select_values.regulation_status;
                 if($scope.create) {
                     $scope.setFurthest(2);
                     if(_.isEmpty($state.params.facility_id)) {
@@ -503,6 +613,8 @@
                         });
                     }
                     else {
+                        changes.sub_county = $scope.facility.sub_county;
+                        console.log(changes);
                         wrappers.facilities.update(
                             $state.params.facility_id, changes)
                         .success(function () {
@@ -520,6 +632,7 @@
                     }
                 } else {
                     changes.officer_in_charge = $scope.facility.officer_in_charge;
+                    changes.sub_county = $scope.facility.sub_county;
                     wrappers.facilities.update($scope.facility_id, changes)
                     .success(function () {
                         if($scope.nxtState){
@@ -528,8 +641,16 @@
                                 msg: "Facility successfully updated"
                             });
                         }
-                        $state.go($scope.finish,
-                        {facility_id:$scope.facility_id}, {reload : true});
+                        // $state.go($scope.finish,
+                        // {facility_id:$scope.facility_id}, {reload : true});
+
+                        if($scope.facility.approved){
+                            $state.go("facilities.facility_view_changes",
+                                {facility_id: $stateParams.facility_id});
+                        }
+                        else{
+                            $state.go($scope.finish);
+                        }
                     })
                     .error(function (data) {
                         $log.error(data);
@@ -650,7 +771,14 @@
                                 title: "Facility",
                                 msg: "Facility contacts successfully updated"
                             });
-                            $state.go($scope.finish, {reload : true});
+
+                            if($scope.facility.approved){
+                                $state.go("facilities.facility_view_changes",
+                                    {facility_id: $stateParams.facility_id});
+                            }
+                            else{
+                                $state.go($scope.finish);
+                            }
                         }else{
                             $scope.goToNext(4, "units");
                         }
@@ -837,6 +965,23 @@
             .error(function(error){
                 $scope.errors = error;
             });
+
+            /*regulation_statuses*/
+            wrappers.regulation_status.filter({fields:"id,name"})
+            .success(function(data){
+                $scope.regulation_statuses = data.results;
+            })
+            .error(function(error){
+                $scope.errors = error;
+            });
+
+            $scope.select_values = {
+                regulatory_body: {
+                },
+                regulation_status:{
+                }
+            };
+
             /*facility units*/
             wrappers.facility_units.filter({
                 facility: $scope.facility_id,
@@ -887,15 +1032,23 @@
                 if(!_.isEmpty($scope.fac_unitobj.units)){
                     wrappers.facilities.update($scope.facility_id, $scope.fac_unitobj)
                     .success(function () {
+                        toasty.success({
+                            title: "Facility",
+                            msg: "Facility regulation successfully updated"
+                        });
                         if(!$scope.create){
-                            toasty.success({
-                                title: "Facility",
-                                msg: "Facility regulation successfully updated"
-                            });
-                            $state.go($scope.finish);
-                        }else{
+                            if($scope.facility.approved){
+                                $state.go("facilities.facility_view_changes",
+                                    {facility_id: $stateParams.facility_id});
+                            }
+                            else{
+                                $scope.goToNext(5, "services");
+                            }
+                        }
+                        else{
                             $scope.goToNext(5, "services");
                         }
+
                     })
                     .error(function (err) {
                         $scope.alert = err.error;
@@ -903,14 +1056,45 @@
                     });
                 } else {
                     if(!$scope.create){
-                        $state.go($scope.finish);
+                        if($scope.facility.approved){
+                            $state.go("facilities.facility_view_changes",
+                                {facility_id: $stateParams.facility_id});
+                        }
+                        else{
+                            $state.go("facilities");
+                        }
                     }else{
                         $scope.goToNext(5, "services");
                     }
                 }
             };
+
+            $scope.update_facility_regulatory_details = function(){
+                var updates = {};
+                if(_.isUndefined($scope.select_values.regulatory_body.name)){
+                    updates.regulatory_body = $scope.select_values.regulatory_body;
+                }
+
+                if(_.isUndefined($scope.select_values.regulation_status.name)){
+                    updates.regulation_status = $scope.select_values.regulation_status;
+                }
+
+                if(!_.isUndefined($scope.facility.license_number)){
+                    updates.license_number = $scope.facility.license_number;
+                }
+
+                if(!_.isUndefined($scope.facility.registration_number)){
+                    updates.registration_number = $scope.facility.registration_number;
+                }
+
+                wrappers.facilities.update($scope.facility_id, updates)
+                    .success(function(){}).error(function(){});
+            };
+
             $scope.saveUnits = function (arg) {
+                $scope.update_facility_regulatory_details();
                 $scope.fac_unitobj = {units : []};
+
                 _.each($scope.fac_depts, function (a_unit) {
                     if(_.isUndefined(a_unit.id)){
                         $scope.fac_unitobj.units.push(a_unit);
@@ -924,6 +1108,16 @@
                 }
                 if(f.hasOwnProperty("facility_units")){
                     $scope.facilityUnits(f);
+                    $scope.select_values = {
+                        regulatory_body: {
+                            "id": $scope.facility.regulatory_body,
+                            "name": $scope.facility.regulatory_body_name
+                        },
+                        regulation_status:{
+                            "name": $scope.facility.regulatory_status_name,
+                            "id": $scope.facility.regulatory_status
+                        }
+                    };
                 }
             });
             /*add existing regulatory to facility*/
@@ -1039,9 +1233,9 @@
     .controller("mfl.facility_mgmt.controllers.facility_edit.geolocation",
         ["$scope", "mfl.facility_mgmt.services.wrappers", "$log","leafletData",
         "mfl.common.services.multistep", "mfl.common.forms.changes", "$state",
-        "mfl.error.messages", "toasty","$filter",
+        "mfl.error.messages", "toasty","$filter","$stateParams",
         function ($scope,wrappers,$log, leafletData, multistepService,
-            formChanges, $state, errorMessages, toasty,$filter) {
+            formChanges, $state, errorMessages, toasty,$filter,$stateParams) {
             var value = new Date();
             $scope.maxDate = value.getFullYear() + "/" + (value.getMonth()+1) +
             "/" + value.getDate();
@@ -1077,6 +1271,7 @@
                 wrappers.facility_coordinates.get(f.coordinates)
                 .success(function(data){
                     $scope.spinner = false;
+
                     $scope.geo = data;
                     $scope.collection_date = $filter("date")($scope.geo.collection_date);
 
@@ -1093,7 +1288,7 @@
                                 lat: data.coordinates.coordinates[1],
                                 lng: data.coordinates.coordinates[0],
                                 message: f.name,
-                                draggable: true
+                                draggable: false
                             }
                         }
                     });
@@ -1116,7 +1311,7 @@
                     leafletData.getMap("wardmap")
                         .then(function (map) {
                             var coords = data.ward_boundary.properties.bound.coordinates[0];
-                            $scope.center = data.ward_boundary.properties.center;
+                            $scope.center = [];
                             var bounds = _.map(coords, function(c) {
                                 return [c[1], c[0]];
                             });
@@ -1124,18 +1319,19 @@
                             //has to be there for marker to appear
                             if(!_.isNull(f.coordinates)) {
                                 $scope.getFacilityCoordinates(f);
-                            }else{
+                            }
+                            else{
                                 $scope.geo.coordinates =
                                 $scope.center;
                                 angular.extend($scope,{
                                     markers: {
-                                        mainMarker: {
-                                            layer:"facility",
-                                            lat: $scope.geo.coordinates.coordinates[1],
-                                            lng: $scope.geo.coordinates.coordinates[0],
-                                            message: f.name,
-                                            draggable: true
-                                        }
+                                        // mainMarker: {
+                                        //     layer:"facility",
+                                        //     lat: $scope.geo.coordinates.coordinates[1],
+                                        //     lng: $scope.geo.coordinates.coordinates[0],
+                                        //     message: f.name,
+                                        //     draggable: false
+                                        // }
                                     }
                                 });
                             }
@@ -1222,7 +1418,18 @@
                         .success(function (data) {
                             spinner1 =false;
                             $scope.geo = data;
-                            $scope.toState(arg);
+
+                            if($scope.create){
+                                $scope.toState(arg);
+                            }
+                            if($scope.facility.approved){
+                                $state.go("facilities.facility_view_changes",
+                                    {facility_id: $stateParams.facility_id});
+                            }
+                            else{
+                                $scope.toState(arg);
+                            }
+
                         })
                         .error(function (error) {
                             spinner1 =false;
@@ -1238,7 +1445,17 @@
                         wrappers.facilities.update(
                             fac_id, {"coordinates" : data.id})
                             .success(function () {
-                                $scope.toState(arg);
+                                if($scope.create){
+                                    $scope.toState(arg);
+                                }
+                                if($scope.facility.approved){
+                                    $state.go("facilities.facility_view_changes",
+                                        {facility_id: $stateParams.facility_id});
+                                }
+                                else{
+                                    $scope.toState(arg);
+                                }
+
                             })
                             .error(function (error) {
                                 $log.error(error);
@@ -1267,6 +1484,7 @@
                         }
                     }
                 });
+
             };
             // update coordinates after dragging marker
             $scope.$on("leafletDirectiveMarker.wardmap.dragend", function (e, args) {
@@ -1280,6 +1498,37 @@
                 //draw facility on the map
                 if(f.hasOwnProperty("ward")){
                     $scope.facilityWard(f);
+                }
+            });
+        }])
+    .controller("mfl.facilities.preview_changes", ["$scope",
+        "$stateParams", "mfl.facility_mgmt.services.wrappers",
+        function($scope, $stateParams, wrappers){
+            var facility_id = $stateParams.facility_id;
+
+            wrappers.facilities.get(facility_id)
+            .success(function(data){
+                $scope.facility = data;
+                console.log($scope.facility);
+            })
+            .error(function(data){
+                $scope.errors = data;
+            });
+            $scope.$watch("facility", function(fac){
+                if(!_.isUndefined(fac)){
+                    if($scope.facility.latest_update) {
+                        wrappers.facility_updates.get($scope.facility.latest_update)
+                        .success(function(data) {
+                            $scope.facility_update = data;
+                            $scope.facility_update.facility_updates = JSON.parse(
+                                $scope.facility_update.facility_updates
+                            );
+                            $scope.facility_changes = data.facility_updated_json;
+                        })
+                        .error(function (data) {
+                            $scope.errors = data;
+                        });
+                    }
                 }
             });
         }]);

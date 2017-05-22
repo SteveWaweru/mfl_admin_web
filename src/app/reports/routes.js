@@ -6,7 +6,7 @@
         "ui.router"
     ])
     .constant("URL_SEARCH_PARAMS", [
-        "name", "code",
+        "name", "code", "sub_county",
 
         "search",
 
@@ -20,6 +20,7 @@
 
         "number_of_beds", "number_of_cots",
         "open_public_holidays", "open_weekends", "open_whole_day",
+        "created_after", "created_before", "is_classified",
 
         // pagination controls
         "page_size", "page"
@@ -66,6 +67,71 @@
                 "main-content@reports.counties": {
                     templateUrl: "reports/tpls/facility_counties.tpl.html",
                     controller:"mfl.reports.controllers.facility_counties"
+                }
+            }
+        })
+        .state("reports.bed_cots_facilities", {
+            url: "bed_cots_facilities_by_county/:county_id/:area_class/:area_name",
+            views: {
+                "body@reports": {
+                    templateUrl: "reports/tpls/body.tpl.html",
+                    controller:"mfl.reports.controllers.main"
+                },
+                "main-content@reports.bed_cots_facilities": {
+                    templateUrl: "reports/tpls/facility_bed_cots_counties.tpl.html",
+                    controller:"mfl.reports.controllers.facility_counties_bed_cots"
+                }
+            }
+        })
+        .state("reports.bed_cots_facilities_sub", {
+            url: "bed_cots_facilities_by_sub_county/:sub_id/:area_class/:area_name",
+            views: {
+                "body@reports": {
+                    templateUrl: "reports/tpls/body.tpl.html",
+                    controller:"mfl.reports.controllers.main"
+                },
+                "main-content@reports.bed_cots_facilities_sub": {
+                    templateUrl: "reports/tpls/facility_bed_cots_counties.tpl.html",
+                    controller:"mfl.reports.controllers.facility_cons_bed_cots"
+                }
+            }
+        })
+        .state("reports.bed_cots_facilities_ward", {
+            url: "bed_cots_facilities_by_ward/:ward_id/:area_class/:area_name",
+            views: {
+                "body@reports": {
+                    templateUrl: "reports/tpls/body.tpl.html",
+                    controller:"mfl.reports.controllers.main"
+                },
+                "main-content@reports.bed_cots_facilities_ward": {
+                    templateUrl: "reports/tpls/facility_bed_cots_counties.tpl.html",
+                    controller:"mfl.reports.controllers.facility_wards_bed_cots"
+                }
+            }
+        })
+        .state("reports.facilities_count_subs", {
+            url: "facilities_count/:county_id/",
+            views: {
+                "body@reports": {
+                    templateUrl: "reports/tpls/body.tpl.html",
+                    controller:"mfl.reports.controllers.main"
+                },
+                "main-content@reports.facilities_count_subs": {
+                    templateUrl: "reports/tpls/facilities_count_subs.tpl.html",
+                    controller:"mfl.reports.controllers.facilities_count_subs"
+                }
+            }
+        })
+        .state("reports.facilities_count_wards", {
+            url: "facilities_count_wards/:sub_county_id/",
+            views: {
+                "body@reports": {
+                    templateUrl: "reports/tpls/body.tpl.html",
+                    controller:"mfl.reports.controllers.main"
+                },
+                "main-content@reports.facilities_count_wards": {
+                    templateUrl: "reports/tpls/facilities_count_wards.tpl.html",
+                    controller:"mfl.reports.controllers.facilities_count_wards"
                 }
             }
         })
@@ -250,6 +316,18 @@
                 }
             }
         })
+         .state("reports.chu_detail_status", {
+            url: "chu_detail/:status_id/:county_id/:sub_county_id/:ward_id/",
+            views: {
+                "body@reports": {
+                    templateUrl: "reports/tpls/body.tpl.html"
+                },
+                "main-content@reports.chu_detail_status": {
+                    templateUrl: "reports/tpls/chu_detail.tpl.html",
+                    controller:"mfl.reports.controllers.chu_detail"
+                }
+            }
+        })
         .state("reports.chu_constituencies", {
             url: "chu_constituencies?county",
             views: {
@@ -285,8 +363,45 @@
                     controller: "mfl.reports.controllers.chu_status"
                 }
             }
+        })
+        .state("reports.admin_offices", {
+            url: "reports/admin_offices",
+            views: {
+                "body@reports": {
+                    templateUrl: "reports/tpls/body.tpl.html"
+                },
+                "main-content@reports.admin_offices": {
+                    templateUrl: "reports/tpls/admin_offices.tpl.html",
+                    controller: "mfl.reports.controllers.admin_offices"
+                }
+            }
+        })
+        .state("reports.gis", {
+            url: "reports/gis",
+            views: {
+                "body@reports": {
+                    templateUrl: "reports/tpls/body.tpl.html"
+                },
+                "main-content@reports.gis": {
+                    templateUrl: "reports/tpls/facilities_gis.grid.tpl.html",
+                    controller: "mfl.reports.controllers.gis"
+                }
+            }
+        })
+        .state("reports.officers", {
+            url: "officers_in_charge",
+            views: {
+                "body@reports": {
+                    templateUrl: "reports/tpls/body.tpl.html"
+                },
+                "main-content@reports.officers": {
+                    templateUrl: "reports/tpls/officers_grid.tpl.html",
+                    controller: "mfl.reports.controllers.officers_in_charge"
+                }
+            }
         });
 
     }]);
 
 })(window.angular);
+

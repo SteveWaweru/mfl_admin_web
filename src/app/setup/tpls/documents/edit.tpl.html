@@ -14,7 +14,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">File&#42;</label>
-                <input type="file" name="fyl" required api-checker class="form-control" ng-model="document.file" onchange="angular.element(this).scope().fileUpdated(angular.element(this), this.files[0])">
+                <input type="file" name="fyl" api-checker class="form-control" ng-model="document.file" onchange="angular.element(this).scope().fileUpdated(angular.element(this), this.files[0])">
             </div>
             <div class="form-group" ng-if="document.file_url">
                 <label class="control-label">Current file</label>

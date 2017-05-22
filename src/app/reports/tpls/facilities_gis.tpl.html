@@ -1,0 +1,48 @@
+<div class="content-header">
+   <div class="action-container content-header-extra">
+       <div class="action-container content-header-extra pad-r-5">
+            <button tooltip-placement="bottom"  class="btn btn-primary" ng-click="exportToExcel()">
+                Export To Excel
+            </button>
+       </div>
+   </div>
+   <h2 class="content-title">
+        <span class="main-title">Facility Coordinates</span>
+   </h2>
+</div>
+<section class="margin-t-16">
+    <div class="content-card">
+    <div ng-include src="'reports/tpls/admin_area_filters.tpl.html'" onload></div>
+
+        <table class="table table-hover table-condensed fs-13" id="no-more-tables">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>County</th>
+                    <th>Sub-county</th>
+                    <th>Ward</th>
+                    <th>Latitude </th>
+                    <th>Longitude</th>
+                </tr>
+            </thead>
+            <tbody class="fade-content">
+                <tr ng-repeat="fac in facilities">
+                    <td data-title="facility_code:" >{{fac.code}}</td>
+                    <td data-title="facility_name:">
+                        <a ui-sref='facilities.facility_view({facility_id:fac.id})'>
+                        {{fac.name}}
+                    </a>
+                    </td>
+                    <td data-title="facility_county:">{{fac.county}}</td>
+                    <td data-title="facility_sub_county">{{fac.sub_county_name}}</td>
+                    <td data-title="facility_ward:">{{fac.ward_name}}</td>
+                    <td data-title="facility_latitude:">{{fac.lat_long[0]}}</td>
+                    <td data-title="facility_longitude:">{{fac.lat_long[1]}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+        <sil-grid-pagination> </sil-grid-pagination>
+    </div>
+</section>

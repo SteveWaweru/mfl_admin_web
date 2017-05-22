@@ -72,9 +72,7 @@
             this.facility_owners = api.setBaseUrl("api/facilities/owners/");
             this.facility_owner_types = api.setBaseUrl("api/facilities/owner_types/");
             this.regulating_bodies = api.setBaseUrl("api/facilities/regulating_bodies/");
-            this.facility_regulation_status = api.setBaseUrl(
-                "api/facilities/facility_regulation_status/"
-            );
+            this.regulation_statuses = api.setBaseUrl("api/facilities/regulatory_statuses");
             this.regulation_status = api.setBaseUrl("api/facilities/regulation_status/");
             this.wards = api.setBaseUrl("api/common/wards/");
             this.towns = api.setBaseUrl("api/common/towns");
@@ -108,6 +106,11 @@
             this.facility_rating_comments = api.setBaseUrl(
                     "api/facilities/facility_service_ratings/"
                 );
+            this.counties = api.setBaseUrl("api/common/counties/");
+            this.constituencies = api.setBaseUrl("api/common/constituencies/");
+            this.material_facilities = api.setBaseUrl("api/facilities/material");
+            this.documents = api.setBaseUrl("api/common/documents/");
+
             var downloadFile = function (base_url, facility_id) {
                 var helpers = api.apiHelpers;
                 var wrapper = api.setBaseUrl(base_url);

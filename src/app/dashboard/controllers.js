@@ -111,8 +111,8 @@
                                 }
                             }
                         },
-                        tooltip: {
-                            grouped: false
+                        legend: {
+                            show: false
                         },
                         axis: {
                             x: {

@@ -48,6 +48,16 @@
                         <b>#{{summary.closed_facilities_count }}</b>
                     </span>
                   </a>
+                  <a class="list-group-item fs-16 pad-t-5 pad-b-5" ui-sref="facility_approve_list">
+                    <span class="fa-stack fa-lg fs-18">
+                      <i class="fa fa fa-check text-success"></i>
+                    </span>&nbsp; <span class="fs-16">
+                        Approved Facilities
+                    </span>
+                    <span class="pull-right margin-t-5 fs-20">
+                        <b>#{{summary.approved_facilities }}</b>
+                    </span>
+                  </a>
                   <a class="list-group-item fs-16 pad-t-5 pad-b-5" ui-sref="facilities_approve" requires-permission="facilities.view_facility,facilities.add_facilityapproval">
                     <span class="fa-stack fa-lg fs-18">
                       <i class="fa fa-hospital-o fa-stack-1x"></i>
@@ -120,7 +130,6 @@
                 <span class="text-right col-sm-8 pad-r-0">
                     <button class="btn btn-xs btn-rounded btn-warning fs-12" ng-click="weekly()">Last Week</button>
                     <button class="btn btn-xs btn-rounded btn-warning fs-12" ng-click="monthly()">Last Month</button>
-                    <button class="btn btn-xs btn-rounded btn-warning fs-12" ng-click="quarterly()">Last Quarter</button>
                 </span>
                 <ul class="col-xs-12 list-group pad-0 margin-b-0">
                   <li class="list-group-item fs-16 pad-t-5 pad-b-5" style="font-family : 'Lato Light', sans-serif;">
@@ -180,7 +189,7 @@
                         </span>
                     </span>
                   </li>
-                  <li class="col-xs-12 list-group-item fs-16 pad-t-5 pad-b-5" style="font-family : 'Lato Light', sans-serif;" ng-if="user.user_counties.length!==0">
+                  <li class="col-xs-12 list-group-item fs-16 pad-t-5 pad-b-5" style="font-family : 'Lato Light', sans-serif;" ng-if="user.user_counties.length!==0 && !user.user_sub_counties.length">
                     <span class="col-xs-12 pad-0">
                         <span class="col-xs-3 fa-stack fa-lg fs-26 text-success">
                           <i class="fa fa-circle fa-stack-2x"></i>
@@ -196,18 +205,18 @@
                         </span>
                     </span>
                   </li>
-                  <li class="col-xs-12 list-group-item fs-16 pad-t-5 pad-b-5" style="font-family : 'Lato Light', sans-serif;" ng-if="user.user_constituencies.length!==0">
+                  <li class="col-xs-12 list-group-item fs-16 pad-t-5 pad-b-5" style="font-family : 'Lato Light', sans-serif;" ng-if="user.user_constituencies.length!==0 || user.user_sub_counties.length!==0">
                     <span class="col-xs-12 pad-0">
                         <span class="col-xs-3 fa-stack fa-lg fs-26 text-success">
                           <i class="fa fa-circle fa-stack-2x"></i>
                           <i class="fa fa-map-marker fa-stack-1x fa-inverse">
                           </i>
                         </span>
-                        <span class="col-xs-9 fs-18">
+                             <span class="col-xs-9 fs-18">
                             <b>Assigned Sub-Counties</b>
                             <br>
-                            <span ng-repeat="c in user.user_constituencies" class="fs-16">
-                                {{c.constituency_name | titlecase}}
+                            <span ng-repeat="c in user.user_sub_counties" class="fs-16">
+                                {{c.sub_county_name | titlecase}}
                             </span>
                         </span>
                     </span>
@@ -243,10 +252,10 @@
                                 <span ng-if="ward">Ward</span>
                                 <span ng-if="constituency">Sub-County</span>
                                 <span ng-if="county">County</span>
-                                <span ng-if="user.constituency_name">
-                                    in {{user.constituency_name | titlecase}} Sub-county
+                                <span ng-if="user.sub_county_name">
+                                    in {{user.sub_county_name | titlecase}} Sub-county
                                 </span>
-                                <span ng-if="user.county_name">
+                                <span ng-if="user.county_name && !user.sub_county_name ">
                                     in {{user.county_name | titlecase}} County
                                 </span>
                             </h3>

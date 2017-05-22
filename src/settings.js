@@ -1,8 +1,9 @@
+
 (function (window) {
     "use strict";
 
     var setts = {
-        "SERVER_URL": "http://localhost:8061/",
+        "SERVER_URL": "http://localhost:8000/",
         "CREDZ": {
             "client_id": "5O1KlpwBb96ANWe27ZQOpbWSF4DZDm4sOytwdzGv",
             "client_secret": "PqV0dHbkjXAtJYhY9UOCgRVi5BzLhiDxGU91" +
