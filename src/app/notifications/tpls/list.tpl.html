@@ -19,7 +19,7 @@
         <tbody class="fade-content">
             <tr ng-repeat="notification in notifications">
             <td data-title="name">{{notification.title}}</td>
-                <td data-title="name">{{notification.group_name || "All"}}</td>
+                <td data-title="name">{{notification.simple_groups}}</td>
                 <td data-title="name">{{notification.created | date}}</td>
                 <td data-title=":">
                     <a ui-sref='notifications.view({notification_id:notification.id})' class="btn btn-success">

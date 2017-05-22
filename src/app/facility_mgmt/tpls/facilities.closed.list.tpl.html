@@ -10,7 +10,7 @@
 <table class="table table-hover table-condensed fs-12 margin-t-20" id="no-more-tables">
     <thead>
         <th class="col-xs-1" sil-grid-sort field='code'>Code</th>
-        <th sil-grid-sort field='name'>Name</th>
+        <th sil-grid-sort field='name'>Unique Name</th>
         <th>Closing/re-opening Reason</th>
         <th>Date Closed/Re-opened</th>
     </thead>
@@ -24,7 +24,7 @@
             <td data-title="Code:" >{{::fac.code}}</td>
             <td data-title="Name:" >
                 <a ui-sref="facilities.facility_view({facility_id: fac.id})"
-                ui-sref-opts="{reload: true}">{{::fac.official_name}}</a>
+                ui-sref-opts="{reload: true}">{{::fac.name}}</a>
             </td>
             <td data-title="Closing Reason:">
                 {{::fac.closing_reason}}

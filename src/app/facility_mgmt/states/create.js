@@ -20,7 +20,7 @@
             })
 
             .state("facilities.facility_create.basic", {
-                url: "basic/:facility_id",
+                url: "basics/:facility_id",
                 views: {
                     "tab-header@facilities.facility_create": {
                         templateUrl: "facility_mgmt/tpls/facility_create.tab-headers.tpl.html"

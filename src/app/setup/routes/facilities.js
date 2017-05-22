@@ -542,7 +542,7 @@
          * @name setup.facility_types
          *
          * @description
-         * The state used to list facility types
+         * The state used to list facility types which are parents
          */
         .state("setup.facility_types", {
                 url: "/facility_types",
@@ -553,6 +553,68 @@
                     "main-content@setup.facility_types": {
                         templateUrl: "setup/tpls/facilities/types/types_grid.tpl.html",
                         controller:"mfl.setup.controller.facility_types.list"
+                    }
+                },
+                userFeature: "is_national,is_staff"
+            })
+
+        /**
+         * @ngdoc state
+         *
+         * @name setup.facility_types_dtails
+         *
+         * @description
+         * The state used to list facility types detail
+         */
+        .state("setup.facility_types_details", {
+                url: "/facility_types_details",
+                views: {
+                    "body@setup" : {
+                        "templateUrl" : "setup/tpls/dashboard/body.tpl.html"
+                    },
+                    "main-content@setup.facility_types_details": {
+                        templateUrl: "setup/tpls/facilities/types/types_details_grid.tpl.html",
+                        controller:"mfl.setup.controller.facility_types_details.list"
+                    }
+                },
+                userFeature: "is_national,is_staff"
+            })
+
+
+        /**
+         * @ngdoc state
+         *
+         * @name setup.facility_types_dtails.create
+         *
+         * @description
+         * The state used to create facility types details
+         */
+        .state("setup.facility_types_details.create", {
+                url: "/create",
+                views: {
+                    "main-content@setup.facility_types_details": {
+                        templateUrl: "setup/tpls/facilities/types/type_details.view.tpl.html",
+                        controller:"mfl.setup.controller.facility_types_details.create"
+                    }
+                },
+                userFeature: "is_national,is_staff"
+            })
+
+
+         /**
+         * @ngdoc state
+         *
+         * @name setup.facility_types_dtails.edit
+         *
+         * @description
+         * The state used to create facility types details
+         */
+        .state("setup.facility_types_details.edit", {
+                url: "/edit/:type_id",
+                views: {
+                    "main-content@setup.facility_types_details": {
+                        templateUrl: "setup/tpls/facilities/types/type_details.view.tpl.html",
+                        controller:"mfl.setup.controller.facility_types_details.create"
                     }
                 },
                 userFeature: "is_national,is_staff"

@@ -1,8 +1,22 @@
-
 <div class="content-header margin-b-20">
+    <div class="action-container content-header-extra">
+    <a ng-click='deleteClicked()' class="btn btn-danger" >Delete</a>
+
+<statemodal ng-if="delete_initated">
+  <h4>Are you sure you want to delete <strong>the Admin Office</strong>?</h4>
+  <div class="margin-t-20">
+    <button id="del_btn" class="btn btn-danger" ng-click="deleteAdminOffice(admin_office.id)">Yes</button>
+    <a class="btn btn-default" ui-sref="admin_offices">No</a>
+  </div>
+</statemodal>
+
+    </div>
     <h2 class="content-title">
-        <span class="main-title">
+        <span class="main-title" ng-if="!admin_office.id">
           <i></i> Add Admin Office
+        </span>
+         <span class="main-title" ng-if="admin_office.id">
+          <i></i> Update Admin Office
         </span>
     </h2>
 </div>
@@ -16,15 +30,11 @@
                     <label class="control-label">Office Name&#42;:</label>
                     <input type="text" class="form-control" name="name" ng-model="admin_office.name" placeholder="Enter  Office Name Here..." required api-checker/>
                 </div>
-
-
                 <div class="form-group checkbox" ng-if='logged_in_user.is_national'>
-                  <label for="is_national">
-                    <input type="checkbox" id="is_national" name="is_national" ng-model="admin_office.is_national" api-checker >
-                    Is National Office
-                   </label>
+                    <label for="is_national">
+                        <input type="checkbox" id="is_national" name="is_national" ng-model="admin_office.is_national" api-checker> Is National Office
+                    </label>
                 </div>
-
                 <div class="form-group" ng-if="!admin_office.is_national">
                     <label class="control-label">County:</label>
                     <ui-select ng-model="select_values.county" name="county" register-custom-form-control>
@@ -36,8 +46,6 @@
                         </ui-select-choices>
                     </ui-select>
                 </div>
-
-
                 <div class="form-group" ng-if="!admin_office.is_national">
                     <label class="control-label">Sub-County:</label>
                     <ui-select ng-model="select_values.sub_county" name="sub_county" register-custom-form-control>
@@ -57,11 +65,10 @@
                     <label class="control-label">Phone Number&#42;:</label>
                     <input type="text" class="form-control" name="phone_number" ng-model="admin_office.phone_number" placeholder="Enter Phone Number Here..." required api-checker/>
                 </div>
-
                 <div class="margin-t-20 pad-b-10">
                     <button class="btn btn-primary" ng-click='save_admin_office()'>Save</button>
                     <button class="btn btn-default" ui-sref="admin_offices">Cancel</button>
-                    <mfl-revision-view ng-show="state" id="admin_office.id" wrapper="wrapper" ></mfl-revision-view>
+                    <mfl-revision-view ng-show="state" id="admin_office.id" wrapper="wrapper"></mfl-revision-view>
                 </div>
             </form>
         </div>

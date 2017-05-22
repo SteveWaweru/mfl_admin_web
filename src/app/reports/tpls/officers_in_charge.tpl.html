@@ -1,0 +1,37 @@
+<section class="margin-t-10">
+    <div class="col-sm-12">
+        <div class="col-xs-12 margin-t-40" ng-if="spinner">
+            <div class="map-change-state">
+                <div class="loader"></div>
+                <div class="row">
+                    <h3 class="text-center loader-text">Please wait...</h3>
+                </div>
+            </div>
+        </div>
+        <div ng-if="!spinner" class="content-card col-xs-12">
+            <!-- <div class="col-sm-4">
+               <input class="form-control" type="text"  ng-model="search" placeholder="Search Type.."/>
+            </div>
+            <div ng-show="search!==''" class="col-sm-1"><button class="btn btn-default" ng-click="search=''">Clear</button></div> -->
+            <div class="col-xs-12 margin-b-20">
+                <table class="table table-hover table-condensed fs-14 margin-t-20" id="no-more-tables">
+                    <thead>
+                        <th class="col-xs-3">Facility Name</th>
+                        <th class="col-xs-3">Officer Name</th>
+                        <th class="col-xs-3">Job Title</th>
+                        <th class="col-xs-3">Contacts</th>
+                    </thead>
+                    <tbody class="fade-content">
+                        <tr ng-repeat="officer in facility_officers | filter:search">
+                            <td data-title="facility:">{{::officer.facility_name}}</td>
+                            <td data-title="oficer_name:">{{::officer.officer_name}}</td>
+                            <td data-title="job_title:">{{::officer.job_title}}</td>
+                            <td data-title="officer">{{::officer.contacts}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <sil-grid-pagination> </sil-grid-pagination>
+            </div>
+        </div>
+    </div>
+</section>

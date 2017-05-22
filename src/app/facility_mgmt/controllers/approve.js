@@ -11,7 +11,7 @@
         ["$scope", function ($scope) {
             $scope.filters = {
                 "closed": true,
-                "fields": "id,code,official_name,closing_reason,closed_date"
+                "fields": "id,code,official_name,closing_reason,closed_date,name"
             };
             $scope.title = {
                 "name": "Closed Facilities",
@@ -26,7 +26,7 @@
                 "rejected": true,
                 "fields": "id,code,official_name,facility_type_name,owner_name,county,"+
                           "operation_status_name,sub_county,constituency,ward_name,updated,"+
-                          "sub_county_name"
+                          "sub_county_name,name"
             };
             $scope.title = {
                 "name": "Rejected Facilities",

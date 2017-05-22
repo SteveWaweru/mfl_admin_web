@@ -16,23 +16,7 @@
                   <label class="control-label">Facility Type&#42;</label>
                   <input class="form-control" name="name" required ng-model="facility_type.name" placeholder="Enter facility type" api-checker/>
               </div>
-               <div class="form-group">
-                <label class="control-label">Parent</label>
-                <ui-select ng-model="facility_type.sub_division" name="sub_division" api-checker register-custom-form-control>
-                    <ui-select-match allow-clear="true"  placeholder="Select a facility type...">
 
-                        <span>{{$select.selected.name}}</span>
-
-                        <a uib-tooltip="Clear" class="fa fa-times clear-button text-danger"
-                             ng-click="clearUiSelect($event, $select)">
-                        </a>
-
-                    </ui-select-match>
-                    <ui-select-choices repeat="ft.name as ft in facility_types | filter:$select.search">
-                        <span>{{ft.name}}1</span>
-                    </ui-select-choices>
-                </ui-select>
-            </div>
               <!-- </div> -->
               <button type="submit" class="btn btn-primary pull-left">Save</button>
               <a class="btn btn-default margin-l-10 pull-left" ui-sref="setup.facility_types">Cancel</a>

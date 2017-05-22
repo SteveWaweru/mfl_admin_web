@@ -48,6 +48,16 @@
                         <b>#{{summary.closed_facilities_count }}</b>
                     </span>
                   </a>
+                  <a class="list-group-item fs-16 pad-t-5 pad-b-5" ui-sref="facility_approve_list">
+                    <span class="fa-stack fa-lg fs-18">
+                      <i class="fa fa fa-check text-success"></i>
+                    </span>&nbsp; <span class="fs-16">
+                        Approved Facilities
+                    </span>
+                    <span class="pull-right margin-t-5 fs-20">
+                        <b>#{{summary.approved_facilities }}</b>
+                    </span>
+                  </a>
                   <a class="list-group-item fs-16 pad-t-5 pad-b-5" ui-sref="facilities_approve" requires-permission="facilities.view_facility,facilities.add_facilityapproval">
                     <span class="fa-stack fa-lg fs-18">
                       <i class="fa fa-hospital-o fa-stack-1x"></i>

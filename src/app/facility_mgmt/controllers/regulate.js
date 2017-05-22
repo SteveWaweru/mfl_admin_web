@@ -28,7 +28,7 @@
                 "regulated": false,
                 "rejected": false,
                 "fields": "id,code,official_name,facility_type_name,owner_name,county,"+
-                          "sub_county,constituency,ward_name,updated"
+                          "sub_county,constituency,ward_name,updated,name"
             };
             $scope.title = {
                 "name": "Regulate Facilities",

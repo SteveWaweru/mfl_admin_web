@@ -364,6 +364,7 @@
                 });
 
 
+
             $scope.selectReload = function (wrapper, search_term, scope_var, extra_filters) {
                 if (! _.isString(search_term)) {
                     return $q.reject();
@@ -481,6 +482,11 @@
                 $scope.nextState();
                 $scope.facilityOfficers($scope.facility);
             }
+
+            $scope.FilterForFacilityTypeParents = function(obj){
+                return obj.parent === null;
+            };
+
             $scope.initUniqueName = function(frm) {
                 if(_.isUndefined($scope.facility.name)) {
                     $scope.facility.name = $scope.facility.official_name;

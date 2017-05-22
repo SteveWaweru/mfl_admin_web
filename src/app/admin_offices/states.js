@@ -65,17 +65,6 @@
                     controller: "mfl.admin_offices.controllers.create"
                 }
             }
-        })
-            /* Deleting of admin offices */
-        .state("admin_offices.delete", {
-            url: "/admin_offices/delete/:admin_office_id/",
-            parent: "admin_offices",
-            views:{
-                "main-content@admin_offices": {
-                    templateUrl: "admin_offices/tpls/admin_office_delete.tpl.html",
-                    controller: "mfl.admin_offices.controllers.delete"
-                }
-            }
         });
     }]);
 

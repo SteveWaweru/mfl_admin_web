@@ -383,8 +383,20 @@
                     templateUrl: "reports/tpls/body.tpl.html"
                 },
                 "main-content@reports.gis": {
-                    templateUrl: "reports/tpls/facilities_gis.tpl.html",
+                    templateUrl: "reports/tpls/facilities_gis.grid.tpl.html",
                     controller: "mfl.reports.controllers.gis"
+                }
+            }
+        })
+        .state("reports.officers", {
+            url: "officers_in_charge",
+            views: {
+                "body@reports": {
+                    templateUrl: "reports/tpls/body.tpl.html"
+                },
+                "main-content@reports.officers": {
+                    templateUrl: "reports/tpls/officers_grid.tpl.html",
+                    controller: "mfl.reports.controllers.officers_in_charge"
                 }
             }
         });
@@ -392,3 +404,4 @@
     }]);
 
 })(window.angular);
+
