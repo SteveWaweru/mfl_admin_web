@@ -21,7 +21,8 @@
         }, {
             "fields": "id,code,name,official_name,regulatory_status_name,updated," +
                       "facility_type_name,owner_name,county,sub_county_name,"+
-                      "ward_name,keph_level,keph_level_name,constituency_name"
+                      "ward_name,keph_level,keph_level_name,constituency_name,"+
+                      "is_complete,in_complete_details,is_approved"
         });
         $scope.tooltip = {
             "title": "tooltip",
@@ -113,7 +114,7 @@
             var download_params = {
                 "format": "excel",
                 "access_token": auth.getToken().access_token,
-                "page_size": 10000
+                "page_size": 100000
             };
             _.extend(download_params, _.omit(params, "page"));
 

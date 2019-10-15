@@ -28,8 +28,11 @@
             <div class="col-xs-12 margin-b-20">
                 <table class="table table-hover table-condensed fs-14 margin-t-20" id="no-more-tables">
                     <thead>
-                        <th class="col-xs-5 text-wrap">Ward</th>
-                        <th class="col-xs-4 text-center text-wrap">Number of Community Health Units</th>
+                        <th class="col-xs-2 text-wrap">Ward</th>
+                        <th class="col-xs-2 text-center text-wrap">Number of Community Health Units</th>
+
+                        <th class="col-xs-2 text-center text-wrap">Number of CHVs</th>
+                        <th class="col-xs-2 text-center text-wrap">Number of CHEWs</th>
                     </thead>
                     <tbody class="fade-content">
                         <tr ng-repeat="ward in ward_chu | filter:search">
@@ -39,6 +42,10 @@
                               </a>
                             </td>
                             <td class="text-center" data-title="Community Health Units:">{{::ward.number_of_units}}</td>
+                            <td class="text-center" data-title="Comminity Health Volunteers">{{::ward.chvs}}</td>
+
+                            <td class="text-center" data-title="Community Health Extension Workers">{{::ward.chews}}</td>
+
                             <td class="text-center" data-title="Community Health Units:">
                               <a ui-sref="reports.chu_detail_status({ward_id: ward.ward_id})" class="btn btn-success">
                                 View CHUs

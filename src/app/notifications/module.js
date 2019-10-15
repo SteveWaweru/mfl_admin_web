@@ -6,8 +6,7 @@
         "mfl.notifications.services",
         "mfl.notifications.states",
         "ui.select",
-        "angular-toasty",
-        "textAngular"
+        "angular-toasty"
     ]);
 
 })(window.angular);

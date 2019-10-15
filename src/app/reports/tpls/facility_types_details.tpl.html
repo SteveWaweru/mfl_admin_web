@@ -38,10 +38,12 @@
                     </thead>
                     <tbody class="fade-content">
                         <tr ng-repeat="type in type_facilities | filter:search">
-                            <td data-title="Category:"><a ui-sref="reports.facility_type_categories({parent: type.id})">{{::type.type_category}}</a></td>
-                            <td class="text-center" data-title="Facilities:">{{::type.number_of_facilities}}</td>
+                            <td data-title="Category:"> {{ ::type.type_category }} </td>
+                            <td class="text-center" data-title="Facilities:">{{ ::type.number_of_facilities }} </td>
                              <td class="text-right">
-                            <a ui-sref="reports.facility_type_categories({parent: type.id})" class='btn btn-success'>View Facility Details</a>
+                           <a ng-click="switch_state('reports.list', 'facility_type', type.id)" class="btn btn-success" tooltip="View Facilities in the Area selected">
+                                  View Facilities
+                              </a>
                         </td>
                         </tr>
 

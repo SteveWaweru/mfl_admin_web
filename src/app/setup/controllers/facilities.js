@@ -27,7 +27,7 @@
         function($scope) {
             $scope.title = {
                 icon: "fa-dedent",
-                name: "Manage Facility Owner Categories"
+                name: "Manage Facility Owners"
             };
 
             $scope.filters = {
@@ -38,8 +38,8 @@
                     " requires-user-feature='is_staff'" +
                     " requires-permission='facilities.add_ownertype'",
                 class: "btn btn-primary",
-                tipmsg: "Add Facility Owner Category",
-                wording: "Add Facility Owner Category"
+                tipmsg: "Add Facility Owner",
+                wording: "Add Facility Owner"
             }];
         }
     ])

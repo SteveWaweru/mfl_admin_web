@@ -1,7 +1,19 @@
 <div class="content-header">
-   <div class="action-container content-header-extra"></div>
+   <div class="action-container content-header-extra  margin-t-3">
+        <a  class="btn btn-success"
+        popover-toggle popover-trigger="open" popover-placement="bottom"
+        popover-template="'facility_mgmt/tpls/facility_printing_buttons.tpl.html'" >
+        Print Documents
+    </a>
+    <a  ng-hide="true" class="btn btn-success btn-large pull-right"
+        popover-toggle popover-trigger="open" popover-placement="bottom"
+        popover-template="'facility_mgmt/tpls/facility_printing_buttons.tpl.html'" >
+        Print
+    </a>
+   </div>
    <h2 class="content-title">
        <span class="main-title">Approve Facility</span>
+
    </h2>
 </div>
 <div class="col-xs-12 content-body margin-t-20 fade-content">
@@ -62,16 +74,6 @@
     </div>
 </div>
 <div class="col-xs-12" ng-cloak>
-    <div class="col-xs-12 content-card marg-t-20 pad-0" ng-if="facility.is_approved">
-        <div class="col-xs-12 pad-0" >
-            <span class="col-xs-12 fs-16 alert alert-success margin-b-10 margin-t-10"><i class="fa fa-check-circle"></i> Facility has already been approved by
-                <span ng-repeat="fa in facility_approvals">
-                    <b>{{fa.done_by}}</b> on <b>{{fa.created|date}}.</b>
-                    <p ng-if="fa.comment">Comment: {{fa.comment}}</p>
-                </span>
-            </span>
-        </div>
-    </div>
     <!-- Start of approving facility updates -->
     <div class="col-xs-12 content-card margin-t-20" ng-if="facility.is_approved && facility_changes.contacts || facility_changes.officer_in_charge || facility_changes.units.length ||
     facility_changes.services || facility_changes.geo_codes.longitude || facility_changes.geo_codes.latitude || facility_changes.basic||facility_changes.upgrades">

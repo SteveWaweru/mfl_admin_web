@@ -74,6 +74,9 @@
             this.regulating_bodies = api.setBaseUrl("api/facilities/regulating_bodies/");
             this.regulation_statuses = api.setBaseUrl("api/facilities/regulatory_statuses");
             this.regulation_status = api.setBaseUrl("api/facilities/regulation_status/");
+            this.facility_regulation_status = api.setBaseUrl(
+                "api/facilities/facility_regulation_status/"
+            );
             this.wards = api.setBaseUrl("api/common/wards/");
             this.towns = api.setBaseUrl("api/common/towns");
             this.sub_counties = api.setBaseUrl("api/common/sub_counties/");
@@ -134,6 +137,13 @@
                 downloadFile("api/facilities/facility_cover_report/", facility_id);
             };
 
+            this.facilityChecklistTemplate = function (check_list_file_name) {
+                downloadFile("media/", check_list_file_name);
+            };
+
+            this.facilityLicense = function(license_file_name){
+                downloadFile("media/", license_file_name);
+            };
             this.printChul = function (unit_id) {
                 downloadFile("api/chul/units_detail_report/", unit_id);
             };

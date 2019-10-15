@@ -75,40 +75,7 @@
                     if(_.isEmpty($scope.filters)) {
                         promise = self.api.list();
                     } else {
-                        var raw_filters = $scope.filters;
-                        //transform search param into a query DSL
-                        if(self.api.apiBaseUrl === "api/facilities/facilities/" && !_.isEmpty($scope.filters.search)){
-                            var dsl = {
-                                "query": { }
-                            };
-                            if(_.isNaN(parseInt($scope.filters.search, 10))){
-                                dsl.query.query_string = {
-                                    "default_field": "name",
-                                    "query": $scope.filters.search
-                                };
-                            } else {
-                                dsl.query.term = {
-                                    "code": $scope.filters.search
-                                };
-                            }
-                            raw_filters.search = JSON.stringify(dsl);
-                        }
-
-                        if(!_.isUndefined($scope.filters.created_after)){
-                            if($scope.filters.created_after !== ""){
-                                var date_from = new Date($scope.filters.created_after);
-                                raw_filters.created_after = date_from.toISOString();
-                            }
-                        }
-
-                        if(!_.isUndefined($scope.filters.created_before)){
-                            if($scope.filters.created_before !== ""){
-                                var date_from = new Date($scope.filters.created_before);
-                                raw_filters.created_before = date_from.toISOString();
-                            }
-                        }
-
-                        promise = self.api.filter(raw_filters);
+                        promise = self.api.filter($scope.filters);
                     }
                     promise.success(self.setData).error(self.setError);
                 };
@@ -201,8 +168,7 @@
                         modal = $modal.open(
                         {
                             template:"<div>"+
-                                    "<div class='modal-body'>Loading "+
-                                    "<span><i class='fa fa-spinner fa-spin'></i></span>"+
+                                    "<div class='modal-body'>Please wait.."+
                                     "<div class='panel-loader'>"+
                                     "<div class='loader-container'>"+
                                         "<div class='loader-spinner'></div>"+
@@ -236,38 +202,14 @@
             controller: function(){},
             link: function(scope, elem, attrs, gridCtrl){
                 scope.silGrid = {searchQuery:""};
-                // var search_term = scope.silGrid.searchQuery;
-
                 scope.silGridSearch = function(clear){
-
                     if(clear){
                         scope.silGrid.searchQuery = "";
                         gridCtrl.removeFilter("search");
                         gridCtrl.getData();
-
                     } else {
-                           // transform search param into a query DSL
-                        // if(gridCtrl.api.apiBaseUrl === "api/facilities/facilities/"){
-                        //     var dsl = {
-                        //         "query": { }
-                        //     };
-                        //     if (_.isNaN(parseInt(scope.silGrid.searchQuery, 10))) {
-                        //         dsl.query.query_string = {
-                        //             "default_field": "name",
-                        //             "query": scope.silGrid.searchQuery
-                        //         };
-                        //     } else {
-                        //         dsl.query.term = {
-                        //             "code": scope.silGrid.searchQuery
-                        //         };
-                        //     }
-
-                        //     scope.silGrid.searchQuery = JSON.stringify(dsl);
-                        // }
-
                         gridCtrl.addFilter("search", scope.silGrid.searchQuery);
                         gridCtrl.getData();
-                        // scope.silGrid.searchQuery = search_term;
                     }
 
                 };
@@ -333,7 +275,7 @@
                 };
                 elem.on("click", function(){
                     if(elem.hasClass("sil-orderable")){
-                        // assume default ordering is ascending
+                        // assume default ordering is asceding
                         elem.removeClass("sil-orderable");
                         elem.addClass("sil-orderable-desc");
                         //order desc

@@ -1,19 +1,11 @@
 <div class="content-header">
-   <div class="action-container content-header-extra">
-       <div class="action-container content-header-extra pad-r-5">
-            <button tooltip-placement="bottom"  class="btn btn-primary" ng-click="exportToExcel()">
-                Export To Excel
-            </button>
-       </div>
-   </div>
    <h2 class="content-title">
         <span class="main-title">Facility Coordinates</span>
    </h2>
 </div>
 <section class="margin-t-16">
     <div class="content-card">
-    <div ng-include src="'reports/tpls/admin_area_filters.tpl.html'" onload></div>
-
+    
         <table class="table table-hover table-condensed fs-13" id="no-more-tables">
             <thead>
                 <tr>
@@ -27,7 +19,7 @@
                 </tr>
             </thead>
             <tbody class="fade-content">
-                <tr ng-repeat="fac in facilities">
+                <tr ng-repeat="fac in fac_coordinates">
                     <td data-title="facility_code:" >{{fac.code}}</td>
                     <td data-title="facility_name:">
                         <a ui-sref='facilities.facility_view({facility_id:fac.id})'>

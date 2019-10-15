@@ -95,13 +95,21 @@
                 wrapper.filter(new_filter)
                 .success(function (data) {
                     var transform = transform_fxn || _.identity;
-                    $scope[data_param] = transform(data.results, $scope);
+                    
+                    if(transform_fxn === true){
+                        $scope[data_param] = data;
+                    }
+                    else {
+                        $scope[data_param] = transform(data.results, $scope);
+                    }
+                    
                     $scope.spinner = false;
                 })
                 .error(function (err) {
                     $scope.errors = err;
                     $scope.spinner = false;
                 });
+                
                 return $scope[data_param];
             };
 
@@ -112,11 +120,19 @@
                 };
                 $scope.spinner = true;
                 var merged_filters = _.extend(api_filters, $scope.filters);
+                $scope.merged_filters = merged_filters;
 
                 wrapper.filter(merged_filters)
                 .success(function (data) {
-                    var transform = transform_fxn || _.identity;
-                    $scope[data_param] = transform(data.results, $scope);
+                    
+                    if(transform_fxn === true){
+                        $scope[data_param] = data;
+                    }
+                    else{
+                        var transform = transform_fxn || _.identity;
+                        $scope[data_param] = transform(data.results, $scope);
+                    }
+                    
                     $scope.spinner = false;
                 })
                 .error(function (err) {

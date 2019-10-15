@@ -194,6 +194,8 @@
             $scope.printFacility = wrappers.printFacility;
             $scope.correctionTemplate = wrappers.getCorrectionTemplate;
             $scope.detailReport = wrappers.getDetailReport;
+            $scope.facilityChecklistTemplate = wrappers.facilityChecklistTemplate;
+            $scope.facilityLicense = wrappers.facilityLicense;
         }
     ]);
 

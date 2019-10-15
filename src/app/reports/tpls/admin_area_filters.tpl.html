@@ -25,10 +25,13 @@
   </select>
 
         </div>
-          <div class=" form-group col-xs-3">
+          <div class=" form-group col-xs-6">
             <br>
             <button class="btn btn-primary" style="margin-top:5px;" ng-click='update_report()'>Filter</button>
             <button class="btn btn-warning"  style="margin-top:5px;" ng-click="clear_report_filters()">Clear</button>
+            <button tooltip-placement="bottom"  class="btn btn-primary" ng-click="exportToExcel()">
+                Export To Excel
+            </button>
         </div>
       <div class="col-xs-12">
   <hr>

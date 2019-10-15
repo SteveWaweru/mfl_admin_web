@@ -15,8 +15,9 @@
                 var download_params = {
                     "format": format,
                     "access_token": oauth2.getToken().access_token,
-                    "page_size": page_size || DEFAULT_PAGE_SIZE
+                    "page_size": page_size
                 };
+                download_params.page_size = DEFAULT_PAGE_SIZE;
                 _.extend(download_params, _.omit(params, "page"));
 
                 var url = helpers.joinUrl([

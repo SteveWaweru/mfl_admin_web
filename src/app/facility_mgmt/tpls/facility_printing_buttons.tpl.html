@@ -14,9 +14,26 @@
         </p>
     </div>
     <div class="col-xs-12"></div>
-    <div class="print-btn col-xs-6 pad-t-5 pad-l-0 pad-r-0 text-center margin-t-5 margin-b-5" ng-click="detailReport(fac_id)">
+    <div class="print-btn col-xs-6 pad-t-5 pad-l-0 pad-r-0 text-center margin-t-5 margin-b-5"
+        ng-click="detailReport(fac_id)">
     <i class="fa fa-file-text-o fa-2x text-success"></i>
         <br>
         <p class="fs-12 margin-t-3">Facility <br> Details</p>
     </div>
+    <div ng-if="facility.facility_checklist_document"
+            class="print-btn col-xs-6 pad-t-5 pad-l-0 pad-r-0 text-center margin-t-5 margin-b-5"
+            ng-click="facilityChecklistTemplate(facility.facility_checklist_document.url)">
+        <i class="fa fa-file-text-o fa-2x text-success"></i>
+            <br>
+            <p class="fs-12 margin-t-3">Facility <br> CheckList</p>
+    </div>
+
+    <div ng-if="facility.facility_license_document" class="print-btn col-xs-6 pad-t-5 pad-l-0 pad-r-0 text-center margin-t-5 margin-b-5"
+        ng-click="facilityLicense(facility.facility_license_document.url)">
+    <i class="fa fa-legal fa-2x"></i>
+        <br>
+        <p class="fs-12 margin-t-3">Facility <br> License</p>
+    </div>
+
+
 </div>

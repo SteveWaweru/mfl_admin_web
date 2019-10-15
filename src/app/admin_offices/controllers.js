@@ -1,4 +1,4 @@
-(function (angular, _) {
+(function(angular, _) {
     "use strict";
 
     angular.module("mfl.admin_offices.controllers", [
@@ -7,21 +7,21 @@
         "mfl.common.filters"
     ])
 
-        .controller("mfl.admin_offices.controllers.list", ["$scope", function ($scope) {
+    .controller("mfl.admin_offices.controllers.list", ["$scope", function($scope) {
             $scope.title = {
                 "name": "All Admin Offices",
                 "icon": "fa-hospital-o"
             };
             $scope.filters = {
                 "fields": "id,county,county_name,sub_county,sub_county_name," +
-                "name,job_title_name,email," +
-                "phone_number,is_national"
+                    "name,job_title_name,email," +
+                    "phone_number,is_national"
             };
         }])
-
-        .controller("mfl.admin_offices.controllers.create", [
-            "$scope", "mfl.admin_offices.services.wrappers", "toasty", "$state", "$stateParams",
-            "mfl.auth.services.login", function ($scope, wrappers, toasty, $state, $stateParams, loginService) {
+        .controller("mfl.admin_offices.controllers.create", ["$scope", 
+            "mfl.admin_offices.services.wrappers", "toasty",
+            "$state", "$stateParams", "mfl.auth.services.login",
+            function($scope, wrappers, toasty, $state, $stateParams, loginService) {
                 $scope.title = {
                     "name": "New Admin Office"
                 };
@@ -36,10 +36,10 @@
                     $scope.create = false;
 
                     wrappers.admin_offices.get(admin_office_id)
-                        .success(function (data) {
+                        .success(function(data) {
                             $scope.admin_office = data;
                         })
-                        .error(function (data) {
+                        .error(function(data) {
                             $scope.errors = data;
                         });
 
@@ -48,7 +48,7 @@
                 }
 
 
-                $scope.$watch("admin_office", function (newVal) {
+                $scope.$watch("admin_office", function(newVal) {
                     if (!_.isUndefined(newVal)) {
                         $scope.select_values = {
                             county: {
@@ -73,19 +73,19 @@
                     }
                 };
 
-                $scope.subFilter = function (a) {
+                $scope.subFilter = function(a) {
                     return a.county === $scope.select_values.county;
                 };
 
                 wrappers.filter_summaries.filter(filter_fields)
-                    .success(function (data) {
+                    .success(function(data) {
                         $scope.config_info = data;
                     })
-                    .error(function (data) {
+                    .error(function(data) {
                         $scope.errors = data;
                     });
 
-                $scope.save_admin_office = function () {
+                $scope.save_admin_office = function() {
                     var admin_office_data = {};
 
                     admin_office_data.county = $scope.select_values.county;
@@ -104,26 +104,26 @@
 
                     if ($scope.create) {
                         wrappers.admin_offices.create(admin_office_data)
-                            .success(function () {
+                            .success(function() {
                                 toasty.success({
                                     title: "Admin Office Creation",
                                     msg: "Office successfully created"
                                 });
                                 $state.go("admin_offices");
                             })
-                            .error(function (data) {
+                            .error(function(data) {
                                 $scope.errors = data;
                             });
                     } else {
                         wrappers.admin_offices.update(admin_office_id, admin_office_data)
-                            .success(function () {
+                            .success(function() {
                                 toasty.success({
                                     title: "Admin Office Creation",
                                     msg: "Office successfully updated"
                                 });
                                 $state.go("admin_offices");
                             })
-                            .error(function (data) {
+                            .error(function(data) {
                                 $scope.errors = data;
                             });
                     }
@@ -132,20 +132,20 @@
 
                 $scope.delete_initated = false;
 
-                $scope.deleteClicked = function () {
+                $scope.deleteClicked = function(){
                     $scope.delete_initated = true;
                 };
 
-                $scope.deleteAdminOffice = function (admin_office_id) {
+                $scope.deleteAdminOffice = function(admin_office_id) {
                     wrappers.admin_offices.remove(admin_office_id)
-                        .success(function () {
+                        .success(function() {
                             toasty.success({
                                 title: "Admin Office Deleted",
                                 msg: "Office successfully updated"
                             });
                             $state.go("admin_offices");
                         })
-                        .error(function (data) {
+                        .error(function(data) {
                             $scope.errors = data;
 
                         });

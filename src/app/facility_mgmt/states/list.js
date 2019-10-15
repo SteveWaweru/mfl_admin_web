@@ -14,7 +14,7 @@
         "operation_status", "facility_type", "keph_level", "owner",
 
         "open_public_holidays", "open_weekends", "open_whole_day",
-        "open_normal_day", "created_after", "created_before",
+        "open_normal_day", "created_after", "created_before", "has_edits", "pending_approval",
 
         // pagination controls
         "page_size", "page"

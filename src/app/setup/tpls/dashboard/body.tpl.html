@@ -50,10 +50,10 @@
                 <a ui-sref="setup.facility_depts">Facility Departments</a>
               </li>
               <li ui-sref-active="active">
-                <a ui-sref="setup.facility_types">Facility Types</a>
+                <a ui-sref="setup.facility_types">Facility Type Details</a>
               </li>
               <li ui-sref-active="active">
-                <a ui-sref="setup.facility_types_details">Facility Type Details</a>
+                <a ui-sref="setup.facility_types_details">Facility Type Categories</a>
               </li>
               <li ui-sref-active="active">
                 <a ui-sref="setup.facility_statuses">Facility Operation Status</a>
@@ -61,11 +61,11 @@
               <li ui-sref-active="active">
                 <a ui-sref="setup.rating_comments">Feedback</a>
               </li>
-              <li ui-sref-active="active" requires-permission="facilities.view_owner">
-                <a ui-sref="setup.facility_owners">Facility Owners</a>
-              </li>
               <li ui-sref-active="active" requires-permission="facilities.view_ownertype">
-                <a ui-sref="setup.facility_owner_types">Facility Owner Categories</a>
+                  <a ui-sref="setup.facility_owner_types">Facility Owner Details</a>
+              </li>
+              <li ui-sref-active="active" requires-permission="facilities.view_owner">
+                <a ui-sref="setup.facility_owners">Facility Owners Categories</a>
               </li>
               <li ui-sref-active="active" requires-permission="users.view_jobtitle">
                 <a ui-sref="setup.facility_job_titles">Job Titles</a>

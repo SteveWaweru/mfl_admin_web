@@ -13,6 +13,11 @@
             "pagination.prev_page)>\n" +
             "<span aria-hidden=\"true\">&laquo;</span> Prev</a>\n" +
             "</li>\n" +
+            "<li ng-repeat=\"page in pagination.near_pages\" class=\"previous\">\n"+
+            "<a class='border-radius-4 btn btn-default' ng-click=paginate("+
+            "page)>\n" +
+            "<span aria-hidden=\"true\">&laquo;</span> {{page}}</a>\n" +
+            "</li>\n" +
             "<li>Page {{pagination.current_page}} / {{pagination.page_count}}</li>"+
             " <li class=\"next\" ng-if=\"pagination.next_page\">\n"+
             "<a class='border-radius-4 btn btn-default' ng-click=paginate(" +
