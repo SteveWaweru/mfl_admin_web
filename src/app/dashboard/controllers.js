@@ -72,7 +72,7 @@
                         bindto: "#chartowners",
                         data: {
                             columns: _list,
-                            type : "pie"
+                            type : "bar"
                         },
                         empty: {
                             label:{

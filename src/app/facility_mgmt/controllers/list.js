@@ -30,7 +30,7 @@
                 "closed": false,
                 "fields": "id,code,official_name,facility_type_name,owner_name,county," +
                           "sub_county,ward_name,updated,operation_status_name,"+
-                          "sub_county_name,name"
+                          "sub_county_name,name,is_complete,in_complete_details"
             };
             $scope.action = [
                 {

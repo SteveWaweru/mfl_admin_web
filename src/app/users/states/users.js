@@ -18,6 +18,18 @@
                 userFeature: "is_staff"
             })
 
+            .state("inactive_users", {
+                parent: "usermgmt",
+                url: "^/inactive_users/",
+                views: {
+                    "main-content@usermgmt": {
+                        controller: "mfl.users.controllers.inactive_user_list",
+                        templateUrl: "users/tpls/users.grid.tpl.html"
+                    }
+                },
+                permission: "users.view_mfluser",
+                userFeature: "is_staff"
+            })
             .state("users.user_create", {
                 url: "create/?furthest",
                 views: {
@@ -153,6 +165,17 @@
 
             .state("users.user_edit.delete", {
                 url: "delete/",
+                views: {
+                    "delete@users.user_edit": {
+                        controller: "mfl.users.controllers.user_edit",
+                        templateUrl: "common/tpls/delete.tpl.html"
+                    }
+                },
+                permission: "users.delete_mfluser",
+                userFeature: "is_staff"
+            })
+            .state("users.user_edit.activate", {
+                url: "activate/",
                 views: {
                     "delete@users.user_edit": {
                         controller: "mfl.users.controllers.user_edit",

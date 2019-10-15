@@ -286,7 +286,6 @@
             .error(function(data){
                 $scope.errors = data;
             });
-            console.log("Hapa Hivi");
 
             wrapper.chuls.get($stateParams.unit_id)
             .success(function(data){

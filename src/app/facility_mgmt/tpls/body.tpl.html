@@ -13,7 +13,12 @@
             </li>
             <li ui-sref-active="active" requires-permission="facilities.view_facilityapproval">
                 <a ui-sref="facilities_approve" ui-sref-opts="{reload:true}">
-                    <span class="sidebar-text">Facilities Pending Approval</span>
+                    <span class="sidebar-text"> Facility Updates Pending Approval</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" requires-permission="facilities.view_facilityapproval">
+                <a ui-sref="facilities_approve_new" ui-sref-opts="{reload:true}">
+                    <span class="sidebar-text">New Facilities Pending Approval</span>
                 </a>
             </li>
 
@@ -25,6 +30,16 @@
             <li ui-sref-active="active" requires-permission="facilities.view_closed_facilities" >
                 <a ui-sref="facilities_closed" ui-sref-opts="{reload:true}">
                     <span class="sidebar-text">Closed Facilities</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" requires-permission="facilities.view_facility" >
+                <a ui-sref="incomplete_facilities" ui-sref-opts="{reload:true}">
+                    <span class="sidebar-text">Incomplete Facilities</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" requires-permission="facilities.view_facilityapproval" requires-user-feature="is_national">
+                <a ui-sref="facilities_publish_approved" ui-sref-opts="{reload:true}">
+                    <span class="sidebar-text">Approved pending publishing</span>
                 </a>
             </li>
             <li ui-sref-active="active" requires-permission="facilities.view_facility" requires-user-feature="is_national,regulator">

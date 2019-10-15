@@ -496,6 +496,15 @@
                         $log.error(data);
                     });
             };
+            $scope.activate = function () {
+                wrappers.users.update($scope.user_id, {is_active: true, deleted: false})
+                    .success(function () {
+                        $state.go("users");
+                    })
+                    .error(function (data) {
+                        $log.error(data);
+                    });
+            };
             $scope.cancel = function(){
                 $state.go("users.user_edit.basic");
             };
@@ -1157,7 +1166,44 @@
         $scope.filters = {
             "fields": "id,first_name,last_name,email,"+
             "last_login,is_active,employee_number,county_name,"+
-            "job_title_name,sub_county_name"
+            "job_title_name,sub_county_name",
+            "is_active": true
+        };
+        $scope.action = [
+            {
+                func: "ui-sref='users.user_create.basic ({furthest : 1})'" +
+                        "requires-permission='users.add_mfluser' ",
+                class: "btn btn-primary",
+
+                tipmsg: "New User",
+                icon: "",
+                wording: " Add User"
+            }
+        ];
+    }])
+      /**
+     * @ngdoc controller
+     *
+     * @name mfl.users.controllers.inactive_users
+     *
+     * @description
+     * Controls displaying the inacitive user listing
+     */
+    .controller("mfl.users.controllers.inactive_user_list",
+        ["$scope", function ($scope) {
+        $scope.tooltip = {
+            "title": "",
+            "checked": false
+        };
+        $scope.title = {
+            icon: "fa-user",
+            name: "Manage users"
+        };
+        $scope.filters = {
+            "fields": "id,first_name,last_name,email,"+
+            "last_login,is_active,employee_number,county_name,"+
+            "job_title_name,sub_county_name",
+            "is_active": false
         };
         $scope.action = [
             {
@@ -1171,5 +1217,4 @@
             }
         ];
     }]);
-
 })(window.angular, window._);

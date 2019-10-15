@@ -455,9 +455,10 @@
         ["$scope", "$log", "$state", "$stateParams",
         "mfl.facility_mgmt.services.wrappers", "mfl.common.forms.changes",
         "mfl.common.services.multistep", "mfl.auth.services.login",
-        "mfl.error.messages", "toasty","MFL_GUIDE_URL",
+        "mfl.error.messages", "toasty","MFL_GUIDE_URL", "$window", "adminApi",
         function ($scope, $log, $state, $stateParams, wrappers, formChanges,
-            multistepService, loginService, errorMessages, toasty,MFL_GUIDE_URL) {
+            multistepService, loginService, errorMessages, toasty,MFL_GUIDE_URL,
+            $window,adminApi) {
             /*Set up facility officer*/
             $scope.facilityOfficers = function (f) {
                 if(_.isUndefined(f.officer_in_charge) || _.isNull(f.officer_in_charge)) {
@@ -564,30 +565,58 @@
                 }
             };
 
-
+            var active_filter = {is_active: true};
             $scope.contacts = [{type: "", contact : ""}];
             $scope.login_user = loginService.getUser();
-            $scope.selectReload(wrappers.facility_owners, "", "owners");
+            $scope.selectReload(wrappers.facility_owners, "", "owners", active_filter);
             $scope.selectReload(wrappers.facility_owner_types, "",
-                "owner_types");
-            $scope.selectReload(wrappers.operation_status, "", "operation_status");
-            $scope.selectReload(wrappers.keph_levels, "", "keph_levels");
+                "owner_types", active_filter);
+            $scope.selectReload(
+                wrappers.operation_status, "", "operation_status", active_filter);
+            $scope.selectReload(wrappers.keph_levels, "", "keph_levels", active_filter);
 
-            $scope.selectReload(wrappers.regulating_bodies, "", "regulating_bodies");
-            $scope.selectReload(wrappers.regulation_status, "", "regulation_statuses");
-            $scope.selectReload(wrappers.facility_types, "", "facility_types");
-            $scope.selectReload(wrappers.towns, "", "towns");
+            $scope.selectReload(
+                wrappers.regulating_bodies, "", "regulating_bodies", active_filter);
+            $scope.selectReload(
+                wrappers.regulation_status, "", "regulation_statuses", active_filter);
+            $scope.selectReload(wrappers.facility_types, "", "facility_types", active_filter);
+            $scope.selectReload(wrappers.towns, "", "towns", active_filter);
             $scope.selectReload(wrappers.wards, "", "wards", ward_filters);
             $scope.selectReload(wrappers.sub_counties, "", "sub_counties", sub_county_filters);
             $scope.selectReload(wrappers.constituencies, "", "constituencies", const_filters);
             $scope.selectReload(wrappers.counties, "", "counties", county_filters);
+
+            var upload_success_function = function(){
+                console.log("FIle Uploaded");
+            };
+
+            var upload_error_function = function(){
+                console.log("Error uploading file");
+            };
+
+            $scope.upload_checklist_file =  function(checklist_file, is_update){
+                var url = adminApi.documents.makeUrl(adminApi.documents.apiBaseUrl);
+                var payload = {
+                    "name": $scope.facility.name + " Facility Checklist File",
+                    "description": "Facilities checklist file",
+                    "document_type": "Facility_ChecKList",
+                    "facility_name": $scope.facility.name
+                };
+
+                if ($scope.facility_checklist_document_id) {
+                    url += $scope.facility_checklist_document_id + "/";
+                }
+                adminApi.uploadFile(url, checklist_file, "fyl", payload, is_update)
+                .then(upload_success_function, upload_error_function);
+            };
 
             $scope.save = function (frm) {
 
                 $scope.finish = ($scope.nxtState ? "facilities" :
                     "facilities.facility_edit.geolocation");
                 var changes = formChanges.whatChanged(frm);
-                console.log(changes);
+                var checklist_file = $window.$(
+                    "input[type='file'][name='checklist_file']")[0].files[0];
                 $scope.facility.ward = $scope.select_values.ward;
                 $scope.facility.keph_level = $scope.select_values.keph_level;
                 $scope.facility.facility_type = $scope.select_values.facility_type_details;
@@ -597,11 +626,17 @@
                 $scope.facility.town = $scope.select_values.town;
                 $scope.facility.sub_county = $scope.select_values.sub_county.id;
                 $scope.facility.regulation_status = $scope.select_values.regulation_status;
+
                 if($scope.create) {
                     $scope.setFurthest(2);
+
                     if(_.isEmpty($state.params.facility_id)) {
                         wrappers.facilities.create($scope.facility)
                         .success(function (data) {
+                            /*Check if the checklist file has been provided*/
+                            if(checklist_file){
+                                $scope.upload_checklist_file(checklist_file);
+                            }
                             $state.go("facilities.facility_create.geolocation",
                             {facility_id : data.id,
                             furthest : $scope.furthest}, {reload : true});
@@ -614,10 +649,14 @@
                     }
                     else {
                         changes.sub_county = $scope.facility.sub_county;
-                        console.log(changes);
                         wrappers.facilities.update(
                             $state.params.facility_id, changes)
                         .success(function () {
+                            /*Check if the checklist file has been provided during updating*/
+                            if(checklist_file){
+                                $scope.upload_checklist_file(checklist_file, true);
+                            }
+
                             $state.go(
                                 "facilities.facility_create.geolocation",
                                 {facility_id : $state.params.facility_id,
@@ -641,8 +680,6 @@
                                 msg: "Facility successfully updated"
                             });
                         }
-                        // $state.go($scope.finish,
-                        // {facility_id:$scope.facility_id}, {reload : true});
 
                         if($scope.facility.approved){
                             $state.go("facilities.facility_view_changes",
@@ -723,8 +760,8 @@
     .controller("mfl.facility_mgmt.controllers.facility_edit.contacts",
         ["$scope", "$log", "$stateParams",
         "mfl.facility_mgmt.services.wrappers",  "mfl.error.messages", "$state",
-        "toasty",
-        function($scope,$log,$stateParams,wrappers, errorMessages, $state, toasty){
+        "toasty", "$window",
+        function($scope,$log,$stateParams,wrappers, errorMessages, $state, toasty, $window){
             if($scope.create) {
                 $scope.nextState();
                 $scope.$parent.print = false;
@@ -734,6 +771,17 @@
                 contact_type: "",
                 contact: ""
             };
+
+            /*Job Titles*/
+            wrappers.job_titles.filter({"fields":"id,name"})
+            .success(function (data) {
+                $scope.job_titles = data.results;
+            })
+            .error(function (error) {
+                $log.error(error);
+            });
+
+
             $scope.detailed_contacts = [];
             /*Set up facility contacts*/
             $scope.facilityContacts = function (f) {
@@ -763,6 +811,7 @@
             $scope.createContact = function () {
                 $scope.finish = ($scope.nxtState ? "facilities" :
                     "facilities.facility_edit.units");
+
                 if(!_.isEmpty($scope.fac_contobj.contacts)){
                     wrappers.facilities.update($scope.facility_id, $scope.fac_contobj)
                     .success(function () {
@@ -784,7 +833,6 @@
                         }
                     })
                     .error(function (err) {
-                        $scope.alert = err.error;
                         $scope.errors = err;
                     });
                 } else {
@@ -799,6 +847,13 @@
                 $scope.fac_contobj = {contacts : []};
                 _.each($scope.detailed_contacts, function (a_contact) {
                     if(_.isUndefined(a_contact.id)){
+                        var isFirefox = $window.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+                        if(!isFirefox){
+                            var proper_contact = $scope.contact_types.find(
+                                function(x){ return x.name === a_contact.contact_type;}
+                            );
+                            a_contact.contact_type = proper_contact.id;
+                        };
                         $scope.fac_contobj.contacts.push(a_contact);
                     }
                 });
@@ -938,9 +993,9 @@
     .controller("mfl.facility_mgmt.controllers.facility_edit.units",
         ["$scope", "$log", "$stateParams",
         "mfl.facility_mgmt.services.wrappers", "mfl.common.services.multistep",
-        "mfl.error.messages", "$state", "toasty",
+        "mfl.error.messages", "$state", "toasty", "adminApi", "$window",
         function ($scope, $log, $stateParams, wrappers, multistepService,
-            errorMessages, $state, toasty) {
+            errorMessages, $state, toasty, adminApi, $window) {
             if(!$scope.create) {
                 multistepService.filterActive(
                     $scope, $scope.steps, $scope.steps[4]);
@@ -1069,6 +1124,27 @@
                 }
             };
 
+            var upload_success_function = function(){
+                console.log("FIle Uploaded");
+            };
+
+            var upload_error_function = function(){
+                console.log("Error uploading file");
+            };
+
+            $scope.upload_licence_pdf_file = function(checklist_file, is_update){
+                var url = adminApi.documents.makeUrl(adminApi.documents.apiBaseUrl);
+                var payload = {
+                    "name": $scope.facility.name + " Facility license File",
+                    "description": "Facilities license file",
+                    "document_type": "FACILITY_LICENSE",
+                    "facility_name": $scope.facility.name
+                };
+
+                adminApi.uploadFile(url, checklist_file, "fyl", payload, is_update)
+                .then(upload_success_function, upload_error_function);
+            };
+
             $scope.update_facility_regulatory_details = function(){
                 var updates = {};
                 if(_.isUndefined($scope.select_values.regulatory_body.name)){
@@ -1088,7 +1164,22 @@
                 }
 
                 wrappers.facilities.update($scope.facility_id, updates)
-                    .success(function(){}).error(function(){});
+                .success(function(){
+
+                    var license_file = $window.$("input[type='file'][name='license_file']")[0].files[0];
+                    function sleep (time) {
+                        return new Promise((resolve) => setTimeout(resolve, time));
+                    }
+
+                    sleep(5000).then(() => {
+                        $scope.upload_licence_pdf_file(license_file,false);
+                        $state.go("facilities.facility_view_changes",
+                            {facility_id: $scope.facility_id}, {reload: true});
+                    });
+
+                }).error(function(error){
+                    $scope.errors = error;
+                });
             };
 
             $scope.saveUnits = function (arg) {
@@ -1304,7 +1395,19 @@
             //get facility ward and draw its map
             $scope.facilityWard = function (f) {
                 //ward coordinates
-                wrappers.wards.get(f.ward)
+                // There is need to check if the ward is provided as an objct
+                var ward_id = null;
+                if(typeof(f.ward) === "object"){
+                    ward_id = f.ward.id;
+                }
+                else if (typeof(f.ward === "string")){
+                    ward_id = f.ward;
+                }
+                else {
+                    throw new Error("Unknow typeof ward");
+                }
+
+                wrappers.wards.get(ward_id)
                 .success(function(data){
                     $scope.spinner = false;
                     $scope.ward_gis = data.ward_boundary;
@@ -1509,7 +1612,19 @@
             wrappers.facilities.get(facility_id)
             .success(function(data){
                 $scope.facility = data;
-                console.log($scope.facility);
+                if($scope.facility.latest_update) {
+                    wrappers.facility_updates.get($scope.facility.latest_update)
+                    .success(function(data) {
+                        $scope.facility_update = data;
+                        $scope.facility_update.facility_updates = JSON.parse(
+                            $scope.facility_update.facility_updates
+                        );
+                        $scope.facility_changes = data.facility_updated_json;
+                    })
+                    .error(function (data) {
+                        $scope.errors = data;
+                    });
+                }
             })
             .error(function(data){
                 $scope.errors = data;

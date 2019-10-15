@@ -76,21 +76,78 @@
     )
 
     .controller("mfl.facility_mgmt.controllers.facilities_approve",
-        ["$scope", function ($scope) {
+        ["$scope",
+        function ($scope) {
             $scope.filters = {
+                "has_edits" : true,
                 "pending_approval" : true
             };
+
             $scope.title = {
                 "name": "Approve Facilities",
                 "icon": "fa-building"
             };
         }]
     )
+    .controller("mfl.facility_mgmt.controllers.facilities_approve_new",
+        ["$scope",
+        function ($scope) {
+            $scope.filters = {
+                "pending_approval" : true,
+                "has_edits" : false
+            };
+
+            $scope.title = {
+                "name": "Approve Facilities",
+                "icon": "fa-building"
+            };
+        }]
+    )
+    .controller("mfl.facility_mgmt.controllers.facilities_publish_approved",
+        ["$scope", "$stateParams", "mfl.facility_mgmt.services.wrappers","$state",
+        function ($scope, $stateParams, wrappers, $state) {
+            $scope.filters = {
+                to_publish: true,
+                fields: "id,code,name,official_name,regulatory_status_name,updated," +
+                    "facility_type_name,owner_name,county,sub_county_name,"+
+                    "ward_name,keph_level,keph_level_name,constituency_name,"+
+                    "is_complete,in_complete_details,is_approved",
+                is_complete: true
+            };
+
+            $scope.title = {
+                "name": "Publish Facilities",
+                "icon": "fa-building"
+            };
+            $scope.facility_id = $stateParams.facility_id;
+            if($scope.facility_id){
+                wrappers.facilities.get($scope.facility_id)
+                .success(function (data) {
+                    $scope.facility = data;
+                })
+                .error(function (data) {
+                    $scope.errors = data;
+                });
+            }
+            $scope.publsh_to_dhis = function(){
+                var payload = {
+                    approved_national_level: true
+                };
+                wrappers.facilities.update($scope.facility_id, payload)
+                .success(function(){
+                    $state.go("facilities_publish_approved.", {reload : true});
+                })
+                .error(function(data){
+                    $scope.errors = data;
+                });
+            };
+        }]
+    )
 
     .controller("mfl.facility_mgmt.controllers.facility_approve",
         ["$scope", "$state", "$stateParams", "$log",
-        "mfl.facility_mgmt.services.wrappers","toasty",
-        function ($scope, $state, $stateParams, $log, wrappers, toasty) {
+        "mfl.facility_mgmt.services.wrappers","toasty", "$window",
+        function ($scope, $state, $stateParams, $log, wrappers, toasty, $window) {
             if(($state.current.name).indexOf(".reject") > 0){
                 $scope.reject = false;
             } else {
@@ -98,6 +155,7 @@
             }
             $scope.spinner = true;
             $scope.facility_id = $stateParams.facility_id;
+            $scope.fac_id = $scope.facility_id;
             wrappers.facility_units.filter({"facility" : $scope.facility_id})
             .success(function (data) {
                 $scope.chus = data.results;
@@ -167,8 +225,15 @@
                 "comment": "",
                 "is_cancelled": false
             };
-
+            $scope.check_logged_user_is_national = function (){
+                return $window.JSON.parse(
+                    $window.localStorage.getItem("auth.user")
+                ).is_national === true;
+            };
             $scope.approveFacility = function (cancel) {
+                if($scope.check_logged_user_is_national()){
+                    $scope.facility_approval.is_national_approval = true;
+                }
                 $scope.facility_approval.is_cancelled = !!cancel;
                 wrappers.facility_approvals.create($scope.facility_approval)
                 .success(function () {
@@ -224,6 +289,27 @@
                     $log.error(data);
                     $scope.errors = data;
                 });
+            };
+            $scope.printFacility = wrappers.printFacility;
+            $scope.correctionTemplate = wrappers.getCorrectionTemplate;
+            $scope.detailReport = wrappers.getDetailReport;
+            $scope.facilityChecklistTemplate = wrappers.facilityChecklistTemplate;
+            $scope.facilityLicense = wrappers.facilityLicense;
+        }]
+    )
+    .controller("mfl.facility_mgmt.controllers.incomplete_facilities",
+        ["$scope",
+        function ($scope) {
+            $scope.filters = {
+                "incomplete" : true,
+                "fields": "id,code,official_name,facility_type_name,owner_name,county," +
+                          "constituency_name,ward_name,created,operation_status_name,"+
+                          "sub_county_name,name,is_complete,in_complete_details"
+            };
+
+            $scope.title = {
+                "name": "Incomplete Facilities",
+                "icon": "fa-building"
             };
         }]
     );

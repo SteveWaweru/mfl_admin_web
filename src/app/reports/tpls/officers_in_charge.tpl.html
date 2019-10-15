@@ -26,7 +26,14 @@
                             <td data-title="facility:">{{::officer.facility_name}}</td>
                             <td data-title="oficer_name:">{{::officer.officer_name}}</td>
                             <td data-title="job_title:">{{::officer.job_title}}</td>
-                            <td data-title="officer">{{::officer.contacts}}</td>
+                            <td data-title="officer">
+                            <table class="table">
+                                <tr ng-repeat="con in officer.contacts ">
+                                    <td>{{ ::con.contact_type}}</td>
+                                    <td>{{ ::con.contact}}</td>
+                                </tr>
+                            </table>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

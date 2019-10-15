@@ -87,7 +87,38 @@
             },
             permission: "facilities.view_facility"
         })
-
+        .state("facilities_approve_new", {
+            "parent": "facility_mgmt",
+            "url": "^/facilities_approve/",
+            "views": {
+                "main-content@facility_mgmt": {
+                    templateUrl: "facility_mgmt/tpls/facilities_pending.grid.tpl.html",
+                    controller: "mfl.facility_mgmt.controllers.facilities_approve_new"
+                }
+            },
+            permission: "facilities.view_facility"
+        })
+        .state("facilities_publish_approved", {
+            "parent": "facility_mgmt",
+            "url": "^/facilities_publish/",
+            "views": {
+                "main-content@facility_mgmt": {
+                    templateUrl: "facility_mgmt/tpls/facilities_publish.grid.tpl.html",
+                    controller: "mfl.facility_mgmt.controllers.facilities_publish_approved"
+                }
+            },
+            permission: "facilities.view_facility"
+        })
+        .state("facilities_publish_approved.publish", {
+            url: "publish/:facility_id/",
+            views: {
+                "main-content@facility_mgmt": {
+                    templateUrl: "facility_mgmt/tpls/facilities_publish.view.tpl.html",
+                    controller: "mfl.facility_mgmt.controllers.facilities_publish_approved"
+                }
+            },
+            permission: "facilities.view_facilityapproval"
+        })
         .state("facilities_approve_update", {
             parent: "facility_mgmt",
             url: "^/facilities_approve_update/",
@@ -150,6 +181,17 @@
                 }
             },
             permission: "facilities.add_facilityapproval,facilities.view_facility"
+        })
+        .state("incomplete_facilities", {
+            "parent": "facility_mgmt",
+            "url": "^/incomplete_facilities/",
+            "views": {
+                "main-content@facility_mgmt": {
+                    templateUrl: "facility_mgmt/tpls/facility_incomplete.grid.tpl.html",
+                    controller: "mfl.facility_mgmt.controllers.incomplete_facilities"
+                }
+            },
+            permission: "facilities.view_facility"
         });
     }]);
 

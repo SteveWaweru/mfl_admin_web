@@ -153,6 +153,21 @@
                     "type_facilities");
             }
         ])
+        .controller("mfl.reports.controllers.facility_type_categories", ["$scope", "$controller",
+            "mfl.reports.services.wrappers","$stateParams",
+            function($scope, $controller, wrappers, $stateParams) {
+                var helper = $controller("mfl.reports.controllers.helper");
+                if($stateParams.parent){
+                    $scope.filters = {
+                        parent: $stateParams.parent
+                    };   
+                }
+                
+                helper.initCtrl($scope, wrappers.reporting, 
+                    "facility_count_by_facility_type_details",
+                    "type_facilities");
+            }
+        ])
         .controller("mfl.reports.controllers.facility_owner_categories", ["$scope",
             "$controller", "mfl.reports.services.wrappers",
             function($scope, $controller, wrappers) {
@@ -199,8 +214,9 @@
             "$controller", "mfl.reports.services.wrappers",
             function($scope, $controller, wrappers) {
                 var helper = $controller("mfl.reports.controllers.helper");
-                helper.initCtrl($scope, wrappers.reporting, "gis",
-                    "fac_coordinates");
+                helper.initCtrl($scope, wrappers.facilities, "gis",
+                    "fac_coordinates", true);
+
             }
         ])
         .controller("mfl.reports.controllers.officers_in_charge", ["$scope",

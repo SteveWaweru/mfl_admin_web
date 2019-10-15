@@ -15,7 +15,7 @@
         <div class="form-group">
             <label for="owner_type" class="control-label">Owner Type &#42;</label>
             <select name="owner_type" ng-model="facilityOwners.owner_type" class="form-control" api-checker required>
-                <option value="" disabled>Select Facility Owner Category</option>
+                <option value="" disabled>Select Facility Owner</option>
                 <option ng-repeat="owner in ownerTypes" ng-selected="{{owner.id == facilityOwners.owner_type}}" value="{{owner.id}}">{{owner.name}}</option>
             </select>
         </div>

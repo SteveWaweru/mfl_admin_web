@@ -20,7 +20,7 @@
 
         "number_of_beds", "number_of_cots",
         "open_public_holidays", "open_weekends", "open_whole_day",
-        "created_after", "created_before", "is_classified",
+        "created_after", "created_before", "is_classified", "has_edits", "pending_approval",
 
         // pagination controls
         "page_size", "page"
@@ -162,14 +162,14 @@
             }
         })
         .state("reports.facility_type_categories", {
-            url: "facility_type_categories",
+            url: "facility_type_categories/:parent/",
             views: {
                 "body@reports": {
                     templateUrl: "reports/tpls/body.tpl.html",
                     controller:"mfl.reports.controllers.main"
                 },
                 "main-content@reports.facility_type_categories": {
-                    templateUrl: "reports/tpls/facility_type_categories.tpl.html",
+                    templateUrl: "reports/tpls/facility_types_details.tpl.html",
                     controller:"mfl.reports.controllers.facility_type_categories"
                 }
             }
