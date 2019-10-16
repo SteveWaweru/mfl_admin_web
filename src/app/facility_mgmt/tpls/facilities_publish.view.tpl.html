@@ -1,10 +1,9 @@
 <div class="content-header">
     <div class="action-container content-header-extra">
 
-         <a requires-permission="facilities.view_facility,facilities.add_facilityapproval"
-         ng-click="publsh_to_dhis({facility_id: facility.id})" class="btn btn-success" tooltip="Publish Facility">
-             Publish and push to DHIS2
-         </a>
+        <a requires-permission="facilities.view_facility,facilities.add_facilityapproval" ui-sref="facilities_pending_publishing.approve({facility_id: facility.id})" class="btn btn-success" tooltip="Approve Facility">
+            Publish/Reject
+        </a>
 
     </div>
     <h2 class="content-title">

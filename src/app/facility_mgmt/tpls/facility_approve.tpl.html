@@ -10,10 +10,10 @@
         popover-template="'facility_mgmt/tpls/facility_printing_buttons.tpl.html'" >
         Print
     </a>
+
    </div>
    <h2 class="content-title">
        <span class="main-title">Approve Facility</span>
-
    </h2>
 </div>
 <div class="col-xs-12 content-body margin-t-20 fade-content">
@@ -252,6 +252,26 @@
                 </div>
                 <button class="btn btn-success" ng-click="stat = false">Approve Facility</button>
                 <button class="btn btn-danger margin-l-5" ng-click="stat = true">Reject Facility</button>
+            </form>
+        </div>
+    </div>
+    <!-- End of overall apporval -->
+    <!-- Overall facility approval -->
+    <div class="col-xs-12 content-card margin-t-20 pad-0" ng-class="{'alert-success':facility.is_approved}" ng-if="('facilities_pending_publishing.approve' | includedByState) && !facility.approved_national_level">
+        <div class="col-xs-12 margin-b-10" ng-if="!facility.approved_national_level && !spinner">
+            <h4 class>Approve/Reject facility</h4>
+            <form name="frm_approve" role="form" ng-submit="approveFacility(publish)" novalidate>
+                <div class="form-group margin-t-10">
+                    <label class="control-label">
+                        Facility rejection reason
+                    </label>
+                    <textarea class="form-control" name="comment" ng-model="facility_approval.comment" api-checker rows="2">
+                    </textarea>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                </div>
+                <button class="btn btn-success" ng-click="publish = 'publish'">Publish Facility</button>
+                <button class="btn btn-danger margin-l-5" ng-click="publish = false">Reject Facility</button>
             </form>
         </div>
     </div>

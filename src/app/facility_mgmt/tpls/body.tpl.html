@@ -12,16 +12,20 @@
                 </a>
             </li>
             <li ui-sref-active="active" requires-permission="facilities.view_facilityapproval">
-                <a ui-sref="facilities_approve" ui-sref-opts="{reload:true}">
-                    <span class="sidebar-text"> Facility Updates Pending Approval</span>
+                <a ui-sref="facilities_approve_new" ui-sref-opts="{reload:true}">
+                    <span class="sidebar-text">New Facilities Pending Validation</span>
                 </a>
             </li>
             <li ui-sref-active="active" requires-permission="facilities.view_facilityapproval">
-                <a ui-sref="facilities_approve_new" ui-sref-opts="{reload:true}">
-                    <span class="sidebar-text">New Facilities Pending Approval</span>
+                <a ui-sref="facilities_approve" ui-sref-opts="{reload:true}">
+                    <span class="sidebar-text"> Updated Facilities Pending Validation</span>
                 </a>
             </li>
-
+            <li ui-sref-active="active" requires-permission="facilities.view_facilityapproval" requires-user-feature="is_national">
+                <a ui-sref="facilities_pending_publishing" ui-sref-opts="{reload:true}">
+                    <span class="sidebar-text">Facilities Pending Publishing</span>
+                </a>
+            </li>
             <li ui-sref-active="active" requires-permission="facilities.view_rejected_facilities" >
                 <a ui-sref="facility_reject_list" ui-sref-opts="{reload:true}">
                     <span class="sidebar-text">Rejected Facilities</span>
@@ -35,11 +39,6 @@
             <li ui-sref-active="active" requires-permission="facilities.view_facility" >
                 <a ui-sref="incomplete_facilities" ui-sref-opts="{reload:true}">
                     <span class="sidebar-text">Incomplete Facilities</span>
-                </a>
-            </li>
-            <li ui-sref-active="active" requires-permission="facilities.view_facilityapproval" requires-user-feature="is_national">
-                <a ui-sref="facilities_publish_approved" ui-sref-opts="{reload:true}">
-                    <span class="sidebar-text">Approved pending publishing</span>
                 </a>
             </li>
             <li ui-sref-active="active" requires-permission="facilities.view_facility" requires-user-feature="is_national,regulator">

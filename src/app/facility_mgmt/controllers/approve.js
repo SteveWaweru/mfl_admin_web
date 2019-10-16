@@ -80,11 +80,15 @@
         function ($scope) {
             $scope.filters = {
                 "has_edits" : true,
-                "pending_approval" : true
+                "pending_approval" : true,
+                "fields": "id,code,official_name,facility_type_name,owner_name,county," +
+                          "sub_county,ward_name,updated,operation_status_name,"+
+                          "sub_county_name,name,is_complete,in_complete_details,"+
+                          "approved_national_level,has_edits"
             };
 
             $scope.title = {
-                "name": "Approve Facilities",
+                "name": "Validate Updated Facilities",
                 "icon": "fa-building"
             };
         }]
@@ -94,16 +98,20 @@
         function ($scope) {
             $scope.filters = {
                 "pending_approval" : true,
-                "has_edits" : false
+                "has_edits" : false,
+                "fields": "id,code,official_name,facility_type_name,owner_name,county," +
+                          "sub_county,ward_name,updated,operation_status_name,"+
+                          "sub_county_name,name,is_complete,in_complete_details,"+
+                          "approved_national_level,has_edits"
             };
 
             $scope.title = {
-                "name": "Approve Facilities",
+                "name": "Validate New Facilities",
                 "icon": "fa-building"
             };
         }]
     )
-    .controller("mfl.facility_mgmt.controllers.facilities_publish_approved",
+    .controller("mfl.facility_mgmt.controllers.facilities_pending_publishing",
         ["$scope", "$stateParams", "mfl.facility_mgmt.services.wrappers","$state",
         function ($scope, $stateParams, wrappers, $state) {
             $scope.filters = {
@@ -111,8 +119,7 @@
                 fields: "id,code,name,official_name,regulatory_status_name,updated," +
                     "facility_type_name,owner_name,county,sub_county_name,"+
                     "ward_name,keph_level,keph_level_name,constituency_name,"+
-                    "is_complete,in_complete_details,is_approved",
-                is_complete: true
+                    "is_complete,in_complete_details,is_approved,approved_national_level"
             };
 
             $scope.title = {
@@ -135,7 +142,7 @@
                 };
                 wrappers.facilities.update($scope.facility_id, payload)
                 .success(function(){
-                    $state.go("facilities_publish_approved.", {reload : true});
+                    $state.go("facilities_pending_publishing.", {reload : true});
                 })
                 .error(function(data){
                     $scope.errors = data;

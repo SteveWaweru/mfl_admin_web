@@ -24,7 +24,9 @@
         <tr ng-repeat="fac in facilities" >
             <td data-title="Code:" >{{::fac.code}}</td>
             <td data-title="Name:" >
-                <a ui-sref="facilities_approve.pending_approval({facility_id: fac.id})"
+                <a ng-if="'facilities_approve' | isState" ui-sref="facilities_approve.pending_approval({facility_id: fac.id})"
+                >{{::fac.official_name}}</a>
+                <a  ng-if="'facilities_approve_new' | isState" ui-sref="facilities_approve_new.pending_approval({facility_id: fac.id})"
                 >{{::fac.official_name}}</a>
             </td>
             <td data-title="Facility Type:" >{{::fac.facility_type_name}}</td>
