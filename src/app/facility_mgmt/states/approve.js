@@ -204,7 +204,7 @@
             views: {
                 "main-content@facility_mgmt": {
                     templateUrl: "facility_mgmt/tpls/facility_approve.tpl.html",
-                    controller: "mfl.facility_mgmt.controllers.facility_approve"
+                    controller: "mfl.facility_mgmt.controllers.facilities_pending_publishing"
                 }
             },
             permission: "facilities.add_facilityapproval,facilities.view_facility"

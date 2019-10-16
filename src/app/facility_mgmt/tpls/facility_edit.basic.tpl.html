@@ -122,6 +122,15 @@
                 </label>
                 <input type="number" class="form-control" name="facility_catchment_population" ng-model="facility.facility_catchment_population" placeholder="Facility Catchment Population" api-checker />
             </div>
+            <div class="col-xs-12">
+            <div class="form-group checkbox">
+                <label>
+                    <input type="checkbox" id="reporting_to_dhis2" name="reporting_to_dhis2" ng-model="facility.reporting_to_dhis2"
+                    tooltip="If this facility should report to DHIS2" api-checker>
+                    Should this facility have reporting in DHIS2?
+                    </label>
+            </div>
+            </div>
         </div>
 
         <div class="custom-well col-xs-12 margin-t-20">
