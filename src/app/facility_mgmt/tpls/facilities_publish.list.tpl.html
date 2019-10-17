@@ -22,7 +22,7 @@
 
     <tbody class="fade-content" ng-if="facilities.length>0">
         <tr ng-repeat="fac in facilities">
-            <td data-title="Code:" class="text text-danger">Pending Publishing</td>
+            <td data-title="Code:" class="text text-danger">Pending Approval</td>
             <td data-title="Name:" >
                 <a ui-sref="facilities_pending_publishing.publish({facility_id: fac.id})"
                 >{{::fac.official_name}}</a>

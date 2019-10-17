@@ -29,9 +29,9 @@
                 <span class="text-danger">Incomplete</span></td>
 
             <td data-title="Code:" ng-if='fac.is_complete && fac.code === null && !fac.is_approved'>
-                <span class="text-danger">Pending Approval</span></td>
+                <span class="text-danger">Pending Validation</span></td>
             <td data-title="Code:" ng-if='fac.is_complete && fac.code==null && fac.is_approved'>
-                        <span class="text-danger">Pending Publishing</span></td>
+                        <span class="text-danger">Pending Approval</span></td>
             <td class="text-wrap" data-title="Name:" >
                 <a ui-sref="facilities.facility_view({facility_id: fac.id})">{{::fac.official_name }}</a>
             </td>
