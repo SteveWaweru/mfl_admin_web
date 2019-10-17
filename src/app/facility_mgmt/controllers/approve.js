@@ -113,7 +113,8 @@
     )
     .controller("mfl.facility_mgmt.controllers.facilities_pending_publishing",
         ["$scope", "$stateParams", "mfl.facility_mgmt.services.wrappers","$state",
-        function ($scope, $stateParams, wrappers, $state) {
+        "toasty", "$log",
+        function ($scope, $stateParams, wrappers, $state, toasty, $log) {
             $scope.filters = {
                 to_publish: true,
                 fields: "id,code,name,official_name,regulatory_status_name,updated," +
@@ -136,6 +137,31 @@
                     $scope.errors = data;
                 });
             }
+            $scope.facility_approval = {
+                facility: $scope.facility_id
+            };
+
+            $scope.publishFacility = function (cancel) {
+                $scope.facility_approval.is_national_approval = !cancel;
+                $scope.facility_approval.approved_national_level = !cancel;
+                wrappers.facility_approvals.create($scope.facility_approval)
+                // .success(function () {
+                // wrappers.facilities.update($scope.facility_id, $scope.facility_approval)
+                .success(function () {
+                    var msg_title = !cancel ? "Rejection" : "Approval";
+                    var msg_detail = !cancel ? "rejected" : "approved";
+                    toasty.success({
+                        title:"Facility " + msg_title,
+                        msg:"Facility successfully " + msg_detail
+                    });
+                    $state.go("facilities_pending_publishing");
+                })
+                .error(function (data) {
+                    $log.error(data);
+                    $scope.errors = data;
+                });
+            };
+
             $scope.publsh_to_dhis = function(){
                 var payload = {
                     approved_national_level: true
@@ -238,9 +264,6 @@
                 ).is_national === true;
             };
             $scope.approveFacility = function (cancel) {
-                if($scope.check_logged_user_is_national()){
-                    $scope.facility_approval.is_national_approval = true;
-                }
                 $scope.facility_approval.is_cancelled = !!cancel;
                 wrappers.facility_approvals.create($scope.facility_approval)
                 .success(function () {
