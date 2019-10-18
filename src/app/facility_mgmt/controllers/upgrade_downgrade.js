@@ -65,6 +65,25 @@
                 )
                 .success(function (data) {
                     $scope.facility = data;
+                    $scope.getFacilityStatus = function getStatus(){
+                        if(!$scope.facility.is_complete) {
+                            return "INCOMPLETE";
+                        } else{
+                            if($scope.facility.is_approved === null){
+                                return "PENDING VALIDATION";
+                            } else if($scope.facility.is_approved === false){
+                                return "FAILED VALIDATION";
+                            } else {
+                                if($scope.facility.approved_national_level === null) {
+                                    return "PENDING APPROVAL";
+                                } else if($scope.facility.approved_national_level === false){
+                                    return "NOT APPROVED";
+                                } else {
+                                    return "";
+                                }
+                            }
+                        }
+                    };
                 })
                 .error(function (data) {
                     $scope.errors = data;

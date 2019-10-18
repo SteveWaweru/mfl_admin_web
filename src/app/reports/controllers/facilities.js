@@ -22,7 +22,7 @@
             "fields": "id,code,name,official_name,regulatory_status_name,updated," +
                       "facility_type_name,owner_name,county,sub_county_name,"+
                       "ward_name,keph_level,keph_level_name,constituency_name,"+
-                      "is_complete,in_complete_details,is_approved"
+                      "is_complete,in_complete_details,is_approved,approved_national_level"
         });
         $scope.tooltip = {
             "title": "tooltip",

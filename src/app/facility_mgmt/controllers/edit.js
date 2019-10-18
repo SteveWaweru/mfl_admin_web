@@ -291,6 +291,25 @@
                 .success(function(data){
                     $scope.spinner = false;
                     $scope.facility = data;
+                    $scope.getFacilityStatus = function getStatus(){
+                        if(!$scope.facility.is_complete) {
+                            return "INCOMPLETE";
+                        } else{
+                            if($scope.facility.is_approved === null){
+                                return "PENDING VALIDATION";
+                            } else if($scope.facility.is_approved === false){
+                                return "FAILED VALIDATION";
+                            } else {
+                                if($scope.facility.approved_national_level === null) {
+                                    return "PENDING APPROVAL";
+                                } else if($scope.facility.approved_national_level === false){
+                                    return "NOT APPROVED";
+                                } else {
+                                    return "";
+                                }
+                            }
+                        }
+                    };
                     $scope.owner_typeid = $scope.facility.owner_type;
                     $scope.select_values = {
                         ward: {
@@ -423,6 +442,25 @@
                 wrappers.facilities.update($stateParams.facility_id,changes)
                 .success(function (data) {
                     $scope.facility = data;
+                    $scope.getFacilityStatus = function getStatus(){
+                        if(!$scope.facility.is_complete) {
+                            return "INCOMPLETE";
+                        } else{
+                            if($scope.facility.is_approved === null){
+                                return "PENDING VALIDATION";
+                            } else if($scope.facility.is_approved === false){
+                                return "FAILED VALIDATION";
+                            } else {
+                                if($scope.facility.approved_national_level === null) {
+                                    return "PENDING APPROVAL";
+                                } else if($scope.facility.approved_national_level === false){
+                                    return "NOT APPROVED";
+                                } else {
+                                    return "";
+                                }
+                            }
+                        }
+                    };
                     toasty.success({
                         title: "Facility",
                         msg: "Facility successfully closed"
@@ -565,7 +603,7 @@
                 }
             };
 
-            var active_filter = {is_active: true};
+            var active_filter = {is_active: true, page_size:1000};
             $scope.contacts = [{type: "", contact : ""}];
             $scope.login_user = loginService.getUser();
             $scope.selectReload(wrappers.facility_owners, "", "owners", active_filter);
@@ -792,12 +830,6 @@
                     });
                 }
             };
-            $scope.addContact = function () {
-                $scope.detailed_contacts.push({
-                    contact_type : "",
-                    contact : ""
-                });
-            };
             $scope.removeContact = function (obj) {
                 if(_.isUndefined(obj.id)){
                     $scope.detailed_contacts =
@@ -811,8 +843,8 @@
             $scope.createContact = function () {
                 $scope.finish = ($scope.nxtState ? "facilities" :
                     "facilities.facility_edit.units");
-
-                if(!_.isEmpty($scope.fac_contobj.contacts)){
+                $scope.fac_contobj.officer_in_charge = $scope.facility.officer_in_charge;
+                if(!_.isEmpty($scope.fac_contobj.contacts) || $scope.fac_contobj.officer_in_charge){
                     wrappers.facilities.update($scope.facility_id, $scope.fac_contobj)
                     .success(function () {
                         if(!$scope.create){
@@ -857,12 +889,51 @@
                         $scope.fac_contobj.contacts.push(a_contact);
                     }
                 });
+                $scope.fac_contobj
                 $scope.createContact();
             };
+            $scope.facilityOfficers = function (f) {
+                if(_.isUndefined(f.officer_in_charge) || _.isNull(f.officer_in_charge)) {
+                    $scope.facility.officer_in_charge = {
+                        name : "",
+                        reg_no : "",
+                    };
+                }
+            };
+            $scope.addOfficerContact = function () {
+                $scope.facility.officer_in_charge.contacts.push({
+                    type : "",
+                    contact : ""
+                });
+            };
+            $scope.removeOfficerContact = function (obj) {
+                if(_.isUndefined(obj.officer_contact_id)){
+                    $scope.facility.officer_in_charge.contacts =
+                        _.without($scope.facility.officer_in_charge.contacts, obj);
+                }else{
+                    wrappers.officer_contacts.remove(obj.officer_contact_id)
+                    .success(function (){
+                        wrappers.contacts.remove(obj.contact_id)
+                        .success(function () {
+                            $scope.facility.officer_in_charge.contacts =
+                            _.without(
+                            $scope.facility.officer_in_charge.contacts, obj);
+                        })
+                        .error(function (data) {
+                            $scope.errors = data;
+                        });
+                    })
+                    .error(function (data) {
+                        $scope.errors = data;
+                    });
+                }
+            };
+
             $scope.$watch("facility", function (f) {
-                if (_.isUndefined(f)){
+                if (_.isUndefined(f) || _.isEmpty(f)){
                     return;
                 }
+                $scope.facilityOfficers(f);
                 if(f.hasOwnProperty("contacts")){
                     $scope.facilityContacts(f);
                 }
@@ -1612,6 +1683,25 @@
             wrappers.facilities.get(facility_id)
             .success(function(data){
                 $scope.facility = data;
+                $scope.getFacilityStatus = function getStatus(){
+                    if(!$scope.facility.is_complete) {
+                        return "INCOMPLETE";
+                    } else{
+                        if($scope.facility.is_approved === null){
+                            return "PENDING VALIDATION";
+                        } else if($scope.facility.is_approved === false){
+                            return "FAILED VALIDATION";
+                        } else {
+                            if($scope.facility.approved_national_level === null) {
+                                return "PENDING APPROVAL";
+                            } else if($scope.facility.approved_national_level === false){
+                                return "NOT APPROVED";
+                            } else {
+                                return "";
+                            }
+                        }
+                    }
+                };
                 if($scope.facility.latest_update) {
                     wrappers.facility_updates.get($scope.facility.latest_update)
                     .success(function(data) {

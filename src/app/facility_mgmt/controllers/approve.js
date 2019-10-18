@@ -49,6 +49,25 @@
                 .success(function (data) {
                     $scope.spinner = false;
                     $scope.facility = data;
+                    $scope.getFacilityStatus = function getStatus(){
+                        if(!$scope.facility.is_complete) {
+                            return "INCOMPLETE";
+                        } else{
+                            if($scope.facility.is_approved === null){
+                                return "PENDING VALIDATION";
+                            } else if($scope.facility.is_approved === false){
+                                return "FAILED VALIDATION";
+                            } else {
+                                if($scope.facility.approved_national_level === null) {
+                                    return "PENDING APPROVAL";
+                                } else if($scope.facility.approved_national_level === false){
+                                    return "NOT APPROVED";
+                                } else {
+                                    return "";
+                                }
+                            }
+                        }
+                    };
                 })
                 .error(function (err) {
                     $scope.spinner = false;
@@ -124,7 +143,7 @@
             };
 
             $scope.title = {
-                "name": "Publish Facilities",
+                "name": "Approve Facilities",
                 "icon": "fa-building"
             };
             $scope.facility_id = $stateParams.facility_id;
@@ -132,6 +151,25 @@
                 wrappers.facilities.get($scope.facility_id)
                 .success(function (data) {
                     $scope.facility = data;
+                    $scope.getFacilityStatus = function getStatus(){
+                        if(!$scope.facility.is_complete) {
+                            return "INCOMPLETE";
+                        } else{
+                            if($scope.facility.is_approved === null){
+                                return "PENDING VALIDATION";
+                            } else if($scope.facility.is_approved === false){
+                                return "FAILED VALIDATION";
+                            } else {
+                                if($scope.facility.approved_national_level === null) {
+                                    return "PENDING APPROVAL";
+                                } else if($scope.facility.approved_national_level === false){
+                                    return "NOT APPROVED";
+                                } else {
+                                    return "";
+                                }
+                            }
+                        }
+                    };
                 })
                 .error(function (data) {
                     $scope.errors = data;
@@ -224,6 +262,25 @@
             .success(function(data) {
                 $scope.spinner = false;
                 $scope.facility = data;
+                $scope.getFacilityStatus = function getStatus(){
+                    if(!$scope.facility.is_complete) {
+                        return "INCOMPLETE";
+                    } else{
+                        if($scope.facility.is_approved === null){
+                            return "PENDING VALIDATION";
+                        } else if($scope.facility.is_approved === false){
+                            return "FAILED VALIDATION";
+                        } else {
+                            if($scope.facility.approved_national_level === null) {
+                                return "PENDING APPROVAL";
+                            } else if($scope.facility.approved_national_level === false){
+                                return "NOT APPROVED";
+                            } else {
+                                return "";
+                            }
+                        }
+                    }
+                };
                 if ($scope.facility.coordinates) {
                     wrappers.facility_coordinates.get($scope.facility.coordinates)
                     .success(function (data) {
