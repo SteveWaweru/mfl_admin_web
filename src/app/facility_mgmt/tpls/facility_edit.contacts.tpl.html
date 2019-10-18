@@ -59,7 +59,7 @@
                     <label class="">
                         Name &#42;
                     </label>
-                    <input type="text" class="form-control" ng-model="facility.officer_in_charge.name" name="officer_name" placeholder="Name" api-checker >
+                    <input type="text" class="form-control" ng-model="facility.officer_in_charge.name" name="officer_name" placeholder="Name" api-checker required>
                     <span class="highlght"></span>
                     <span class="bar"></span>
                 </div>
@@ -67,16 +67,16 @@
                     <label class="">
                         Registration Number/License Number
                     </label>
-                    <input class="form-control" name="reg_number" ng-model="facility.officer_in_charge.reg_no" placeholder="Registration Number" api-checker >
+                    <input class="form-control" name="reg_number" ng-model="facility.officer_in_charge.reg_no" placeholder="Registration Number" api-checker  required>
                     <span class="highlght"></span>
                     <span class="bar"></span>
                 </div>
                 <div class="form-group col-xs-12">
                     <label class="">
-                        Job Title ssss&#42;
+                        Job Title &#42;
                     </label>
 
-                    <select class="form-control" name="title" ng-model="facility.officer_in_charge.title" api-checker >
+                    <select class="form-control" name="title" ng-model="facility.officer_in_charge.title" api-checker  required>
                         <option value="" disabled>Select Job Title</option>
                         <option ng-repeat="title in job_titles" ng-selected="{{title.id == facility.officer_in_charge.title}}" value="{{title.id}}">{{title.name}}</option>
                     </select>
