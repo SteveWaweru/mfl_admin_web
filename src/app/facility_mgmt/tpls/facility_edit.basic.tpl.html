@@ -124,11 +124,21 @@
             </div>
             <div class="col-xs-12">
             <div class="form-group checkbox">
-                <label>
-                    <input type="checkbox" id="reporting_to_dhis2" name="reporting_to_dhis2" ng-model="facility.reporting_to_dhis2"
-                    tooltip="If this facility should report to DHIS2" api-checker>
-                    Should this facility have reporting in DHIS2?
+                <label style="padding-left:0">
+                    *Should this facility have reporting in DHIS2?
+                </label>
+                <div class="radio">
+                    <label class="radio-inline">
+                        <input type="radio" name="reporting_in_dhis"  ng-value="true" ng-model="facility.reporting_in_dhis">
+                        Yes
                     </label>
+                </div>
+                <div class="radio">
+                    <label class="radio-inline">
+                        <input type="radio" name="reporting_in_dhis" ng-value="false" ng-model="facility.reporting_in_dhis" required>
+                        No
+                    </label>
+                </div>
             </div>
             </div>
         </div>
@@ -293,7 +303,8 @@
         <div class="col-xs-12 custom-well margin-t-20">
             <div class="form-group col-xs-12">
                 <label class="control-label">Checklist file upload</label>
-                <input class="form-control" type="file" name="checklist_file"  ng-model="facility.checklist_file" placeholder="Facility Checklist PDF">
+                <!-- <input class="form-control" type="file" name="facility_checklist_document"  ng-model="facility.facility_checklist_document" placeholder="Facility Checklist PDF"> -->
+                <input type="file" ngf-select ng-model="facility.facility_checklist_document" name="facility_checklist_document" accept="pdf/*" ngf-max-size="2MB">
             </div>
         </div>
         <!-- End of Facility Checklist -->

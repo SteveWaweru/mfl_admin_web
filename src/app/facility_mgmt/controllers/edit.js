@@ -633,7 +633,7 @@
             };
 
             $scope.upload_checklist_file =  function(checklist_file, is_update){
-                var url = adminApi.documents.makeUrl(adminApi.documents.apiBaseUrl);
+                var url = wrappers.facilities.makeUrl(wrappers.facilities.apiBaseUrl);
                 var payload = {
                     "name": $scope.facility.name + " Facility Checklist File",
                     "description": "Facilities checklist file",
@@ -641,10 +641,10 @@
                     "facility_name": $scope.facility.name
                 };
 
-                if ($scope.facility_checklist_document_id) {
-                    url += $scope.facility_checklist_document_id + "/";
+                if ($state.params.facility_id) {
+                    url += $state.params.facility_id + "/";
                 }
-                adminApi.uploadFile(url, checklist_file, "fyl", payload, is_update)
+                adminApi.uploadFile(url, checklist_file, "facility_checklist_document", payload, is_update)
                 .then(upload_success_function, upload_error_function);
             };
 
@@ -653,8 +653,6 @@
                 $scope.finish = ($scope.nxtState ? "facilities" :
                     "facilities.facility_edit.geolocation");
                 var changes = formChanges.whatChanged(frm);
-                var checklist_file = $window.$(
-                    "input[type='file'][name='checklist_file']")[0].files[0];
                 $scope.facility.ward = $scope.select_values.ward;
                 $scope.facility.keph_level = $scope.select_values.keph_level;
                 $scope.facility.facility_type = $scope.select_values.facility_type_details;
@@ -668,12 +666,18 @@
                 if($scope.create) {
                     $scope.setFurthest(2);
 
+                    /*Check if the checklist file has been provided*/
+                    var doc = $scope.facility.facility_checklist_document;
+                    if(doc){
+                        $scope.upload_checklist_file(doc);
+                    }
                     if(_.isEmpty($state.params.facility_id)) {
                         wrappers.facilities.create($scope.facility)
                         .success(function (data) {
-                            /*Check if the checklist file has been provided*/
-                            if(checklist_file){
-                                $scope.upload_checklist_file(checklist_file);
+                            if($scope.facility.facility_checklist_document){
+                                $scope.upload_checklist_file(
+                                    $scope.facility.facility_checklist_document,
+                                     true);
                             }
                             $state.go("facilities.facility_create.geolocation",
                             {facility_id : data.id,
@@ -687,12 +691,13 @@
                     }
                     else {
                         changes.sub_county = $scope.facility.sub_county;
-                        wrappers.facilities.update(
-                            $state.params.facility_id, changes)
+                        wrappers.facilities.update($state.params.facility_id, changes)
                         .success(function () {
                             /*Check if the checklist file has been provided during updating*/
-                            if(checklist_file){
-                                $scope.upload_checklist_file(checklist_file, true);
+                            if($scope.facility.facility_checklist_document){
+                                $scope.upload_checklist_file(
+                                    $scope.facility.facility_checklist_document,
+                                     true);
                             }
 
                             $state.go(
@@ -708,6 +713,11 @@
                         });
                     }
                 } else {
+                    if($scope.facility.facility_checklist_document){
+                        $scope.upload_checklist_file(
+                            $scope.facility.facility_checklist_document,
+                                true);
+                    }
                     changes.officer_in_charge = $scope.facility.officer_in_charge;
                     changes.sub_county = $scope.facility.sub_county;
                     wrappers.facilities.update($scope.facility_id, changes)
