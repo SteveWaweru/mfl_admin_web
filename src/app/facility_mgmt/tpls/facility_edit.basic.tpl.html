@@ -303,6 +303,14 @@
         <div class="col-xs-12 custom-well margin-t-20">
             <div class="form-group col-xs-12">
                 <label class="control-label">Checklist file upload</label>
+                <div class="well" ng-if="facility.facility_checklist_document.url">
+                    File already uploaded:
+                    <div>
+                        <a target="download" download href="{{checklist_document.fyl}}" tooltip="Click to download document">
+                            {{checklist_document.name}}
+                        </a>
+                    </div>
+                </div>
                 <!-- <input class="form-control" type="file" name="facility_checklist_document"  ng-model="facility.facility_checklist_document" placeholder="Facility Checklist PDF"> -->
                 <input type="file" ngf-select ng-model="facility.facility_checklist_document" name="facility_checklist_document" accept="pdf/*" ngf-max-size="2MB">
             </div>

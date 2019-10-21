@@ -291,6 +291,13 @@
                 .success(function(data){
                     $scope.spinner = false;
                     $scope.facility = data;
+                    if($scope.facility.facility_checklist_document.id) {
+                        wrappers.documents
+                        .get($scope.facility.facility_checklist_document.id)
+                        .success(function(file){
+                            $scope.checklist_document = file;
+                        });
+                    }
                     $scope.getFacilityStatus = function getStatus(){
                         if(!$scope.facility.is_complete) {
                             return "INCOMPLETE";
@@ -632,8 +639,9 @@
                 console.log("Error uploading file");
             };
 
-            $scope.upload_checklist_file =  function(checklist_file, is_update){
-                var url = wrappers.facilities.makeUrl(wrappers.facilities.apiBaseUrl);
+            $scope.upload_checklist_file =  function(checklist_file){
+                var is_update = false;
+                var url = adminApi.documents.makeUrl(adminApi.documents.apiBaseUrl);
                 var payload = {
                     "name": $scope.facility.name + " Facility Checklist File",
                     "description": "Facilities checklist file",
@@ -641,10 +649,12 @@
                     "facility_name": $scope.facility.name
                 };
 
-                if ($state.params.facility_id) {
-                    url += $state.params.facility_id + "/";
+                if ($scope.facility.facility_checklist_document.id) {
+                    url += $scope.facility.facility_checklist_document.id + "/";
+                    is_update = true;
+
                 }
-                adminApi.uploadFile(url, checklist_file, "facility_checklist_document", payload, is_update)
+                adminApi.uploadFile(url, checklist_file, "fyl", payload, is_update)
                 .then(upload_success_function, upload_error_function);
             };
 
@@ -1693,6 +1703,13 @@
             wrappers.facilities.get(facility_id)
             .success(function(data){
                 $scope.facility = data;
+                if($scope.facility.facility_checklist_document.id) {
+                    wrappers.documents
+                    .get($scope.facility.facility_checklist_document.id)
+                    .success(function(file){
+                        $scope.checklist_document = file;
+                    });
+                }
                 $scope.getFacilityStatus = function getStatus(){
                     if(!$scope.facility.is_complete) {
                         return "INCOMPLETE";
