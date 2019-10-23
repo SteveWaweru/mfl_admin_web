@@ -216,6 +216,18 @@
                 </label>
                 {{facility.bank_account}}
             </span>
+            <div class="col-xs-12">
+                <h4 class="fw-600">Facility Checklist Upload</h4>
+            </div>
+            <span class="col-xs-12">
+                <div class="well ng-scope" ng-if="facility.facility_checklist_document.url">
+                    <div>
+                        <a target="download" download href="media/{{facility.facility_checklist_document.url}}" tooltip="Click to download document">
+                            {{facility.facility_checklist_document.url}}
+                        </a>
+                    </div>
+                </div>
+            </span>
         </div>
     </div>
     <!-- End of basic details -->

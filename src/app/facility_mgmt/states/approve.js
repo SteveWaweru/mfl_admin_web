@@ -136,6 +136,15 @@
             },
             permission: "facilities.add_facilityapproval,facilities.view_facility"
         })
+            .state("facilities_approve.approve.facility_checklist", {
+                url: "facility_checklist/",
+                views: {
+                    "form-view@facilities_approve.approve" : {
+                        templateUrl: "facility_mgmt/tpls/facility_approve.facility_checklist.tpl.html"
+                    }
+                },
+                permission: "facilities.add_facilityapproval,facilities.view_facility"
+            })
         .state("facilities_approve_new", {
             "parent": "facility_mgmt",
             "url": "^/facilities_approve_new/",
@@ -238,6 +247,15 @@
             },
             permission: "facilities.add_facilityapproval,facilities.view_facility"
         })
+            .state("facilities_pending_publishing.approve.facility_checklist", {
+                url: "facility_checklist/",
+                views: {
+                    "form-view@facilities_pending_publishing.approve" : {
+                        templateUrl: "facility_mgmt/tpls/facility_approve.facility_checklist.tpl.html"
+                    }
+                },
+                permission: "facilities.add_facilityapproval,facilities.view_facility"
+            })
         .state("facilities_approve_update", {
             parent: "facility_mgmt",
             url: "^/facilities_approve_update/",
