@@ -15,7 +15,11 @@
         </thead>
         <tbody class="fade-content">
             <tr ng-repeat="unit in chuls">
-                <td data-title="Code:" >{{unit.code}}</td>
+                <td data-title="Code:" >
+                    <span class="text-danger" ng-if="unit.is_approved==null && !unit.code">Pending Approval</span>
+                    <span class="text-danger" ng-if="unit.is_approved==false && !unit.code">Not Approved</span>
+                    <span ng-if="unit.is_approved===true">{{unit.code}}</span>
+                </td>
                 <td data-title="Name:">
                     <a ui-sref="chu_approve_list.approve_view_unit({unit_id : unit.id})">
                         {{unit.name}}

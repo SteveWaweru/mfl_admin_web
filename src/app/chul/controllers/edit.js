@@ -80,9 +80,12 @@
                 $scope.errors = data;
             });
             $scope.facility_no = {
-                "page_size" : 100000
+                "page_size" : 20,
+                "fields": "id,name"
             };
-
+            if($scope.unit && !_.isUndefined($scope.unit.id)){
+                $scope.facility_no.id = $scope.unit.id;
+            }
             wrappers.facilities.filter($scope.facility_no)
             .success(function (data) {
                 $scope.facilities = data.results;
@@ -90,6 +93,27 @@
             .error(function (data) {
                 $scope.errors = data;
             });
+
+            $scope.refreshResults = function refreshFxn(select) {
+                if(select.search.length>2) {
+                    $scope.facselect = select;
+                    $scope.facLoading = true;
+                    var filt = {
+                        "search": select.search,
+                        "fields": "id,name"
+                    };
+                    wrappers.facilities.filter(filt)
+                    .success(function (data) {
+                        $scope.facLoading = false;
+                        $scope.facilities = data.results;
+                        $scope.facselect.activate();
+                    })
+                    .error(function (data) {
+                        $scope.errors = data;
+                    });
+                }
+            };
+
             wrappers.contact_types.filter({"fields":"id,name"})
             .success(function (data) {
                 $scope.contact_types = data.results;

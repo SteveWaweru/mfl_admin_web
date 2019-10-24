@@ -15,7 +15,8 @@
         </thead>
         <tbody class="fade-content">
             <tr ng-repeat="unit in chuls">
-                <td data-title="Code:" >{{unit.code}}</td>
+                <td data-title="Code:" >
+                    <span class="text-danger">Not Approved</span></td>
                 <td data-title="Name:">
                     <a ui-sref="chu_reject_list.reject_view_unit({unit_id : unit.id})">
                         {{unit.name}}

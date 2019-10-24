@@ -8,7 +8,9 @@
             <th class="text-right">Actions</th>
         </thead>
         <tbody class="example-animate-container">
-            <tr class="animate-repeat" ng-repeat="doc in documents">
+            <tr class="animate-repeat"
+                ng-if="doc.description!=='Facilities checklist file' && doc.description!=='Facilities license file'"
+                ng-repeat="doc in documents">
                 <td data-title="Name" class="pad-t-15">{{::doc.name}}</td>
                 <td data-title="Description" class="pad-t-15">{{::doc.description}}</td>
                 <td data-title="Link" class="pad-t-15"><a target="_blank" download ng-href="{{doc.fyl}}">{{::doc.fyl}}</a></td>

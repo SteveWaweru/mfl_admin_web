@@ -16,7 +16,10 @@
                 <i class="fa fa-spin fa-circle-o-notch fa-3x margin-t-20 margin-b-20"></i>
             </div>
             <div class="col-xs-12 pad-0" ng-if="!spinner">
-            <h4><span class="fw-600">{{unit.code}}</span> | {{unit.name}}</h4>
+            <h4><span class="fw-600">
+                    <span ng-if="unit.is_approved===true">{{unit.code}}</span>
+                    <span class="text-danger" ng-if="unit.is_approved===null">Pending Approval</span>
+                    <span class="text-danger" ng-if="unit.is_approved===false">Not Approved</span></span> | {{unit.name}}</h4>
                 <div class="col-sm-6 fs-16 pad-l-0">
                     <label class="text-black">Unit Status: </label>
                     <span class="lato-light">{{unit.status_name}}</span>

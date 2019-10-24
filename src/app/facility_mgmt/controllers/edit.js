@@ -291,7 +291,7 @@
                 .success(function(data){
                     $scope.spinner = false;
                     $scope.facility = data;
-                    if($scope.facility.facility_checklist_document.id) {
+                    if($scope.facility.facility_checklist_document != null) {
                         wrappers.documents
                         .get($scope.facility.facility_checklist_document.id)
                         .success(function(file){
@@ -633,10 +633,15 @@
 
             var upload_success_function = function(){
                 console.log("FIle Uploaded");
+                toasty.success({
+                    title: "Facility Checklist",
+                    msg: "Checklist uploaded successfully"
+                });
             };
 
-            var upload_error_function = function(){
-                console.log("Error uploading file");
+            var upload_error_function = function(data){
+                $log.error(data);
+                $scope.errors = data;
             };
 
             $scope.upload_checklist_file =  function(checklist_file){
