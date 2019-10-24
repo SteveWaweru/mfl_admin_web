@@ -130,7 +130,7 @@ module.exports = {
         options: {
             port: 8062,
             hostname: "*",
-            keepalive: true
+            livereload: 35729
         },
         dev: {
             options: {
