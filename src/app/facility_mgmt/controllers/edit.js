@@ -291,7 +291,7 @@
                 .success(function(data){
                     $scope.spinner = false;
                     $scope.facility = data;
-                    if($scope.facility.facility_checklist_document.id) {
+                    if($scope.facility.facility_checklist_document != null) {
                         wrappers.documents
                         .get($scope.facility.facility_checklist_document.id)
                         .success(function(file){
