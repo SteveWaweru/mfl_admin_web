@@ -30,7 +30,7 @@
         ["$scope", function ($scope) {
             $scope.filters = {
                 "is_approved": true,
-                "fields": "id,code,name,status_name,facility_name,"+
+                "fields": "id,code,name,status_name,facility_name,is_approved,"+
                 "facility_county,facility_subcounty,facility_ward,date_established"
             };
         }]

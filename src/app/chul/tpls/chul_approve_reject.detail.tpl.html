@@ -20,9 +20,10 @@
     <div class="content-card col-xs-12 margin-t-20 fade-content" ng-if="!spinner">
         <drf-err-msg></drf-err-msg>
         <h3>
-            <strong>{{unit.code}}
-            <span class="text-danger" ng-if="unit.is_approved==null && !unit.code">Pending Approval</span>
-        <span class="text-danger" ng-if="unit.is_approved==false && !unit.code">Not Approved</span></strong> | {{unit.name}}
+            <strong>
+                <span ng-if="unit.is_approved===true">{{unit.code}}</span>
+            <span class="text-danger" ng-if="unit.is_approved==null">Pending Approval</span>
+        <span class="text-danger" ng-if="unit.is_approved==false">Not Approved</span></strong> | {{unit.name}}
         </h3>
         <div class="col-xs-6 fs-16 pad-l-0">
         <label class="text-black fw-600">Community Health Unit Status: </label>
