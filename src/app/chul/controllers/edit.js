@@ -81,7 +81,7 @@
             });
             $scope.facility_no = {
                 "page_size" : 20,
-                "fields": "id,name"
+                "fields": "id,name,county,sub_county_name,constituency,ward_name"
             };
             if($scope.unit && !_.isUndefined($scope.unit.id)){
                 $scope.facility_no.id = $scope.unit.id;
@@ -100,7 +100,7 @@
                     $scope.facLoading = true;
                     var filt = {
                         "search": select.search,
-                        "fields": "id,name"
+                        "fields": "id,name,county,sub_county_name,constituency,ward_name"
                     };
                     wrappers.facilities.filter(filt)
                     .success(function (data) {
@@ -157,6 +157,8 @@
                 var fac = _.findWhere($scope.facilities, {"id" : fac_id});
                 $scope.unit.facility_county = $filter("titlecase")(fac.county);
                 $scope.unit.facility_subcounty = $filter("titlecase")
+                    (fac.sub_county_name);
+                $scope.unit.facility_constituency = $filter("titlecase")
                     (fac.constituency);
                 $scope.unit.facility_ward = $filter("titlecase")
                     (fac.ward_name);
