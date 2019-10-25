@@ -10,7 +10,7 @@
                 <div class="form-group grid-inputs">
                     <select name="sub_county" ng-model="sub_county.sub_county" class="form-control" required api-checker>
                         <option value="">Select Sub-County</option>
-                        <option ng-repeat="sub in $parent.sub_counties | orderBy:'name'" ng-selected="{{sub.id == sub_county.sub_county}}" ng-value="sub.id">{{sub.name | titlecase }}</option>
+                        <option ng-repeat="sub in $parent.sub_counties | orderBy:'name'" ng-selected="{{sub.id == sub_county.sub_county}}" ng-value="sub.id" value="{{sub.id}}">{{sub.name | titlecase }}</option>
                     </select>
                   <span class="highlight"></span>
                   <span class="bar"></span>
