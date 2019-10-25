@@ -15,7 +15,7 @@
                     <div class="group col-sm-10">
                         <select ng-model="new_option_id" required>
                             <option value="">Select Option</option>
-                            <option ng-repeat="opt in options" ng-value="opt.id">{{opt.display_text}}</option>
+                            <option ng-repeat="opt in options" ng-value="opt.id" value="{{opt.id}}">{{opt.display_text}}</option>
                         </select>
                         <span class="highlight"></span>
                         <span class="bar"></span>

@@ -28,7 +28,7 @@
                 </label>
                 <select class="form-control" name="title" ng-model="off.job_title" required placeholder="Job Title">
                     <option value="">Select Job Title</option>
-                    <option ng-repeat="title in job_titles" ng-value="title.id">{{title.name}}</option>
+                    <option ng-repeat="title in job_titles" ng-value="title.id" value="{{title.id}}">{{title.name}}</option>
                 </select>
                 <span class="highlight"></span>
                 <span class="bar"></span>
@@ -51,7 +51,7 @@
                             <div class="form-group">
                                 <select class="form-control" name="contact_type" ng-model="cont.type">
                                     <option value="">Select Contact Type</option>
-                                    <option ng-repeat="cont in contact_types" ng-value="cont.id">{{cont.name}}</option>
+                                    <option ng-repeat="cont in contact_types" ng-value="cont.id" value="{{cont.id}}">{{cont.name}}</option>
                                 </select>
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
@@ -65,7 +65,7 @@
                             </div>
                         </td>
                         <td class="col-xs-1 text-center">
-                            <a ng-click="remove_contact(cont)" style="cursor: pointer; margin-botom: 5px;">
+                            <a ng-click="remove_contact(cont)" style="cursor: pointer; margin-bottom: 5px;">
                                 <i class="fa fa-close fa-2x text-danger"></i>
                             </a>
                         </td>

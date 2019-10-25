@@ -1,0 +1,5 @@
+.navbar-nav > li:hover, .navbar-nav > li:active {
+    color: #FFF !important;
+    background-color: #1778C6 !important;
+    border-bottom: 0px solid transparent;
+}
