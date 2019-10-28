@@ -781,6 +781,10 @@
                     contact : ""
                 });
             };
+            $scope.addContact = function () {
+                $scope.facility.contacts.push({contact_type: "", contact : ""});
+            };
+
             $scope.removeOfficerContact = function (obj) {
                 if(_.isUndefined(obj.officer_contact_id)){
                     $scope.facility.officer_in_charge.contacts =
@@ -904,17 +908,9 @@
                 $scope.fac_contobj = {contacts : []};
                 _.each($scope.detailed_contacts, function (a_contact) {
                     if(_.isUndefined(a_contact.id)){
-                        var isFirefox = $window.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-                        if(!isFirefox){
-                            var proper_contact = $scope.contact_types.find(
-                                function(x){ return x.name === a_contact.contact_type;}
-                            );
-                            a_contact.contact_type = proper_contact.id;
-                        };
                         $scope.fac_contobj.contacts.push(a_contact);
                     }
                 });
-                $scope.fac_contobj
                 $scope.createContact();
             };
             $scope.facilityOfficers = function (f) {
