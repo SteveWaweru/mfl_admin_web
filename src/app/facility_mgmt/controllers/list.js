@@ -31,7 +31,7 @@
                 "fields": "id,code,official_name,facility_type_name,owner_name,county," +
                           "sub_county,ward_name,updated,operation_status_name,"+
                           "sub_county_name,name,is_complete,in_complete_details,"+
-                          "approved_national_level,approved"
+                          "approved_national_level,approved,rejected"
             };
             $scope.action = [
                 {
@@ -59,10 +59,12 @@
             $scope.title = { "name": "Approved Facilities", "icon": "fa-building" };
             $scope.filters = {
                 "approved": true,
+                "approved_national_level": true,
                 "rejected": false,
                 "fields": "id,code,official_name,name,facility_type_name,owner_name,county," +
-                          "sub_county,constituency,ward_name,updated," +
-                          "operation_status_name,date_requested,date_approved,sub_county_name"
+                          "sub_county,constituency,ward_name,updated,approved,rejected," +
+                          "operation_status_name,date_requested,date_approved,sub_county_name," +
+                          "is_complete,approved_national_level"
             };
         }]
     )

@@ -55,6 +55,18 @@
             permission: "facilities.view_facility"
         })
 
+        .state("facility_national_reject_list", {
+            "parent": "facility_mgmt",
+            "url": "^/facility_national_reject_list/",
+            "views": {
+                "main-content@facility_mgmt": {
+                    templateUrl: "facility_mgmt/tpls/facilities.rejected.grid.tpl.html",
+                    controller: "mfl.facility_mgmt.controllers.facilities_national_rejected"
+                }
+            },
+            permission: "facilities.view_facility"
+        })
+
         .state("facilities_regulator_sync", {
             "parent": "facility_mgmt",
             "url": "^/facilities_regulator_sync/",
