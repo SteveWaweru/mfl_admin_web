@@ -12,7 +12,7 @@
             "token_url": "o/token/",
             "revoke_url": "o/revoke_token/"
         },
-        "TIMEOUT": {"kickout": 540, "warning": 60}
+        "TIMEOUT": {"kickout": 3600, "warning": 60}
     };
 
     setts.CREDZ.token_url = setts.SERVER_URL + setts.CREDZ.token_url;
