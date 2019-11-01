@@ -876,6 +876,8 @@
                 if(!_.isEmpty($scope.fac_contobj.contacts) || $scope.fac_contobj.officer_in_charge){
                     wrappers.facilities.update($scope.facility_id, $scope.fac_contobj)
                     .success(function () {
+                        wrappers.facilities.update($scope.facility_id, $scope.fac_contobj)
+                        .success(function () {});
                         if(!$scope.create){
                             toasty.success({
                                 title: "Facility",

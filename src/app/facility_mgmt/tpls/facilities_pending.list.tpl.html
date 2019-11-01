@@ -25,9 +25,9 @@
             <td data-title="Code:" ng-if="fac.code">{{::fac.code}}</td>
             <td data-title="Code:" ng-if='!fac.is_complete && !fac.code'>
                     <span class="text-danger">Incomplete</span></td>
-            <td data-title="Code:" ng-if='fac.is_complete && fac.code === null && fac.approved===null'>
+            <td data-title="Code:" ng-if='fac.is_complete && fac.code === null && fac.approved===null && fac.rejected===false'>
                 <span class="text-danger">Pending Validation</span></td>
-            <td data-title="Code:" ng-if='fac.is_complete && fac.code === null && fac.approved===false'>
+            <td data-title="Code:" ng-if='fac.is_complete && fac.code === null && fac.rejected===true'>
                 <span class="text-danger">Failed Validation</span></td>
             <td data-title="Code:" ng-if='fac.is_complete && fac.code==null && fac.approved && fac.approved_national_level===null'>
                         <span class="text-danger">Pending Approval</span></td>

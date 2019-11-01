@@ -31,7 +31,7 @@
                 "fields": "id,code,official_name,facility_type_name,owner_name,county," +
                           "sub_county,ward_name,updated,operation_status_name,"+
                           "sub_county_name,name,is_complete,in_complete_details,"+
-                          "approved_national_level,approved"
+                          "approved_national_level,approved,rejected"
             };
             $scope.action = [
                 {
@@ -59,10 +59,36 @@
             $scope.title = { "name": "Approved Facilities", "icon": "fa-building" };
             $scope.filters = {
                 "approved": true,
+                "approved_national_level": true,
                 "rejected": false,
                 "fields": "id,code,official_name,name,facility_type_name,owner_name,county," +
-                          "sub_county,constituency,ward_name,updated," +
-                          "operation_status_name,date_requested,date_approved,sub_county_name"
+                          "sub_county,constituency,ward_name,updated,approved,rejected," +
+                          "operation_status_name,date_requested,date_approved,sub_county_name," +
+                          "is_complete,approved_national_level"
+            };
+        }]
+    )
+
+    /*
+     * @ngdoc controller
+     *
+     * @name mfl.facility_mgmt.controllers.facility_approve_national_list
+     *
+     * @description
+     * Handles listing of facilities that are pending approval
+     */
+    .controller("mfl.facility_mgmt.controllers.facility_approve_national_list",
+        ["$scope", function ($scope) {
+            $scope.title = { "name": "DHIS Synced Approved Facilities", "icon": "fa-building" };
+            $scope.filters = {
+                "approved": true,
+                "approved_national_level": true,
+                "rejected": false,
+                "reporting_in_dhis": true,
+                "fields": "id,code,official_name,name,facility_type_name,owner_name,county," +
+                          "sub_county,constituency,ward_name,updated,approved,rejected," +
+                          "operation_status_name,date_requested,date_approved,sub_county_name," +
+                          "is_complete,approved_national_level,reporting_in_dhis"
             };
         }]
     )

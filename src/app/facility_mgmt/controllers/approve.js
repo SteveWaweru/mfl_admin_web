@@ -26,7 +26,22 @@
                 "rejected": true,
                 "fields": "id,code,official_name,facility_type_name,owner_name,county,"+
                           "operation_status_name,sub_county,constituency,ward_name,updated,"+
-                          "sub_county_name,name"
+                          "sub_county_name,name,rejected,approved"
+            };
+            $scope.title = {
+                "name": "Rejected Facilities",
+                "icon": "fa-building"
+            };
+        }]
+    )
+
+    .controller("mfl.facility_mgmt.controllers.facilities_national_rejected",
+        ["$scope", function ($scope) {
+            $scope.filters = {
+                "rejected_national": true,
+                "fields": "id,code,official_name,facility_type_name,owner_name,county,rejected,"+
+                          "operation_status_name,sub_county,constituency,ward_name,updated,"+
+                          "sub_county_name,name,approved_national_level,approved,is_complete"
             };
             $scope.title = {
                 "name": "Rejected Facilities",
@@ -53,9 +68,10 @@
                         if(!$scope.facility.is_complete) {
                             return "INCOMPLETE";
                         } else{
-                            if($scope.facility.is_approved === null){
+                            if($scope.facility.approved === null &&
+                                 $scope.facility.rejected === false){
                                 return "PENDING VALIDATION";
-                            } else if($scope.facility.is_approved === false){
+                            } else if($scope.facility.rejected === true){
                                 return "FAILED VALIDATION";
                             } else {
                                 if($scope.facility.approved_national_level === null) {
@@ -103,7 +119,7 @@
                 "fields": "id,code,official_name,facility_type_name,owner_name,county," +
                           "sub_county,ward_name,updated,operation_status_name,"+
                           "sub_county_name,name,is_complete,in_complete_details,"+
-                          "approved_national_level,has_edits,approved"
+                          "approved_national_level,has_edits,approved,rejected"
             };
 
             $scope.title = {
@@ -121,7 +137,7 @@
                 "fields": "id,code,official_name,facility_type_name,owner_name,county," +
                           "sub_county,ward_name,updated,operation_status_name,"+
                           "sub_county_name,name,is_complete,in_complete_details,"+
-                          "approved_national_level,has_edits,approved"
+                          "approved_national_level,has_edits,approved,rejected"
             };
 
             $scope.title = {
@@ -137,8 +153,8 @@
             $scope.filters = {
                 to_publish: true,
                 fields: "id,code,name,official_name,regulatory_status_name,updated," +
-                    "facility_type_name,owner_name,county,sub_county_name,"+
-                    "ward_name,keph_level,keph_level_name,constituency_name,"+
+                    "facility_type_name,owner_name,county,sub_county_name,approved"+
+                    "ward_name,keph_level,keph_level_name,constituency_name,rejected,"+
                     "is_complete,in_complete_details,is_approved,approved_national_level"
             };
 
@@ -391,7 +407,7 @@
                 "incomplete" : true,
                 "fields": "id,code,official_name,facility_type_name,owner_name,county," +
                           "constituency_name,ward_name,created,operation_status_name,"+
-                          "sub_county_name,name,is_complete,in_complete_details"
+                          "sub_county_name,name,is_complete,in_complete_details,approved"
             };
 
             $scope.title = {
