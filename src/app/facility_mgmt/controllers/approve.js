@@ -202,8 +202,8 @@
                 // .success(function () {
                 // wrappers.facilities.update($scope.facility_id, $scope.facility_approval)
                 .success(function () {
-                    var msg_title = !cancel ? "Rejection" : "Approval";
-                    var msg_detail = !cancel ? "rejected" : "approved";
+                    var msg_title = !cancel ? "Approval" : "Rejection";
+                    var msg_detail = !cancel ? "approved" : "rejected";
                     toasty.success({
                         title:"Facility " + msg_title,
                         msg:"Facility successfully " + msg_detail
