@@ -14,7 +14,12 @@
                     for (var f in frm) {
                         if (angular.isDefined(frm[f])) {
                             if (frm[f].$dirty === true) {
-                                vals[f] = frm[f].$modelValue;
+                                // for radio button groups
+                                if(!angular.isDefined(frm[f].$modelValue)) {
+                                    vals[f] = frm[f][f].$modelValue;
+                                } else {
+                                    vals[f] = frm[f].$modelValue;
+                                }
                             }
                         }
                     }

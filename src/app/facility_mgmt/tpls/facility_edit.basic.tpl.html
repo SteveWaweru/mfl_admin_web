@@ -123,23 +123,25 @@
                 <input type="number" class="form-control" name="facility_catchment_population" ng-model="facility.facility_catchment_population" placeholder="Facility Catchment Population" api-checker />
             </div>
             <div class="col-xs-12">
-            <div class="form-group checkbox">
-                <label style="padding-left:0">
-                    *Should this facility have reporting in DHIS2?
-                </label>
-                <div class="radio">
-                    <label class="radio-inline">
-                        <input type="radio" name="reporting_in_dhis"  ng-value="true" ng-model="facility.reporting_in_dhis">
-                        Yes
+                <div class="form-group checkbox">
+                    <label style="padding-left:0">
+                        *Should this facility have reporting in DHIS2?
                     </label>
-                </div>
-                <div class="radio">
-                    <label class="radio-inline">
-                        <input type="radio" name="reporting_in_dhis" ng-value="false" ng-model="facility.reporting_in_dhis" required>
-                        No
-                    </label>
-                </div>
-            </div>
+                        <ng-form name="reporting_in_dhis">
+                            <div class="radio">
+                                <label class="radio-inline">
+                                    <input type="radio" name="reporting_in_dhis" ng-click=""  ng-value="true" ng-model="facility.reporting_in_dhis" required>
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label class="radio-inline">
+                                    <input type="radio" name="reporting_in_dhis" ng-click=""  ng-value="false" ng-model="facility.reporting_in_dhis" required>
+                                    No
+                                </label>
+                            </div>
+                        </ng-form>
+                    </div>
             </div>
         </div>
 
@@ -311,7 +313,7 @@
                         </a>
                     </div>
                 </div>
-                <input type="file" ngf-select ng-model="facility.facility_checklist_document" name="facility_checklist_document" accept="pdf/*" required>
+                <input type="file" ngf-select ng-model="facility.facility_checklist_document" name="facility_checklist_document" accept="pdf/*" ng-required="!facility.facility_checklist_document.url">
             </div>
         </div>
         <!-- End of Facility Checklist -->
