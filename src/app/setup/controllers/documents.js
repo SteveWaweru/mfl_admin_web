@@ -19,15 +19,23 @@
      * @description
      * The controller used to list the documents
      */
-    .controller("mfl.setup.controllers.documents.list", ["$scope", function ($scope) {
+    .controller("mfl.setup.controllers.documents.list", ["$scope", "$state",
+    function ($scope, $state) {
         $scope.title = {
             icon: "",
             name: "Manage Documents"
         };
 
-        $scope.filters =  {
-            "fields": "id,name,description,fyl"
-        };
+        var defaultParms = {document_type: "ALL",
+            "fields": "id,name,description,fyl,document_type"};
+        var definedParms = {};
+        _.extend(defaultParms, $state.params);
+        definedParms = _.omit(defaultParms,
+            function(val){
+                return _.isUndefined(val) || val === "ALL";
+            });
+
+        $scope.filters =  definedParms;
         $scope.action = [
             {
                 func : "ui-sref='setup.documents.create'" +

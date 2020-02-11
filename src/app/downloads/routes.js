@@ -6,7 +6,7 @@
     .config(["$stateProvider", function ($stateProvider) {
         $stateProvider
             .state("downloads", {
-                url: "/downloads",
+                url: "/downloads?page&document_type",
                 views: {
                     "main": {
                         templateUrl: "common/tpls/main.tpl.html"

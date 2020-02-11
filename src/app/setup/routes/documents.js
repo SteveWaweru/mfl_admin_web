@@ -23,7 +23,7 @@
          * The state used to view list of docuemnts
          */
         .state("setup.documents", {
-            url: "/documents",
+            url: "/documents?document_type",
             views: {
                 "body@setup" : {
                     templateUrl: "setup/tpls/dashboard/body.tpl.html"

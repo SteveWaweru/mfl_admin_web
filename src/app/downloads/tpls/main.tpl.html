@@ -14,6 +14,13 @@
     </div>
 </div>
 <div class="container-fluid margin-t-20" ng-if="!spinner">
+    <div class="col-md-offset-1 col-md-10 col-xs-12 pad-0 pad-b-20">
+        <ul class="nav nav-pills">
+            <li ui-sref="downloads({document_type: 'ALL'})" ui-sref-active="active"><a>ALL</a></li>
+            <li ui-sref="downloads({document_type: 'NORMAL'})" ui-sref-active="active"><a>COMMMON</a></li>
+            <li ui-sref="downloads({document_type: 'Facility_ChecKList'})" ui-sref-active="active"><a>CHECKLISTS</a></li ui-sref="" ui-sref-active="active">
+        </ul>
+    </div>
     <div class="fade-content results-card col-md-10 col-md-offset-1 col-xs-12" ng-if="errors">
         <div class="col-xs-12 aler alert-danger">
             <p class="lead">{{errors}}</p>
@@ -44,9 +51,17 @@
             </div>
         </div>
     </div>
-    <div class="fade-content results-card col-md-10 col-md-offset-1 col-xs-12" ng-if="documents.lenght === 0">
+    <div class="fade-content results-card col-md-offset-2  col-md-10 col-xs-12" ng-if="documents.length === 0">
         <p class="lead">
             <i class="text-info fa fa-info-o"></i> No Downloads available currently.
         </p>
+    </div>
+    <div class="col-md-10 col-md-offset-1 col-xs-12 pad-0 pad-b-20 margin-t-10">
+        <button class="btn btn-default" title="Last page" ng-click="prevPage()" ng-disabled="!hasPreviousPage()">
+            <i class="fa fa-caret-left"></i> Previous
+        </button>
+        <button class="btn btn-default pull-right" title="Next" ng-click="nextPage()" ng-disabled="!hasNextPage()">
+             Next <i class="fa fa-caret-right"></i>
+        </button>
     </div>
 </div>
