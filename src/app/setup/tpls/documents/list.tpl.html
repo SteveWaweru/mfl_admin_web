@@ -1,6 +1,13 @@
 <ng-include src="'common/tpls/table_head.tpl.html'"></ng-include>
 <div class="col-xs-12 margin-t-15">
     <table id="no-more-tables" class="table table-hover table-condensed fs-14">
+        <div class="col-xs-12 pad-0 pad-b-20">
+            <ul class="nav nav-pills">
+                <li ui-sref="setup.documents({document_type: 'ALL'})" ui-sref-active="active"><a>ALL</a></li>
+                <li ui-sref="setup.documents({document_type: 'NORMAL'})" ui-sref-active="active"><a>COMMMON</a></li>
+                <li ui-sref="setup.documents({document_type: 'Facility_ChecKList'})" ui-sref-active="active"><a>CHECKLISTS</a></li ui-sref="" ui-sref-active="active">
+            </ul>
+        </div>
         <thead class="cf">
             <th sil-grid-sort field='name'>Name</th>
             <th>Description</th>
@@ -8,9 +15,7 @@
             <th class="text-right">Actions</th>
         </thead>
         <tbody class="example-animate-container">
-            <tr class="animate-repeat"
-                ng-if="doc.description!=='Facilities checklist file' && doc.description!=='Facilities license file'"
-                ng-repeat="doc in documents">
+            <tr class="animate-repeat" ng-repeat="doc in documents">
                 <td data-title="Name" class="pad-t-15">{{::doc.name}}</td>
                 <td data-title="Description" class="pad-t-15">{{::doc.description}}</td>
                 <td data-title="Link" class="pad-t-15"><a target="_blank" download ng-href="{{doc.fyl}}">{{::doc.fyl}}</a></td>
