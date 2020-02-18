@@ -1,4 +1,4 @@
-(function(angular){
+(function(angular, _){
     "use strict";
 
     angular.module("mfl.chul.controllers.list", ["mfl.facility_mgmt.services"])
@@ -68,6 +68,8 @@
                 $scope.approved = $scope.unit.is_approved;
                 //status of rejection
                 $scope.rejected = $scope.unit.is_rejected;
+                // check if there are updates
+                $scope.has_updates = !_.isEmpty($scope.unit.pending_updates);
                 $scope.spinner = false;
             })
             .error(function (data) {
@@ -95,4 +97,4 @@
         }]
     );
 
-})(window.angular);
+})(window.angular, window._);

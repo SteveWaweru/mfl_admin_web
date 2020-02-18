@@ -2,9 +2,7 @@
    <div class="action-container content-header-extra"></div>
    <h2 class="content-title">
        <span class="main-title">
-           <span ng-hide="approve_reject">Approve/Reject</span>
-           <span ng-show="approved">Reject</span>
-           <span ng-show="rejected">Approve</span>
+           <span>Approve/Reject</span>
             Community Health Unit
         </span>
    </h2>
@@ -116,7 +114,7 @@
 
 <!-- Updates start here-->
 <div class="content-card col-xs-12" ng-hide="updates_empty">
-    <h3>Pending updates</h3>
+    <h3>Pending Updates</h3>
 
    <div ng-if="unit.pending_updates.basic">
         <div class="col-xs-12 margin-t-20">
@@ -142,6 +140,24 @@
                     <td>Facility</td>
                 <td>{{unit.facility_name}}</td>
                     <td>{{unit.pending_updates.basic.facility.facility_name}} </td>
+                </tr>
+
+                <tr ng-if="unit.pending_updates.basic.status">
+                    <td>Status</td>
+                    <td>{{unit.status_name}}</td>
+                    <td>{{unit.pending_updates.basic.status.status_name}}</td>
+                </tr>
+
+                <tr ng-if="unit.pending_updates.basic.households_monitored">
+                    <td>Households Monitored</td>
+                    <td>{{unit.households_monitored}}</td>
+                    <td>{{unit.pending_updates.basic.households_monitored}}</td>
+                </tr>
+
+                <tr ng-if="unit.pending_updates.basic.number_of_chvs">
+                    <td>Number of CHVs</td>
+                    <td>{{unit.number_of_chvs}}</td>
+                    <td>{{unit.pending_updates.basic.number_of_chvs}}</td>
                 </tr>
 
                 <tr ng-if="unit.pending_updates.basic.status">
