@@ -1,7 +1,5 @@
-<a requires-permission='chul.can_approve_chu' ui-sref="community_units.approve_reject({unit_id: unit.id})" class="btn btn-success">
-    <span ng-hide="approve_reject">Approve/Reject</span>
-    <span ng-show="approved">Reject</span>
-    <span ng-show="rejected">Approve</span>
+<a requires-permission='chul.can_approve_chu' ng-if="has_updates || !unit.code" ui-sref="community_units.approve_reject({unit_id: unit.id})" class="btn btn-success">
+    <span>Approve/Reject</span>
 </a>
 <a  tooltip="Print Community Unit" tooltip-placement="bottom" class="btn btn-primary" target="download" download ng-click="print_chul(unit.id)">Print</a>
 
