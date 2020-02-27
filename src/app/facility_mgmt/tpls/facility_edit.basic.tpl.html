@@ -42,7 +42,7 @@
             </div>
             <div class="form-group col-xs-12">
                 <label class="control-label">Facility Type Details &#42;</label>
-                <ui-select ng-model="select_values.facility_type_details" required name="facility_type" api-checker register-custom-form-control>
+                <ui-select ng-model="select_values.facility_type_details" ng-change="autoSetKephLevel()" required name="facility_type" api-checker register-custom-form-control>
                     <ui-select-match placeholder="Select a facility type details...">
                         <span>{{$select.selected.name}}</span>
                     </ui-select-match>
@@ -106,15 +106,55 @@
 
             <div class="form-group col-xs-12">
                 <label class="control-label">
-                    Number of Beds &#42;
+                    Number of Authorized Inpatient Beds &#42;
                 </label>
-                <input type="number" min="0" class="form-control" name="number_of_beds" ng-model="facility.number_of_beds"   placeholder="Number of Beds" api-checker/>
+                <input type="number" min="0" class="form-control" name="number_of_beds" ng-model="facility.number_of_beds" placeholder="Number of Authorized Inpatient Beds" api-checker/>
             </div>
             <div class="form-group col-xs-12">
                 <label class="control-label" for="number_of_cots">
-                    Number of Cots &#42;
+                    Number of Authorized Cots &#42;
                 </label>
-                <input type="number" min="0" class="form-control" name="number_of_cots" ng-model="facility.number_of_cots"  placeholder="Number of Cots" api-checker />
+                <input type="number" min="0" class="form-control" name="number_of_cots" ng-model="facility.number_of_cots"  placeholder="Number of Authorized Cots" api-checker />
+            </div>
+            <div class="form-group col-xs-12">
+                <label class="control-label" for="number_of_cots">
+                    Number of Emergency Casualty Beds &#42;
+                </label>
+                <input type="number" min="0" class="form-control" name="number_of_emergency_casualty_beds"
+                 ng-model="facility.number_of_emergency_casualty_beds"
+                 placeholder="Number of Emergency Casualty Beds" api-checker />
+            </div>
+            <div class="form-group col-xs-12">
+                <label class="control-label" for="number_of_cots">
+                    Number of Intensive Care Unit (ICU) Beds &#42;
+                </label>
+                <input type="number" min="0" class="form-control" name="number_of_icu_beds"
+                 ng-model="facility.number_of_icu_beds"
+                 placeholder="Number of Intensive Care Unit (ICU) Beds" api-checker />
+            </div>
+            <div class="form-group col-xs-12">
+                <label class="control-label" for="number_of_hdu_beds">
+                    Number of High Dependency Unit (HDU) Beds &#42;
+                </label>
+                <input type="number" min="0" class="form-control" name="number_of_hdu_beds"
+                 ng-model="facility.number_of_hdu_beds"  
+                 placeholder="Number of High Dependency Unit (HDU) Beds" api-checker />
+            </div>
+            <div class="form-group col-xs-12">
+                <label class="control-label" for="number_of_general_theatres">
+                    Number of General Theatres &#42;
+                </label>
+                <input type="number" min="0" class="form-control" name="number_of_general_theatres"
+                 ng-model="facility.number_of_general_theatres"
+                 placeholder="Number of General Theatres" api-checker />
+            </div>
+            <div class="form-group col-xs-12">
+                <label class="control-label" for="number_of_maternity_theatres">
+                    Number of Maternity Theatres &#42;
+                </label>
+                <input type="number" min="0" class="form-control" name="number_of_maternity_theatres"
+                 ng-model="facility.number_of_maternity_theatres"
+                 placeholder="Number of Maternity Theatres" api-checker />
             </div>
             <div class="form-group col-xs-12">
                 <label class="control-label" for="facility_catchment_population">
@@ -137,6 +177,27 @@
                             <div class="radio">
                                 <label class="radio-inline">
                                     <input type="radio" name="reporting_in_dhis" ng-click=""  ng-value="false" ng-model="facility.reporting_in_dhis" required>
+                                    No
+                                </label>
+                            </div>
+                        </ng-form>
+                    </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group checkbox">
+                    <label style="padding-left:0">
+                        *Does this facility have NHIF accreditation?
+                    </label>
+                        <ng-form name="nhif_accreditation">
+                            <div class="radio">
+                                <label class="radio-inline">
+                                    <input type="radio" name="nhif_accreditation" ng-click=""  ng-value="true" ng-model="facility.nhif_accreditation" required>
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label class="radio-inline">
+                                    <input type="radio" name="nhif_accreditation" ng-click=""  ng-value="false" ng-model="facility.nhif_accreditation" required>
                                     No
                                 </label>
                             </div>

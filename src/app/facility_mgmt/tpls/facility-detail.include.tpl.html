@@ -1,0 +1,89 @@
+<div class="col-md-6 col-xs-12">
+    <span class="pull-left col-xs-12 pad-0">
+        <label class="text-black">Open weekends </label>
+        <span ng-show="facility.open_weekends" class="text-success">
+            <i class="fa fa-check-circle-o fa-1x fs-15"></i>
+        </span>
+        <span ng-hide="facility.open_weekends" class="text-danger">
+            <i class="fa fa-times-circle-o fa-1x fs-15"></i>
+        </span>
+    </span>
+    <span class="pull-left col-xs-12 pad-0">
+        <label class="text-black">Open on public holidays </label>
+        <span ng-show="facility.open_public_holidays" class="text-success">
+            <i class="fa fa-check-circle-o fa-1x fs-15"></i>
+        </span>
+        <span ng-hide="facility.open_public_holidays" class="text-danger">
+            <i class="fa fa-times-circle-o fa-1x fs-15"></i>
+        </span>
+    </span>
+    <span class="pull-left col-xs-12 pad-0">
+        <label class="text-black">Open 24 hours </label>
+        <span ng-show="facility.open_whole_day" class="text-success">
+            <i class="fa fa-check-circle-o fa-1x fs-15"></i>
+        </span>
+        <span ng-hide="facility.open_whole_day" class="text-danger">
+            <i class="fa fa-times-circle-o fa-1x fs-15"></i>
+        </span>
+    </span>
+    <span class="pull-left col-xs-12 pad-0">
+        <label class="text-black">Open from  8 A.M to 5 P.M </label>
+        <span ng-if="facility.open_normal_day" class="text-success">
+            <i class="fa fa-check-circle-o fa-1x fs-15"></i>
+        </span>
+        <span ng-if="!facility.open_normal_day" class="text-danger">
+            <i class="fa fa-times-circle-o fa-1x fs-15"></i>
+        </span>
+    </span>
+    <span class="pull-left pad-0 col-xs-12">
+        <label class="text-black">Keph Level: </label>
+        {{facility.keph_level_name}}
+    </span>
+    <span ng-if="facility.facility_catchment_population" class="col-xs-12 pad-0">
+        <label class="text-black">Facility Catchment Population: </label>
+        {{facility.facility_catchment_population}}
+    </span>
+    <span class="col-xs-12 pad-0">
+        <label class="text-black">Has NHIF Accreditation : </label>
+        <span ng-if="facility.nhif_accreditation" class="text-success">
+            <i class="fa fa-check-circle-o fa-1x fs-15"></i>
+        </span>
+        <span ng-if="!facility.nhif_accreditation" class="text-danger">
+            <i class="fa fa-times-circle-o fa-1x fs-15"></i>
+        </span>
+    </span>
+    <span class="col-xs-12 pad-0">
+        <label class="text-black">Date Established: </label>
+        {{facility.date_established | date}}
+    </span>
+</div>
+<div class="col-md-6 col-xs-12">
+    <span class="content-right pad-0 col-xs-12">
+        <label class="text-black">Authorized Inpatient Beds: </label>
+        {{facility.number_of_beds}}
+    </span>
+    <span class="content-right pad-0 col-xs-12">
+        <label class="text-black">Authorized Cots: </label>
+        {{facility.number_of_cots}}
+    </span>
+    <span class="content-right pad-0 col-xs-12">
+        <label class="text-black"> Emergency Casualty Beds: </label>
+        {{facility.number_of_emergency_casualty_beds}}
+    </span>
+    <span class="content-right pad-0 col-xs-12">
+        <label class="text-black">Intensive Care Unit (ICU) Beds: </label>
+        {{facility.number_of_icu_beds}}
+    </span>
+    <span class="content-right pad-0 col-xs-12">
+        <label class="text-black">High Dependency Unit (HDU) Beds: </label>
+        {{facility.number_of_hdu_beds}}
+    </span>
+    <span class="content-right pad-0 col-xs-12">
+        <label class="text-black">General Theatres: </label>
+        {{facility.number_of_general_theatres}}
+    </span>
+    <span class="content-right pad-0 col-xs-12">
+        <label class="text-black">Maternity Theatres: </label>
+        {{facility.number_of_maternity_theatres}}
+    </span>
+</div>
