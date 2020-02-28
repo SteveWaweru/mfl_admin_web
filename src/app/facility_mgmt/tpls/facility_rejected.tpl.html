@@ -61,45 +61,7 @@
                    </div>
                 </div>
                 <div class="col-xs-12 margin-t-20"><h4 class="fw-600">Basic Details</h4></div>
-                <span class="pull-left col-md-6 col-xs-12">
-                    <label class="text-black">Open weekends </label>
-                    <span ng-show="facility.open_weekends" class="text-success">
-                        <i class="fa fa-check-circle-o fa-1x fs-15"></i>
-                    </span>
-                    <span ng-hide="facility.open_weekends" class="text-danger">
-                        <i class="fa fa-times-circle-o fa-1x fs-15"></i>
-                    </span>
-                </span>
-                <span class="content-right col-md-6 col-xs-12">
-                    <label class="text-black">Beds: </label>
-                    {{facility.number_of_beds}}
-                </span>
-                <span class="pull-left col-md-6 col-xs-12">
-                    <label class="text-black">Open on public holidays </label>
-                    <span ng-show="oneFacility.open_public_holidays" class="text-success">
-                        <i class="fa fa-check-circle-o fa-1x fs-15"></i>
-                    </span>
-                    <span ng-hide="oneFacility.open_public_holidays" class="text-danger">
-                        <i class="fa fa-times-circle-o fa-1x fs-15"></i>
-                    </span>
-                </span>
-                <span class="content-right col-md-6 col-xs-12">
-                    <label class="text-black">Cots: </label>
-                    {{facility.number_of_cots}}
-                </span>
-                <span class="pull-left col-md-6 col-xs-12">
-                    <label class="text-black">Open 24 hours </label>
-                    <span ng-show="oneFacility.open_whole_day" class="text-success">
-                        <i class="fa fa-check-circle-o fa-1x fs-15"></i>
-                    </span>
-                    <span ng-hide="oneFacility.open_whole_day" class="text-danger">
-                        <i class="fa fa-times-circle-o fa-1x fs-15"></i>
-                    </span>
-                </span>
-                <span ng-if="facility.facility_catchment_population" class="col-xs-12">
-                    <label class="text-black">Facility Catchment Population: </label>
-                    {{facility.facility_catchment_population}}
-                </span>
+                <ng-include src="'facility_mgmt/tpls/facility-detail.include.tpl.html'"></ng-include>
                 <div class="col-xs-12"><hr class="line-divider"></div>
                 <div class="col-xs-12 margin-t-5">
                     <h4 class="fw-600">Location Details</h4>
