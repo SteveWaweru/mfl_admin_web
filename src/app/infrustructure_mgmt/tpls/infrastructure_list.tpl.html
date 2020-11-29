@@ -1,0 +1,26 @@
+<div class="content-card">
+    <ng-include src="'common/tpls/table_head.tpl.html'"></ng-include>
+    <table class="table table-hover table-condensed fs-14" id="no-more-tables">
+        <thead>
+            <tr>
+                <th sil-grid-sort field='name'>Name</th>
+                <th sil-grid-sort field='category'>Category</th>
+                <th class="text-right pad-r-20">Actions </th>
+            </tr>
+        </thead>
+        <tbody class="fade-content">
+            <tr ng-repeat="infra in infrastructures">
+                <td data-title="Name:" class="pad-t-15">{{infra.name}}</td>
+                <td data-title="Category:" class="pad-t-15">{{infra.category_name}}</td>
+                <td data-title="Actions:" class="text-right">
+                    <a class="btn btn-success" tooltip-placement="bottom" tooltip="View service" 
+                    ui-sref="infrastructure_mgmt.infrastructure_list.infrastructure_edit({infrastructure_id: infra.id})" 
+                    ui-sref-opts="{reload:true}" class="btn btn-action">
+                        View
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <sil-grid-pagination> </sil-grid-pagination>
+</div>

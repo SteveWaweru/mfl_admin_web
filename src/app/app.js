@@ -20,6 +20,7 @@
         "mfl.auth",
         "mfl.users",
         "mfl.service_mgmt",
+        "mfl.infrastructure_mgmt",
         "mfl.setup",
         "mfl.dashboard",
         "mfl.reports",
