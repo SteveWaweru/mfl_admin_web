@@ -98,7 +98,7 @@
             views: {
                 "main-content@hr_mgmt.specialists_list": {
                     controller: "mfl.hr_mgmt.controllers.specialists_create",
-                    templateUrl: "hr_mgmt/tpls/specialists_create.tpl.html"
+                    templateUrl: "hr_mgmt/tpls/specialists_edit.tpl.html"
                 }
             },
             permission: "facilities.add_service",

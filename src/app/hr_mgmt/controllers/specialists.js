@@ -68,7 +68,7 @@
         }
     ])
 
-    .controller("mfl.hr_mgmt.controller.specialists_create",
+    .controller("mfl.hr_mgmt.controllers.specialists_create",
         ["$scope", "$state", "$stateParams", "$log", "mfl.hr_mgmt.wrappers",
         function ($scope, $state, $stateParams, $log, wrappers) {
             $scope.create = true;
