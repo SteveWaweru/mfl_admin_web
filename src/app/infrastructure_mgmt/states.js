@@ -9,7 +9,7 @@
         $stateProvider
         .state("infrastructure_mgmt", {
             parent: "setup",
-            url: "/infrustructure/",
+            url: "/infrastructure/",
             views: {
                 "main": {
                     controller: "mfl.infrastructure_mgmt.controllers.main",
@@ -25,7 +25,7 @@
             }
         })
 
-        // =============== infrustructure categories ==============
+        // =============== infrastructure categories ==============
 
         .state("infrastructure_mgmt.categories_list", {
             url: "categories/",
@@ -77,40 +77,40 @@
             userFeature: "is_staff"
         })
 
-        // ============ infrustructure ======================
+        // ============ infrastructure ======================
 
-        .state("infrastructure_mgmt.infrustructure_list", {
-            url: "infrustructure/",
+        .state("infrastructure_mgmt.infrastructure_list", {
+            url: "infrastructure/",
             views: {
                 "body@setup": {
                     templateUrl: "setup/tpls/dashboard/body.tpl.html",
                 },
-                "main-content@infrastructure_mgmt.infrustructure_list": {
-                    controller: "mfl.infrastructure_mgmt.controllers.infrustructure_list",
-                    templateUrl: "infrastructure_mgmt/tpls/infrustructure_list.tpl.html"
+                "main-content@infrastructure_mgmt.infrastructure_list": {
+                    controller: "mfl.infrastructure_mgmt.controllers.infrastructure_list",
+                    templateUrl: "infrastructure_mgmt/tpls/infrastructure_list.tpl.html"
                 }
             },
             permission: "facilities.view_service"
         })
 
-        .state("infrastructure_mgmt.infrustructure_list.infrustructure_create", {
+        .state("infrastructure_mgmt.infrastructure_list.infrastructure_create", {
             url: "create/?furthest",
             views: {
-                "main-content@infrastructure_mgmt.infrustructure_list": {
-                    controller: "mfl.infrastructure_mgmt.controllers.infrustructure_create",
-                    templateUrl: "infrastructure_mgmt/tpls/infrustructure_create.tpl.html"
+                "main-content@infrastructure_mgmt.infrastructure_list": {
+                    controller: "mfl.infrastructure_mgmt.controllers.infrastructure_create",
+                    templateUrl: "infrastructure_mgmt/tpls/infrastructure_create.tpl.html"
                 }
             },
             permission: "facilities.add_service",
             userFeature: "is_staff"
         })
 
-        .state("infrastructure_mgmt.infrustructure_list.infrustructure_edit", {
+        .state("infrastructure_mgmt.infrastructure_list.infrastructure_edit", {
             url: ":infrastructure_id/edit/",
             views: {
-                "main-content@infrastructure_mgmt.infrustructure_list": {
-                    controller: "mfl.infrastructure_mgmt.controllers.infrustructure_edit",
-                    templateUrl: "infrastructure_mgmt/tpls/infrustructure_edit.tpl.html"
+                "main-content@infrastructure_mgmt.infrastructure_list": {
+                    controller: "mfl.infrastructure_mgmt.controllers.infrastructure_edit",
+                    templateUrl: "infrastructure_mgmt/tpls/infrastructure_edit.tpl.html"
                 }
             },
             permission: "facilities.view_service",

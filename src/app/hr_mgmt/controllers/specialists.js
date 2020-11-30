@@ -1,24 +1,24 @@
 (function (angular, _) {
     "use strict";
 
-    angular.module("mfl.infrastructure_mgmt.controllers.infrastructure", [
-        "mfl.infrastructure_mgmt.services",
+    angular.module("mfl.hr_mgmt.controllers.specialists", [
+        "mfl.hr_mgmt.services",
         "ui.router",
         "angular-toasty"
     ])
 
-    .controller("mfl.infrastructure_mgmt.controllers.infrastructure_list", ["$scope", function($scope) {
+    .controller("mfl.hr_mgmt.controllers.specialists_list", ["$scope", function($scope) {
         $scope.filters = {
             "fields": "id,name,category_name"
         };
     }])
 
-    .controller("mfl.infrastructure_mgmt.controllers.infrastructure_edit",
+    .controller("mfl.hr_mgmt.controllers.specialists_edit",
         ["$scope", "$state", "$stateParams", "$log",
-        "mfl.infrastructure_mgmt.wrappers", "toasty",
+        "mfl.hr_mgmt.wrappers", "toasty",
         function($scope, $state, $stateParams, $log, wrappers, toasty) {
-            $scope.infrastructure_id = $stateParams.infrastructure_id;
-            $scope.wrappers = wrappers.infrastructure;
+            $scope.specialist_id = $stateParams.specialist_id;
+            $scope.wrappers = wrappers.specialists;
             $scope.edit_view = true;
             wrappers.categories.filter({page_size: 1000}).success(function(data) {
                 $scope.categories = data.results;
@@ -26,9 +26,9 @@
                 $scope.errors = data;
             });
 
-            wrappers.infrastructure.get($scope.infrastructure_id).success(function (data) {
-                $scope.infrastructure = data;
-                $scope.deleteText = $scope.infrastructure.name;
+            wrappers.specialists.get($scope.infrastructure_id).success(function (data) {
+                $scope.specialist = data;
+                $scope.deleteText = $scope.specialist.name;
             }).error(function(data) {
                 $scope.errors = data;
             });
@@ -36,13 +36,13 @@
             $scope.save = function(frm) {
                 var changed = forms.whatChanged(frm);
                 if (!_.isEmpty(changed)) {
-                    wrappers.infrastructure.update($scope.infrastructure_id, changed)
+                    wrappers.specialists.update($scope.specialist_id, changed)
                         .success(function () {
                             toasty.success({
-                                title: "Infrastructure updated",
-                                msg: "Infrastructure updated successfully"
+                                title: "Speciality updated",
+                                msg: "Speciality updated successfully"
                             });
-                            $state.go("infrastructure_mgmt.infrastructure_list",
+                            $state.go("hr_mgmt.specialists_list",
                                 {reload: true});
                         })
                         .error(function (data) {
@@ -50,17 +50,17 @@
                         });
                 }
                 else {
-                    $state.go("infrastructure_mgmt.infrastructure_list",
+                    $state.go("hr_mgmt.specialists_list",
                     {reload: true});
                 }
             }
             $scope.remove = function () {
-                wrappers.infrastructure.remove($scope.infrastructure_id).success(function() {
+                wrappers.specialists.remove($scope.specialist_id).success(function() {
                     toasty.success({
-                        title: "Infrastructure Deletion",
-                        msg: "Infrastructure successfully deleted"
+                        title: "Speciality Deletion",
+                        msg: "Speciality successfully deleted"
                     });
-                    $state.go("infrastructure_mgmt.infrastructure_list", {}, {reload: true});
+                    $state.go("hr_mgmt.specialists_list", {}, {reload: true});
                 }).error(function(data) {
                     $scope.errors = data;
                 });
@@ -68,11 +68,11 @@
         }
     ])
 
-    .controller("mfl.infrastructure_mgmt.controller.infrastructure_create",
-        ["$scope", "$state", "$stateParams", "$log",
+    .controller("mfl.hr_mgmt.controller.specialists_create",
+        ["$scope", "$state", "$stateParams", "$log", "mfl.hr_mgmt.wrappers",
         function ($scope, $state, $stateParams, $log, wrappers) {
             $scope.create = true;
-            $scope.infrastructure = wrappers.newInfrastructure();
+            $scope.specialist = wrappers.newSpecialist();
             wrappers.categories.filter({page_size: 1000}).success(function (data) {
                 $scope.categories = data.results;
             }).error(function (data) {
@@ -81,15 +81,15 @@
             });
 
             $scope.save = function() {
-                wrappers.infrastructure.create($scope.infrastructure)
+                wrappers.specialists.create($scope.specialist)
                 .success(function (data) {
                     toasty.success({
-                        title: "Infrastructure added",
-                        msg: "Infrastructure has been added"
+                        title: "Speciality added",
+                        msg: "Speciality has been added"
                     });
                     $state.go(
-                        "infrastructure_mgmt.infrastructure_list",
-                        {"infrastructure_id": data.id},
+                        "hr_mgmt.specialists_list",
+                        {"specialist_id": data.id},
                         {reload: true}
                     );
                 }).error(function(data) {
@@ -97,5 +97,5 @@
                 });
             }
         }
-    ])
+    ]);
 })(window.angular, window._);

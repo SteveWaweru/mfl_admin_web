@@ -1,0 +1,46 @@
+<div class="content-header">
+    <div class="action-container content-header-extra">
+        <a tooltip="delete speciality" tooltip-placement="bottom" class="{{edit_view ? '' : 'hidden'}} btn btn-danger"
+          ui-sref="hr_mgmt.specialists_list.specialists_edit.delete" 
+          ui-sref-opts="{reload:true}" requires-user-feature="is_staff"
+          requires-permission="facilities.delete_servicecategory">
+          Delete
+        </a>
+   </div>
+   <h2 class="content-title">
+       <span class="main-title"><i class="fa {{edit_view ? 'fa-edit' : 'fa-plus-circle'}}"></i> {{edit_view ? 'Edit' : 'New'}} Speciality</span>
+   </h2>
+</div>
+<div ui-view="delete"></div>
+<div class="col-md-12">
+    <div class="fade-content col-sm-10 col-sm-offset-1 margin-t-20 content-card">
+      <form name="infra_frm"  ng-submit="save(infra_frm)" novalidate>
+        <drf-err-msg></drf-err-msg>
+        <div class="col-sm-10 col-sm-offset-1 margin-t-20 margin-b-20">
+          <div class="form-group">
+              <label class="control-label">Name&#42;</label>
+              <input class="form-control" name="name" ng-model="specialist.name" required placeholder="Name" api-checker/>
+          </div>
+          <div class="form-group col-xs-12">
+            <label class="control-label">Category&#42;</label>
+            <select class="form-control" name="category" ng-model="specialist.category" required api-checker>
+                <option value="" disabled>Select a Category</option>
+                <option  ng-repeat="cat in categories" ng-selected="{{cat.id == specialist.category}}" value="{{cat.id}}">{{cat.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+              <label class="control-label">Description</label>
+              <textarea class="form-control" name="description" ng-model="specialist.description" api-checker placeholder="Description"></textarea>
+          </div>
+          <div class="pull-left">
+              <button class="btn btn-primary" requires-permission="facilities.change_servicecategory" 
+              requires-user-feature="is_staff">Save</button>
+              <a class="margin-l-10 btn btn-default margin-l-5" ui-sref="hr_mgmt.specialists_list">Cancel</a>
+              <div class="col-xs-12 pad-0" ng-if="edit_view">
+                <mfl-revision-view id="specialist_id" wrapper="wrapper" ></mfl-revision-view>
+              </div>
+          </div>
+         </div>
+      </form>
+    </div>
+</div>
