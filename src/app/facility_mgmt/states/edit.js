@@ -120,6 +120,69 @@
                     }
                 }
             })
+            // facility infrastructure
+            .state("facilities.facility_edit.infrastructure", {
+                url: "infrastructure/",
+                views: {
+                    "tab-header@facilities.facility_edit": {
+                        templateUrl: "facility_mgmt/tpls/facility_edit.tab-headers.tpl.html"
+                    },
+                    "form-view@facilities.facility_edit": {
+                        templateUrl: "facility_mgmt/tpls/facility_edit.services.tpl.html",
+                        controller: "mfl.facility_mgmt.controllers.facility_edit.services"
+                    }
+                },
+                redirectTo: "facilities.facility_edit.infrastructure.view",
+                permission: "facilities.view_facility"
+            })
+            .state("facilities.facility_edit.infrastructure.view", {
+                url: "view/",
+                views: {
+                    "service-content@facilities.facility_edit.infrastructure": {
+                        templateUrl: "facility_mgmt/tpls/facility_services.view.tpl.html"
+                    }
+                }
+            })
+            .state("facilities.facility_edit.infrastructure.edit", {
+                url: "edit/",
+                views: {
+                    "service-content@facilities.facility_edit.infrastructure": {
+                        templateUrl: "facility_mgmt/tpls/facility_Services.edit.tpl.html"
+                    }
+                }
+            })
+            // facility human resource
+            .state("facilities.facility_edit.hr", {
+                url: "humanresources/",
+                views: {
+                    "tab-header@facilities.facility_edit": {
+                        templateUrl: "facility_mgmt/tpls/facility_edit.tab-headers.tpl.html"
+                    },
+                    "form-view@facilities.facility_edit": {
+                        templateUrl: "facility_mgmt/tpls/facility_edit.services.tpl.html",
+                        controller: "mfl.facility_mgmt.controllers.facility_edit.services"
+                    }
+                },
+                redirectTo: "facilities.facility_edit.hr.view",
+                permission: "facilities.view_facility"
+            })
+            .state("facilities.facility_edit.hr.view", {
+                url: "view/",
+                views: {
+                    "service-content@facilities.facility_edit.hr": {
+                        templateUrl: "facility_mgmt/tpls/facility_services.view.tpl.html"
+                    }
+                }
+            })
+            .state("facilities.facility_edit.hr.edit", {
+                url: "edit/",
+                views: {
+                    "service-content@facilities.facility_edit.hr": {
+                        templateUrl: "facility_mgmt/tpls/facility_services.edit.tpl.html"
+                    }
+                }
+            })
+            // start of service prompt
             .state("facilities.facility_edit.services.view.prompt", {
                 url  : "upgradeprompt/",
                 views : {
