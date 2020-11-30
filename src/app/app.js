@@ -21,6 +21,7 @@
         "mfl.users",
         "mfl.service_mgmt",
         "mfl.infrastructure_mgmt",
+        "mfl.hr_mgmt",
         "mfl.setup",
         "mfl.dashboard",
         "mfl.reports",
