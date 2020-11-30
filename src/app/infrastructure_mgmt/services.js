@@ -7,7 +7,7 @@
 
     .service("mfl.infrastructure_mgmt.wrappers", ["api", function (api) {
 
-        this.infrustructure = api.setBaseUrl("api/facilities/infrustructure/");
+        this.infrastructure = api.setBaseUrl("api/facilities/infrustructure/");
 
         this.categories = api.setBaseUrl("api/facilities/infrastructure_categories/");
 

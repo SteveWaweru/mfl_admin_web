@@ -22,7 +22,10 @@
                     controller: "mfl.common.controllers.header",
                     templateUrl: "common/tpls/header.tpl.html",
                 }
-            }
+            },
+            data : { pageTitle: "Infrastracture Management" },
+            permission: "facilities.view_service",
+            // redirectTo: "infrastructure_mgmt.categories_list"
         })
 
         // =============== infrastructure categories ==============
@@ -42,9 +45,9 @@
             permission: "facilities.add_servicecategory"
         })
 
-        .state("infrastructure_mgmt.categories_list.category_create", {
+        .state("infrastructure_mgmt.categories_list.categories_create", {
             url: "create/",
-            view: {
+            views: {
                 "main-content@infrastructure_mgmt.categories_list": {
                     controller: "mfl.infrastructure_mgmt.controllers.categories_create",
                     templateUrl: "infrastructure_mgmt/tpls/categories_edit.tpl.html"
@@ -87,18 +90,18 @@
                 },
                 "main-content@infrastructure_mgmt.infrastructure_list": {
                     controller: "mfl.infrastructure_mgmt.controllers.infrastructure_list",
-                    templateUrl: "infrastructure_mgmt/tpls/infrastructure_list.tpl.html"
+                    templateUrl: "infrastructure_mgmt/tpls/infrastructure_grid.tpl.html"
                 }
             },
             permission: "facilities.view_service"
         })
 
         .state("infrastructure_mgmt.infrastructure_list.infrastructure_create", {
-            url: "create/?furthest",
+            url: "create/",
             views: {
                 "main-content@infrastructure_mgmt.infrastructure_list": {
                     controller: "mfl.infrastructure_mgmt.controllers.infrastructure_create",
-                    templateUrl: "infrastructure_mgmt/tpls/infrastructure_create.tpl.html"
+                    templateUrl: "infrastructure_mgmt/tpls/infrastructure_edit.tpl.html"
                 }
             },
             permission: "facilities.add_service",

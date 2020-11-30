@@ -42,9 +42,9 @@
             permission: "facilities.add_servicecategory"
         })
 
-        .state("hr_mgmt.categories_list.category_create", {
+        .state("hr_mgmt.categories_list.categories_create", {
             url: "create/",
-            view: {
+            views: {
                 "main-content@hr_mgmt.categories_list": {
                     controller: "mfl.hr_mgmt.controllers.categories_create",
                     templateUrl: "hr_mgmt/tpls/categories_edit.tpl.html"
@@ -87,7 +87,7 @@
                 },
                 "main-content@hr_mgmt.specialists_list": {
                     controller: "mfl.hr_mgmt.controllers.specialists_list",
-                    templateUrl: "hr_mgmt/tpls/specialists_list.tpl.html"
+                    templateUrl: "hr_mgmt/tpls/specialists_grid.tpl.html"
                 }
             },
             permission: "facilities.view_service"
@@ -116,10 +116,10 @@
             permission: "facilities.view_service",
         })
 
-        .state("hr_mgmt.infrastructure_list.specialists_edit.delete", {
+        .state("hr_mgmt.specialists_list.specialists_edit.delete", {
             url: "delete/",
             views: {
-                "delete@hr_mgmt.infrastructure_list.specialists_edit": {
+                "delete@hr_mgmt.specialists_list.specialists_edit": {
                     controller: "mfl.hr_mgmt.controllers.specialists_edit",
                     templateUrl: "common/tpls/delete.tpl.html"
                 }

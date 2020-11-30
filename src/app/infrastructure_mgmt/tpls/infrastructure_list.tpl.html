@@ -3,13 +3,13 @@
     <table class="table table-hover table-condensed fs-14" id="no-more-tables">
         <thead>
             <tr>
-                <th sil-grid-sort field='name'>Name</th>
-                <th sil-grid-sort field='category'>Category</th>
+                <th field='name'>Name</th>
+                <th field='category'>Category</th>
                 <th class="text-right pad-r-20">Actions </th>
             </tr>
         </thead>
         <tbody class="fade-content">
-            <tr ng-repeat="infra in infrastructures">
+            <tr ng-repeat="infra in infrastructure">
                 <td data-title="Name:" class="pad-t-15">{{infra.name}}</td>
                 <td data-title="Category:" class="pad-t-15">{{infra.category_name}}</td>
                 <td data-title="Actions:" class="text-right">

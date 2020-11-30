@@ -4,6 +4,7 @@
     angular.module("mfl.infrastructure_mgmt.controllers.infrastructure", [
         "mfl.infrastructure_mgmt.services",
         "ui.router",
+        "mfl.common.forms",
         "angular-toasty"
     ])
 
@@ -15,8 +16,9 @@
 
     .controller("mfl.infrastructure_mgmt.controllers.infrastructure_edit",
         ["$scope", "$state", "$stateParams", "$log",
-        "mfl.infrastructure_mgmt.wrappers", "toasty",
-        function($scope, $state, $stateParams, $log, wrappers, toasty) {
+        "mfl.infrastructure_mgmt.wrappers", 
+        "mfl.common.forms.changes", "toasty",
+        function($scope, $state, $stateParams, $log, wrappers, forms, toasty) {
             $scope.infrastructure_id = $stateParams.infrastructure_id;
             $scope.wrappers = wrappers.infrastructure;
             $scope.edit_view = true;
@@ -71,7 +73,7 @@
         }
     ])
 
-    .controller("mfl.infrastructure_mgmt.controller.infrastructure_create",
+    .controller("mfl.infrastructure_mgmt.controllers.infrastructure_create",
         ["$scope", "$state", "$stateParams", "$log", "mfl.infrastructure_mgmt.wrappers",
         function ($scope, $state, $stateParams, $log, wrappers) {
             $scope.create = true;

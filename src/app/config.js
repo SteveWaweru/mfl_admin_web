@@ -46,7 +46,7 @@
             service_mgmt: ["mfl.service_mgmt.services", "mfl.service_mgmt.wrappers"],
             infrastructure_mgmt: ["mfl.infrastructure_mgmt.services", 
                 "mfl.infrastructure_mgmt.wrappers"],
-            hr_mgmt: ["mfl.hr_mgmt.services", "mfl.hr_mgmt,wrappers"],
+            hr_mgmt: ["mfl.hr_mgmt.services", "mfl.hr_mgmt.wrappers"],
             admin_offices: ["mfl.admin_offices.services", "mfl.admin_offices.services.wrappers"],
             notifications: ["mfl.notifications.services", "mfl.notifications.services.wrappers"],
             facility_officers: ["mfl.reports.services.wrappers", "mfl.reports.services.wrappers"]
