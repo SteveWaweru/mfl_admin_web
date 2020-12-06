@@ -36,6 +36,28 @@
             </ul>
         </li>
         <li>
+          <label class="sidebar-label tree-toggle nav-header">Health Infrustructure</label>
+          <ul class="nav nav-list tree">
+              <li ui-sref-active="active" requires-permission="facilities.view_servicecategory">
+                  <a ui-sref="infrastructure_mgmt.categories_list">Categories</a>
+              </li>
+              <li ui-sref-active="active" requires-permission="facilities.view_service">
+                  <a ui-sref="infrastructure_mgmt.infrastructure_list">Infrastructure</a>
+              </li>
+          </ul>
+        </li>
+        <li>
+          <label class="sidebar-label tree-toggle nav-header">Human Resource</label>
+          <ul class="nav nav-list tree">
+              <li ui-sref-active="active" requires-permission="facilities.view_servicecategory">
+                  <a ui-sref="hr_mgmt.categories_list">HR Categories</a>
+              </li>
+              <li ui-sref-active="active" requires-permission="facilities.view_service">
+                  <a ui-sref="hr_mgmt.specialists_list">Specialities</a>
+              </li>
+          </ul>
+        </li>
+        <li>
           <label class="sidebar-label tree-toggle nav-header">Contacts</label>
           <ul class="nav nav-list tree">
               <li ui-sref-active="active" requires-permission="common.view_contacttype">
