@@ -128,8 +128,8 @@
                         templateUrl: "facility_mgmt/tpls/facility_edit.tab-headers.tpl.html"
                     },
                     "form-view@facilities.facility_edit": {
-                        templateUrl: "facility_mgmt/tpls/facility_edit.services.tpl.html",
-                        controller: "mfl.facility_mgmt.controllers.facility_edit.services"
+                        templateUrl: "facility_mgmt/tpls/facility_infrastructure/facility_edit.infrastructure.tpl.html",
+                        controller: "mfl.facility_mgmt.controllers.facilities.infrastructure"
                     }
                 },
                 redirectTo: "facilities.facility_edit.infrastructure.view",
@@ -139,7 +139,7 @@
                 url: "view/",
                 views: {
                     "service-content@facilities.facility_edit.infrastructure": {
-                        templateUrl: "facility_mgmt/tpls/facility_services.view.tpl.html"
+                        templateUrl: "facility_mgmt/tpls/facility_infrastructure/facility_infrastructure.view.tpl.html"
                     }
                 }
             })
@@ -147,7 +147,7 @@
                 url: "edit/",
                 views: {
                     "service-content@facilities.facility_edit.infrastructure": {
-                        templateUrl: "facility_mgmt/tpls/facility_Services.edit.tpl.html"
+                        templateUrl: "facility_mgmt/tpls/facility_infrastructure/facility_infrastructure.edit.tpl.html"
                     }
                 }
             })
@@ -159,8 +159,8 @@
                         templateUrl: "facility_mgmt/tpls/facility_edit.tab-headers.tpl.html"
                     },
                     "form-view@facilities.facility_edit": {
-                        templateUrl: "facility_mgmt/tpls/facility_edit.services.tpl.html",
-                        controller: "mfl.facility_mgmt.controllers.facility_edit.services"
+                        templateUrl: "facility_mgmt/tpls/facility_hr/facility_edit.hr.tpl.html",
+                        controller: "mfl.facility_mgmt.controllers.facilities.hr"
                     }
                 },
                 redirectTo: "facilities.facility_edit.hr.view",
@@ -170,7 +170,7 @@
                 url: "view/",
                 views: {
                     "service-content@facilities.facility_edit.hr": {
-                        templateUrl: "facility_mgmt/tpls/facility_services.view.tpl.html"
+                        templateUrl: "facility_mgmt/tpls/facility_hr/facility_hr.view.tpl.html"
                     }
                 }
             })
@@ -178,7 +178,7 @@
                 url: "edit/",
                 views: {
                     "service-content@facilities.facility_edit.hr": {
-                        templateUrl: "facility_mgmt/tpls/facility_services.edit.tpl.html"
+                        templateUrl: "facility_mgmt/tpls/facility_hr/facility_hr.edit.tpl.html"
                     }
                 }
             })
