@@ -50,6 +50,11 @@
                     name : "services",
                     prev : ["basic", "geolocation",  "contacts", "units"],
                     count: "5"
+                },
+                {
+                    name : "infrastructure",
+                    prev : ["basic", "geolocation",  "contacts", "units", "services"],
+                    count: "6"
                 }
             ];
             return result;

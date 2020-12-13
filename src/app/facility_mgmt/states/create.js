@@ -46,7 +46,7 @@
                 },
                 permission: "facilities.add_facility"
             })
-
+            // facility service creation
             .state("facilities.facility_create.services", {
                 url: ":facility_id/services/",
                 views: {
@@ -76,6 +76,37 @@
                 views : {
                     "service-content@facilities.facility_create.services": {
                         templateUrl : "facility_mgmt/tpls/facility_services.edit.tpl.html"
+                    }
+                }
+            })
+            // facility infrastructure creation
+            .state("facilities.facility_create.infrastructure", {
+                url: ":facility_id/infrastructure/",
+                views: {
+                    "tab-header@facilities.facility_create": {
+                        templateUrl: "facility_mgmt/tpls/facility_create.tab-headers.tpl.html"
+                    },
+                    "form-view@facilities.facility_create": {
+                        templateUrl: "facility_mgmt/tpls/facility_edit.services.tpl.html",
+                        controller: "mfl.facility_mgmt.controllers.facility_edit.services"
+                    }
+                },
+                redirectTo : "facilities.facility_create.infrastructure.edit",
+                permission: "facilities.add_facility"
+            })
+            .state("facilities.facility_create.infrastructure.view", {
+                url: "view/",
+                views: {
+                    "service-content@facilities.facility_create.infrastructure": {
+                        templateUrl : "facility_mgmt/tpls/facility_infrastructure/facility_infrastructure.view.tpl.html"
+                    }
+                }
+            })
+            .state("facilities.facility_create.infrastructure.edit", {
+                url: "edit/",
+                views: {
+                    "service-content@facilities.facility_create.infrastructure": {
+                        templateUrl : "facility_mgmt/tpls/facility_infrastructure/facility_infrastructure.edit.tpl.html"
                     }
                 }
             })
