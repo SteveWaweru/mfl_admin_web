@@ -34,25 +34,26 @@
         "$state", "toasty", "$stateParams",
         function($log, wrappers, errorMessages, $state, toasty, $stateParams) {
             var loadData = function ($scope) {
-                // fetching services
-                wrappers.services.filter({page_sizE: 100, ordering: "name"})
+                // fetching infrastructure
+                wrappers.infrastructure.filter({page_sizE: 100, ordering: "name"})
                 .success(function(data) {
-                    $scope.services = data.results;
+                    $scope.infrastructure = data.results;
                 })
                 .error(function (data) {
                     $log.error(data);
-                    $scope.service_error = errorMEssages.errors +
+                    $scope.infrastructure_error = errorMEssages.errors +
                         errorMessages.fetching_services;
+                    $scope.alert = err.error;
                 });
 
-                wrappers.categories.filter({"fields": "id,name"})
+                wrappers.infrastructure_categories.filter({"fields": "id,name"})
                 .success(function (data) {
                     $scope.categories = data.results;
                 })
                 .error(function (err) {
                     $scope.alert = err.error;
                 });
-
+                // TODO: Remove options from this implementation
                 wrappers.options.list()
                 .success(function (data) {
                     $scope.options = data.results;
@@ -61,42 +62,45 @@
                     $scope.alert = err.error;
                 });
             };
-
-            var addServiceOption = function ($scope, so) {
+            // implemented as adding facility infrastructure
+            var addInfrastructure = function ($scope, inf, present) {
                 var payload = {
                     facility: $scope.facility_id,
-                    selected_option: so
+                    infrastructure: inf,
+                    present: present
                 };
-                return wrappers.facility_services.create(payload)
+                return wrappers.facility_infrastructure.create(payload)
                 .success(function(data) {
-                    $scope.facility.facility_services.push(data);
+                    $scope.facility.facility_infrastructure.push(data);
                 })
                 .error(function (data) {
                     $log.error(data);
-                    $scope.service_error = errorMessages.errors +
+                    $scope.infrastructure_error = errorMessages.errors +
                     errorMessages.services;
+                    $scope.alert = data.error;
                 });
             };
 
-            var removeServiceOption = function ($scope, fs) {
-                return wrappers.facility_services.remove(fs.id)
+            var removeInfrastructure = function ($scope, fi) {
+                return wrappers.facility_infrastructure.remove(fi.id)
                 .success(function () {
-                    $scope.facility.facility_services = _.without(
-                        $scope.facility.facility_services, fs
+                    $scope.facility.facility_infrastructure = _.without(
+                        $scope.facility.facility_infrastructure, fi
                     );
                 })
                 .error(function(data){
                     $log.error(data);
                     $scope.service_error =  errorMessages.errors +
                         errorMessages.delete_services;
+                    $scope.alert = data.error;
                 });
             };
 
             this.bootstrap = function($scope) {
                 loadData($scope);
-                $scope.new_service = {
-                    service: "",
-                    count: "",
+                $scope.new_infrastructure = {
+                    infrastructure: "",
+                    present: "",
                 };
                 $scope.changeView = function (name) {
                     if ($scope.create) {
@@ -109,28 +113,19 @@
                         $state.go("facilities.facility_edit.infrastructure."+name);
                     }
                 }
-                $scope.optionNumber = function (services) {
-                    _.each(services, function(serv_obj) {
-                        serv_obj.serv_options = [];
-                        serv_obj.serv_options = _.where(
-                            $scope.options, {"group" : serv_obj.group});
-                        serv_obj.option_no = serv_obj.serv_options.length;
-                        if($scope.facility.facility_services.length > 0) {
-                            _.each($scope.facility.facility_services,
-                                function (fac_service) {
-                                    if(fac_service.service_id === serv_obj.id)
-                                    {
-                                        serv_obj.fac_serv = fac_service.id;
-                                        serv_obj.option = fac_service.option;
-                                        serv_obj.option = serv_obj.option ?
-                                        serv_obj.option :
-                                        serv_obj.serv_options[1].id;
-                                    }
-                                });
+                $scope.infrastructureNumber = function (infrastructure) {
+                    _.each(infrastructure, function(infra_obj) {
+                        if($scope.facility.facility_infrastructure.length > 0) {
+                            _.each($scope.facility.facility_infrastructure,
+                            function (fac_infra) {
+                                if(fac_infra.service_id === serv_obj.id) {
+                                    infra_obj.fac_infra = fac_infra.id;
+                                }
+                            });
                         }
                     });
                 };
-                $scope.showServices = function(cat) {
+                $scope.showInfrastructure = function(cat) {
                     if(cat.selected === false) {
                         cat.selected = true;
                     } else {
@@ -142,80 +137,79 @@
                             one_cat.selected = !one_cat.selected;
                         }
                     });
-                    $scope.cat_services = _.where($scope.services,
+                    $scope.cat_infrastructure = _.where($scope.infrastructure,
                         { "category": cat.id});
-                    $scope.optionNumber($scope.cat_services);
+                    $scope.infrastructureNumber($scope.cat_infrastructure);
                 }
-                $scope.services = [];
-                $scope.service_options = [];
+                $scope.infrastructure = [];
 
-                $scope.addServiceOption = function (a) {
-                    addServiceOption($scope, a).then(function () {
-                        $scope.new_service.service = "";
-                        $scope.new_service.option = "";
+                $scope.addInfrastructure = function (a, present) {
+                    addInfrastructure($scope, a, present).then(function () {
+                        $scope.new_infrastructure.infrastructure = "";
+                        $scope.new_infrastructure.present = "";
                     });
                 };
                 $scope.removeChild = function (a) {
-                    removeServiceOption($scope, a);
+                    removeInfrastructure($scope, a);
                 };
-                $scope.fac_serv = {
-                    services : []
+                $scope.fac_infra = {
+                    infrastructure : []
                 };
-                $scope.service_display = [];
-                $scope.removeOption = function (serv_obj) {
-                    if(_.isUndefined(serv_obj.fac_serv)){
-                        serv_obj.option = "";
-                        $scope.service_display = _.without($scope.service_display, serv_obj);
+                $scope.infrastructure_display = [];
+                $scope.removeInfrastructure = function (infra_obj) {
+                    if(_.isUndefined(infra_obj.fac_infra)){
+                        infra_obj.infra = "";
+                        $scope.infrastructure_display = _.without(
+                            $scope.infrastructure_display, infra_obj);
                     }else{
-                        wrappers.facility_services.remove(serv_obj.fac_serv)
+                        wrappers.facility_infrastructure.remove(infra_obj.fac_infra)
                         .success(function () {
                             toasty.success({
-                                title: "Facility Services",
-                                msg: "Service successfully deleted"
+                                title: "Facility infrastructure",
+                                msg: "Infrastructure successfully removed"
                             });
-                            serv_obj.option = "";
                         })
                         .error(function (data) {
                             $scope.errors = data;
                         });
                     }
                 };
-                $scope.servicesDisplay = function (obj) {
-                    if(_.where($scope.service_display, obj).length > 0) {
-                        if(_.isEmpty(obj.option) || _.isUndefined(obj.option)){
-                            $scope.service_display = _.without($scope.service_display, obj);
+                $scope.infrastructureDisplay = function (obj) {
+                    if(_.where($scope.infrastructure_display, obj).length > 0) {
+                        if(_.isEmpty(obj.present) || _.isUndefined(obj.present)){
+                            $scope.infrastructure_display = _.without($scope.infrastructure_display, obj);
                         }
                     }else{
-                        if(!_.isEmpty(obj.option) || obj.option === true){
+                        if(!_.isEmpty(obj.present) || obj.present === true){
                             $scope.service_display.push(obj);
                         }
                     }
                 };
-                $scope.facilityServices = function () {
-                    _.each($scope.services, function (service_obj) {
-                        if(!_.isUndefined(service_obj.option) &&
-                            !_.isEmpty(service_obj.option)) {
-                            $scope.fac_serv.services.push({
-                                service : service_obj.id,
-                                option : service_obj.option
+                $scope.facilityInfrastructure = function () {
+                    _.each($scope.infrastructure, function (infra_obj) {
+                        if(!_.isUndefined(infra_obj.present) &&
+                            !_.isEmpty(infra_obj.present)) {
+                            $scope.fac_infra.infrastructure.push({
+                                infrastructure : infra_obj.id,
+                                present : service_obj.present
                             });
                         }
-                        if(!_.isUndefined(service_obj.option) &&
-                            service_obj.option === true){
-                            $scope.fac_serv.services.push({
-                                service : service_obj.id
+                        if(!_.isUndefined(infra_obj.present) &&
+                            infra_obj.present === true){
+                            $scope.fac_infra.infrastructure.push({
+                                infrastructure : infra_obj.id
                             });
                         }
                     });
-                    _.each($scope.facility.facility_services,
-                        function (facility_service) {
-                            var obj = _.findWhere($scope.fac_serv.services,
-                                {"service" : facility_service.service_id});
-                            $scope.fac_serv.services =
-                                _.without($scope.fac_serv.services, obj);
+                    _.each($scope.facility.facility_infrastructure,
+                        function (facility_infrastructure) {
+                            var obj = _.findWhere($scope.fac_infra.infrastructure,
+                                {"infrastructure" : facility_infrastructure.infra_id});
+                            $scope.fac_infra.infrastructure =
+                                _.without($scope.fac_infra.infrastructure, obj);
                         });
                     wrappers.facilities.update($scope.facility_id,
-                        $scope.fac_serv)
+                        $scope.fac_infra)
                         .success(function () {
                             if(!$scope.create){
                                 $scope.prompt_msg = true;
