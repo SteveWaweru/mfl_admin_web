@@ -1,0 +1,31 @@
+<div class="col-xs-12">
+    <ng-include src="'common/tpls/table_head.tpl.html'"></ng-include>
+    <table class="table table-fixed table-hover fs-14">
+        <thead class="table-head">
+                <th class="col-md-10 col-xs-9" sil-grid-sort field='name'>Name</th>
+                <th class="col-md-2 col-xs-3 text-center">Present&nbsp;&nbsp;</th>
+        </thead>
+        <tbody class="table-list fade-content">
+            <tr class="table-item" ng-repeat="infra in infrastructure" 
+            ng-show="infrastructure">
+                <td data-title="Name:" class="col-md-10 col-xs-9">
+                    {{infra.infrastructure_name}}
+                </td>
+                <td data-title="Present:" class="col-md-2 col-xs-3 text-center">
+                    {{infra.option_display_value}}
+                    <span ng-if="infra.present === null">
+                        Yes
+                    </span>
+                    &nbsp;&nbsp;&nbsp;
+                </td>
+            </tr>
+            <tr class="table-item" ng-if="infrastructure.length === 0" 
+            class="alert alert-info">
+                <td colspan="4" class="col-xs-12">
+                <i class="fa fa-info-circle"></i> No infrastructure assigned to this facility
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <sil-grid-pagination> </sil-grid-pagination>
+</div>

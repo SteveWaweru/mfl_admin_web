@@ -50,6 +50,11 @@
                     name : "services",
                     prev : ["basic", "geolocation",  "contacts", "units"],
                     count: "5"
+                },
+                {
+                    name : "infrastructure",
+                    prev : ["basic", "geolocation",  "contacts", "units", "services"],
+                    count: "6"
                 }
             ];
             return result;
@@ -85,12 +90,22 @@
             this.contacts = api.setBaseUrl("api/common/contacts/");
             this.physical_addresses = api.setBaseUrl("api/common/address/");
             this.facility_contacts = api.setBaseUrl("api/facilities/contacts/");
+            // facility services
             this.categories = api.setBaseUrl("api/facilities/flattened_categories/");
             this.services = api.setBaseUrl("api/facilities/services/");
             this.service_options = api.setBaseUrl("api/facilities/service_options/");
             this.options = api.setBaseUrl("api/facilities/options/");
             this.change_reasons = api.setBaseUrl("api/facilities/level_change_reasons/");
             this.facility_services = api.setBaseUrl("api/facilities/facility_services/");
+            // facility infrastructure
+            this.infrastructure_categories = api.setBaseUrl("api/facilities/infrastructure_categories/");
+            this.infrastructure = api.setBaseUrl("api/facilities/infrustructure/");
+            this.facility_infrastructure = api.setBaseUrl("api/facilities/facility_infrastructure");
+            // facility human resources
+            this.hr_categories = api.setBaseUrl("api/facilities/speciality_categories/");
+            this.hr = api.setBaseUrl("api/facilities/specialities");
+            this.facility_hr = api.setBaseUrl("api/facilities/facility_specialists/");
+
             this.facility_updates = api.setBaseUrl("api/facilities/facility_updates/");
             this.operation_status = api.setBaseUrl("api/facilities/facility_status/");
             this.facility_approvals = api.setBaseUrl("api/facilities/facility_approvals/");

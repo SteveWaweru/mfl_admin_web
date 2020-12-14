@@ -8,6 +8,8 @@
         "mfl.facility_mgmt.controllers.upgrade_downgrade",
         "mfl.facility_mgmt.controllers.publish",
         "mfl.facility_mgmt.controllers.regulate",
+        "mfl.facility_mgmt.controllers.hr",
+        "mfl.facility_mgmt.controllers.infrastructure",
         "mfl.facility_mgmt.controllers.approve"
     ]);
 
