@@ -7,7 +7,7 @@
 
     .service("mfl.hr_mgmt.wrappers", ["api", function (api) {
 
-        this.specialists = api.setBaseUrl("api/facilities/specialist/");
+        this.specialists = api.setBaseUrl("api/facilities/specialities/");
 
         this.categories = api.setBaseUrl("api/facilities/speciality_categories/");
 

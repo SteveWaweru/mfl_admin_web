@@ -55,7 +55,12 @@
                     name : "infrastructure",
                     prev : ["basic", "geolocation",  "contacts", "units", "services"],
                     count: "6"
-                }
+                },
+                // {
+                //     name : "hr",
+                //     prev : ["basic", "geolocation",  "contacts", "units", "services", "infrastructure"],
+                //     count: "7"
+                // },
             ];
             return result;
         };
@@ -99,7 +104,7 @@
             this.facility_services = api.setBaseUrl("api/facilities/facility_services/");
             // facility infrastructure
             this.infrastructure_categories = api.setBaseUrl("api/facilities/infrastructure_categories/");
-            this.infrastructure = api.setBaseUrl("api/facilities/infrustructure/");
+            this.infrastructure = api.setBaseUrl("api/facilities/infrastructure/");
             this.facility_infrastructure = api.setBaseUrl("api/facilities/facility_infrastructure");
             // facility human resources
             this.hr_categories = api.setBaseUrl("api/facilities/speciality_categories/");
