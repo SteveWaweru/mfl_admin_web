@@ -55,7 +55,12 @@
                     name : "infrastructure",
                     prev : ["basic", "geolocation",  "contacts", "units", "services"],
                     count: "6"
-                }
+                },
+                // {
+                //     name : "hr",
+                //     prev : ["basic", "geolocation",  "contacts", "units", "services", "infrastructure"],
+                //     count: "7"
+                // },
             ];
             return result;
         };

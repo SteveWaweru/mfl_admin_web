@@ -70,7 +70,8 @@
 
     .controller("mfl.hr_mgmt.controllers.specialists_create",
         ["$scope", "$state", "$stateParams", "$log", "mfl.hr_mgmt.wrappers",
-        function ($scope, $state, $stateParams, $log, wrappers) {
+        "toasty",
+        function ($scope, $state, $stateParams, $log, wrappers, toasty) {
             $scope.create = true;
             $scope.specialist = wrappers.newSpecialist();
             wrappers.categories.filter({page_size: 1000}).success(function (data) {

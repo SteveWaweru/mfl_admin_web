@@ -75,7 +75,8 @@
 
     .controller("mfl.infrastructure_mgmt.controllers.infrastructure_create",
         ["$scope", "$state", "$stateParams", "$log", "mfl.infrastructure_mgmt.wrappers",
-        function ($scope, $state, $stateParams, $log, wrappers) {
+        "toasty",
+        function ($scope, $state, $stateParams, $log, wrappers, toasty) {
             $scope.create = true;
             $scope.infrastructure = wrappers.newInfrastructure();
             wrappers.categories.filter({page_size: 1000}).success(function (data) {
