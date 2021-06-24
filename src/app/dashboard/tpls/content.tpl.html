@@ -109,10 +109,21 @@
                       <i class="fa fa-building fa-stack-1x"></i>
                       <i class="fa fa-bullseye fa-stack-2x text-warning"></i>
                     </span>&nbsp; <span class="fs-16">
-                        Community Health Units Pending Approval
+                        New Community Health Units Pending Approval
                     </span>
                     <span class="pull-right margin-t-5 fs-20">
                         <b>#{{summary.chus_pending_approval }}</b>
+                    </span>
+                  </a>
+                  <a class="list-group-item fs-16 pad-t-5 pad-b-5" ui-sref="updated_chu_pending_approvals" requires-permission="facilities.view_facility,facilities.add_facilityapproval">
+                    <span class="fa-stack fa-lg fs-18">
+                      <i class="fa fa-building fa-stack-1x"></i>
+                      <i class="fa fa-bullseye fa-stack-2x text-warning"></i>
+                    </span>&nbsp; <span class="fs-16">
+                        Updated Community Health Units Pending Approval
+                    </span>
+                    <span class="pull-right margin-t-5 fs-20">
+                        <b>#{{summary.updated_chus_pending_approval }}</b>
                     </span>
                   </a>
                 </div>
