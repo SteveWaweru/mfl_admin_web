@@ -35,9 +35,9 @@
         function($log, wrappers, errorMessages, $state, toasty, $stateParams) {
             var loadData = function ($scope) {
                 // fetching services
-                wrappers.services.filter({page_sizE: 100, ordering: "name"})
+                wrappers.hr.filter({page_sizE: 100, ordering: "name"})
                 .success(function(data) {
-                    $scope.services = data.results;
+                    $scope.hr = data.results;
                 })
                 .error(function (data) {
                     $log.error(data);
@@ -45,9 +45,9 @@
                         errorMessages.fetching_services;
                 });
 
-                wrappers.categories.filter({"fields": "id,name"})
+                wrappers.hr_categories.filter({"fields": "id,name"})
                 .success(function (data) {
-                    $scope.categories = data.results;
+                    $scope.hr_categories = data.results;
                 })
                 .error(function (err) {
                     $scope.alert = err.error;
@@ -77,16 +77,16 @@
                     } else {
                         cat.selected = true;
                     }
-                    _.each($scope.categories, function (one_cat) {
+                    _.each($scope.hr_categories, function (one_cat) {
                         if (one_cat.selected === true &&
                             one_cat.id !== cat.id) {
                             one_cat.selected = !one_cat.selected;
                         }
                     });
-                    $scope.cat_services = _.where($scope.services,
+                    $scope.cat_hr = _.where($scope.hr,
                         { "category": cat.id});
                 }
-                $scope.services = [];
+                $scope.hr = [];
                 $scope.facilityServices = function () {
                     _.each($scope.services, function (service_obj) {
                         if(!_.isUndefined(service_obj.option) &&
@@ -103,10 +103,10 @@
                             });
                         }
                     });
-                    _.each($scope.facility.facility_services,
-                        function (facility_service) {
+                    _.each($scope.facility.hr,
+                        function (facility_hr1) {
                             var obj = _.findWhere($scope.fac_serv.services,
-                                {"service" : facility_service.service_id});
+                                {"service" : facility_hr1.service_id});
                             $scope.fac_serv.services =
                                 _.without($scope.fac_serv.services, obj);
                         });
