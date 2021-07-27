@@ -33,7 +33,7 @@
                 Upgrade Facility
             </a>
             <button class="btn btn-info margin-l-10" ng-click="upgradePrompt()">
-                Save Facility Services
+                Save Facility HR
             </button>
         </div>
         </div>
@@ -44,14 +44,14 @@
         class="btn btn-primary margin-t-20 margin-b-10">
             <i class="fa fa-angle-double-left"></i> Services
         </a>
-        <button ng-click="facilityServices()" ng-if="create"  class="btn btn-primary margin-t-20 margin-b-10 pull-right">
+        <button ng-click="facilityHR()" ng-if="create"  class="btn btn-primary margin-t-20 margin-b-10 pull-right">
              Submit <i class="fa fa-angle-double-right"></i>
         </button>
         <!-- End of navigation buttons -->
         <a ui-sref="facilities.facility_edit.services" ng-if="!create && !updown" class="btn btn-primary margin-t-20 margin-b-10">
             <i class="fa fa-angle-double-left"></i> Services
         </a>
-        <button ng-click="facilityServices()" ng-if="!create && !updown"  class="btn btn-primary margin-t-20 margin-b-10 pull-right">
+        <button ng-click="facilityHR()" ng-if="!create && !updown"  class="btn btn-primary margin-t-20 margin-b-10 pull-right">
              {{create ? 'Submit' : 'Save & Finish'}} <i class="fa fa-angle-double-right"></i>
         </button>
     </div>

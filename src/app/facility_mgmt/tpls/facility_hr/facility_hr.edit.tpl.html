@@ -20,7 +20,7 @@
             <div class="category-list fade-content">
                 <div class="category-item col-xs-12"
                     ng-repeat="cat in hr_categories | filter : category.query | orderBy:'name'"
-                    ng-click="showServices(cat)" ng-class="{'active-item' : cat.selected}">
+                    ng-click="showHR(cat)" ng-class="{'active-item' : cat.selected}">
                     <span class="col-xs-10">{{cat.name}}</span>
                     <span class="col-xs-2 pointer">
                         <i class="fa fa-chevron-right pull-right"></i>
@@ -32,26 +32,26 @@
             <div class="col-xs-12 category-title pad-0">
                 <h4>HR Specialties</h4>
                 <div class="form-group">
-                    <input class="form-control" ng-model="service.query" placeholder="Search Specialties">
+                    <input class="form-control" ng-model="hr.query" placeholder="Search Specialties">
                 </div>
             </div>
             <div class="service-list col-xs-12 pad-0">
-                <div class="service-item col-xs-12 pad-0" ng-repeat="serv in cat_hr | filter : service.query">
-                    <div class="col-xs-5 margin-t-15 margin-b-10">{{serv.name}}</div>
+                <div class="service-item col-xs-12 pad-0" ng-repeat="speclt in cat_hr | filter : hr.query">
+                    <div class="col-xs-5 margin-t-15 margin-b-10">{{speclt.name}}</div>
                     <div class="col-xs-6 pad-0 margin-t-10">
-                        <div ng-if="2 === 2"
-                            class="form-group checkbox margin-t-1">
+                        <div class="form-group checkbox margin-t-1">
                             <label for="service_option_yes">
-                                <input type="checkbox" id="serv{{$index}}" name="serv{{$index}}"
-                                    ng-model="serv.present" ng-checked="serv.present"
-                                    ng-change="servicesDisplay(serv)">
+                                <input type="checkbox" id="speclt{{$index}}" name="speclt{{$index}}"
+                                    ng-model="speclt.present" ng-checked="speclt.present"
+                                    ng-change="hrDisplay(speclt)">
                                 Yes
+                                <!-- {{speclt.present ? 'Selected' : 'Not selected'}} -->
                             </label>
                         </div>
                     </div>
                     <div class="col-xs-1 pad-0 margin-t-5 text-center">
-                        <a ng-click="removeOption(serv)" style="cursor: pointer;" ng-if="serv.option"
-                            tooltip="Delete Service">
+                        <a ng-click="removeOption(speclt)" style="cursor: pointer;" ng-if="speclt.option"
+                            tooltip="Delete HR item">
                             <i class="fa fa-times-circle fa-2x grid-inputs text-danger"></i>
                         </a>
                     </div>
@@ -67,18 +67,18 @@
             <table class="table table-fixed fs-14">
                 <thead class="table-head">
                     <th class="col-xs-10">Name</th>
-                    <th class="col-xs-2">Service Option&nbsp;&nbsp;</th>
+                    <th class="col-xs-2">HR Option&nbsp;&nbsp;</th>
                 </thead>
                 <tbody class="table-list fade-content">
-                    <tr class="table-item" ng-repeat="service in service_display track by $index" ng-show="hr">
+                    <tr class="table-item" ng-repeat="hr in hr_display track by $index" ng-show="hr">
                         <td data-title="Name:" class="col-xs-10">
-                            {{service.name}}
+                            {{hr.name}}
                         </td>
                         <td data-title="Abbreviation:" class="text-center col-xs-2">
-                            <span ng-if="service.has_options">
-                                {{service.option | optionName:service.serv_options}}
+                            <span ng-if="hr.has_options">
+                                {{hr.option | optionName:hr.hr_options}}
                             </span>
-                            <span ng-if="!service.has_options">
+                            <span ng-if="!hr.has_options">
                                 Yes
                             </span>
                             &nbsp;&nbsp;&nbsp;
