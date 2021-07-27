@@ -155,12 +155,12 @@
                 $scope.fac_infra = {
                     infrastructure : []
                 };
-                $scope.infrastructure_display = [];
+                $scope.infra_display = [];
                 $scope.removeInfrastructure = function (infra_obj) {
                     if(_.isUndefined(infra_obj.fac_infra)){
                         infra_obj.infra = "";
-                        $scope.infrastructure_display = _.without(
-                            $scope.infrastructure_display, infra_obj);
+                        $scope.infra_display = _.without(
+                            $scope.infra_display, infra_obj);
                     }else{
                         wrappers.facility_infrastructure.remove(infra_obj.fac_infra)
                         .success(function () {
@@ -175,9 +175,9 @@
                     }
                 };
                 $scope.infrastructureDisplay = function (obj) {
-                    if(_.where($scope.infrastructure_display, obj).length > 0) {
+                    if(_.where($scope.infra_display, obj).length > 0) {
                         if(_.isEmpty(obj.present) || _.isUndefined(obj.present)){
-                            $scope.infrastructure_display = _.without($scope.infrastructure_display, obj);
+                            $scope.infra_display = _.without($scope.infra_display, obj);
                         }
                     }else{
                         if(!_.isEmpty(obj.present) || obj.present === true){

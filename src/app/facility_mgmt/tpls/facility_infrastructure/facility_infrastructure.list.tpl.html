@@ -6,20 +6,20 @@
                 <th class="col-md-2 col-xs-3 text-center">Present&nbsp;&nbsp;</th>
         </thead>
         <tbody class="table-list fade-content">
-            <tr class="table-item" ng-repeat="infra in infrastructure" 
-            ng-show="infrastructure">
+            <tr class="table-item" ng-repeat="infra in infra_display" 
+            ng-show="infra_display">
                 <td data-title="Name:" class="col-md-10 col-xs-9">
-                    {{infra.infrastructure_name}}
+                    {{infra.name || infra.infrastructure_name || infra.id}}
                 </td>
                 <td data-title="Present:" class="col-md-2 col-xs-3 text-center">
                     {{infra.option_display_value}}
-                    <span ng-if="infra.present === null">
+                    <span ng-if="infra.present">
                         Yes
                     </span>
                     &nbsp;&nbsp;&nbsp;
                 </td>
             </tr>
-            <tr class="table-item" ng-if="infrastructure.length === 0" 
+            <tr class="table-item" ng-if="infra_display.length === 0" 
             class="alert alert-info">
                 <td colspan="4" class="col-xs-12">
                 <i class="fa fa-info-circle"></i> No infrastructure assigned to this facility

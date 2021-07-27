@@ -90,9 +90,9 @@
                         $scope.fac_hr = {
                             specialities : []
                         };
-                        $scope.hr_display = [];
+                        $scope.hr_display =  []; //$scope.facility_hr
                         $scope.removeOption = function (hr_obj) {
-                            if(_.isUndefined(hr_obj.fac_hr)){
+                            if(_.isUndefined(hr_obj.id)){
                                 hr_obj.option = "";
                                 $scope.hr_display = _.without($scope.hr_display, hr_obj);
                             }else{
@@ -112,11 +112,11 @@
                         $scope.hrDisplay = function (obj) {
                             if(_.where($scope.facility_hr, obj).length > 0) {
                                 if(_.isEmpty(obj.option) || _.isUndefined(obj.option)){
-                                    $scope.facility_hr = _.without($scope.facility_hr, obj);
+                                    $scope.hr_display = _.without($scope.facility_hr, obj);
                                 }
                             }else{
                                 if(!_.isEmpty(obj.option) || obj.option === true){
-                                    $scope.facility_hr.push(obj);
+                                    $scope.hr_display.push(obj);
                                 }
                             }
                         };
