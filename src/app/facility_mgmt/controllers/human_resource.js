@@ -44,6 +44,15 @@
                                 $scope.service_error = errorMEssages.errors +
                                     errorMessages.fetching_services;
                             });
+                        wrappers.facility_hr.filter({ page_sizE: 100, ordering: "name" })
+                            .success(function (data) {
+                                $scope.facility_hr = data.results;
+                            })
+                            .error(function (data) {
+                                $log.error(data);
+                                $scope.service_error = errorMEssages.errors +
+                                    errorMessages.fetching_services;
+                            });
 
                         wrappers.hr_categories.filter({ "fields": "id,name" })
                             .success(function (data) {
@@ -78,13 +87,21 @@
                                 cat.selected = true;
                             }
                             _.each($scope.hr_categories, function (one_cat) {
-                                if (one_cat.selected === true &&
-                                    one_cat.id !== cat.id) {
+                                if (one_cat.selected === true && one_cat.id !== cat.id) {
                                     one_cat.selected = !one_cat.selected;
                                 }
                             });
                             $scope.cat_hr = _.where($scope.hr,
-                                { "category": cat.id });
+                                { "category": cat.id }
+                            );
+                            var facility_hr_ids = _.pluck($scope.facility_hr, "speciality");
+                            _.each($scope.cat_hr, function (one_hr) {
+                                if(_.contains(facility_hr_ids, one_hr.id)) {
+                                    one_hr.present = true;
+                                } else {
+                                    one_hr.present = false;
+                                }
+                            });
                         }
                         $scope.hr = [];
                         $scope.fac_hr = {

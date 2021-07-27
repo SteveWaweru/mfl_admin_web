@@ -44,19 +44,19 @@
                     <div class="form-group checkbox margin-t-1">
                         <label for="infra_present_yes">
                             <input type="checkbox" id="infra{{$index}}" name="infra{{$index}}" 
-                            ng-model="infras.present" 
+                            ng-model="infras" 
                             ng-checked="infras.present" 
-                            ng-change="servicesDisplay(infras)">
+                            ng-change="infrastructureDisplay(infras)">
                                 Yes
                         </label>
                     </div>
                 </div>
-                <div class="col-xs-1 pad-0 margin-t-5 text-center">
+                <!-- <div class="col-xs-1 pad-0 margin-t-5 text-center">
                     <a ng-click="removeInfrastructure(infras)" style="cursor: pointer;" 
                     ng-if="infras.present" tooltip="Delete Infrastructure">
                         <i class="fa fa-times-circle fa-2x grid-inputs text-danger"></i>
                     </a>
-                </div>
+                </div> -->
             </div>
             <div ng-if="cat_infrastructure.length === 0 || !cat_infrastructure" 
             class="service-item col-xs-12 text-blue pad-t-10 pad-b-10">
@@ -73,7 +73,7 @@
                         <th class="col-xs-2">Present&nbsp;&nbsp;</th>
                 </thead>
                 <tbody class="table-list fade-content">
-                    <tr class="table-item" ng-repeat="infras in infrastructure_display track by $index" 
+                    <tr class="table-item" ng-repeat="infras in infra_display track by $index" 
                     ng-show="infrastructure">
                         <td data-title="Name:" class="col-xs-10">
                             {{infras.name}}

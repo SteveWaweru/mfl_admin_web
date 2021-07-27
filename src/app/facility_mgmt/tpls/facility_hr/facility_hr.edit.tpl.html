@@ -19,8 +19,8 @@
             </div>
             <div class="category-list fade-content">
                 <div class="category-item col-xs-12"
-                    ng-repeat="cat in hr_categories | filter : category.query | orderBy:'name'"
-                    ng-click="showHR(cat)" ng-class="{'active-item' : cat.selected}">
+                    ng-repeat="cat in hr_categories | filter : category.query | orderBy:'name'" ng-click="showHR(cat)"
+                    ng-class="{'active-item' : cat.selected}">
                     <span class="col-xs-10">{{cat.name}}</span>
                     <span class="col-xs-2 pointer">
                         <i class="fa fa-chevron-right pull-right"></i>
@@ -37,20 +37,22 @@
             </div>
             <div class="service-list col-xs-12 pad-0">
                 <div class="service-item col-xs-12 pad-0" ng-repeat="speclt in cat_hr | filter : hr.query">
-                    <div class="col-xs-5 margin-t-15 margin-b-10">{{speclt.name}}</div>
+                    <div class="col-xs-5 margin-t-15 margin-b-10">
+                        <span>{{ speclt.name || speclt.abbreviation || speclt.description }}</span>
+                        <br /> <small>({{speclt.description || ""}})</small>
+                    </div>
                     <div class="col-xs-6 pad-0 margin-t-10">
                         <div class="form-group checkbox margin-t-1">
                             <label for="service_option_yes">
                                 <input type="checkbox" id="speclt{{$index}}" name="speclt{{$index}}"
-                                    ng-model="speclt.present" ng-checked="speclt.present"
-                                    ng-change="hrDisplay(speclt)">
-                                Yes
-                                <!-- {{speclt.present ? 'Selected' : 'Not selected'}} -->
+                                    ng-foo="{Array.from(facility_hr, function(x){x.id}).indexOf(speclt.id) > -1}"
+                                    ng-model="speclt.present" ng-checked="speclt.present" ng-change="hrDisplay(speclt)">
+                                    Yes
                             </label>
                         </div>
                     </div>
                     <div class="col-xs-1 pad-0 margin-t-5 text-center">
-                        <a ng-click="removeOption(speclt.id)" style="cursor: pointer;" ng-if="speclt.option"
+                        <a ng-click="removeOption(speclt)" style="cursor: pointer;" ng-if="speclt.option"
                             tooltip="Delete HR item">
                             <i class="fa fa-times-circle fa-2x grid-inputs text-danger"></i>
                         </a>
