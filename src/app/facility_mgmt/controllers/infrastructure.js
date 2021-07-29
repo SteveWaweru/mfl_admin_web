@@ -7,7 +7,7 @@
      * @name mfl.facility_mgmt.controllers.infrastructure
      * 
      * @description
-     * Module containing controllers for facility human resources
+     * Module containing controllers for facility infrastructure
      */
 
     angular.module("mfl.facility_mgmt.controllers.infrastructure", [
@@ -26,7 +26,7 @@
          * @name mfl.facility_mgmt.controllers.infrastructure_helper
          * 
          * @description
-         * The helper controller to manage services in add/edit a facility
+         * The helper controller to manage infrastructure in add/edit a facility
          */
 
         .controller("mfl.facility_mgmt.controllers.infrastructure_helper",
@@ -41,12 +41,12 @@
                             })
                             .error(function (data) {
                                 $log.error(data);
-                                $scope.infrastructure_error = errorMEssages.errors +
+                                $scope.service_error = errorMEssages.errors +
                                     errorMessages.fetching_services;
                                 $scope.alert = err.error;
                             });
 
-                        wrappers.facility_infrastructure.filter({ page_sizE: 100, ordering: "name" })
+                        wrappers.facility_infrastructure.filter({facility: $scope.facility_id, page_sizE: 100, ordering: "name" })
                             .success(function (data) {
                                 $scope.facility_infrastructure = data.results;
                             })
@@ -85,7 +85,7 @@
                             })
                             .error(function (data) {
                                 $log.error(data);
-                                $scope.infrastructure_error = errorMessages.errors +
+                                $scope.service_error = errorMessages.errors +
                                     errorMessages.services;
                                 $scope.alert = data.error;
                             });
@@ -125,10 +125,10 @@
                         }
                         $scope.infrastructureNumber = function (infrastructure) {
                             _.each(infrastructure, function (infra_obj) {
-                                if ($scope.facility.facility_infrastructure.length > 0) {
-                                    _.each($scope.facility.facility_infrastructure,
+                                if ($scope.facility_infrastructure.length > 0) {
+                                    _.each($scope.facility_infrastructure,
                                         function (fac_infra) {
-                                            if (fac_infra.service_id === serv_obj.id) {
+                                            if (fac_infra.id === infra_obj.id) {
                                                 infra_obj.fac_infra = fac_infra.id;
                                             }
                                         });
@@ -195,12 +195,12 @@
                             }
                         };
                         $scope.infrastructureDisplay = function (obj) {
-                            if (_.where($scope.infra_display, obj).length > 0) {
-                                if (_.isEmpty(obj.present) || _.isUndefined(obj.present)) {
-                                    $scope.infra_display = _.without($scope.infra_display, obj);
+                            if(_.where($scope.facility_infrastructure, obj).length > 0) {
+                                if(_.isEmpty(obj.option) || _.isUndefined(obj.option)){
+                                    $scope.infra_display = _.without($scope.facility_infrastructure, obj);
                                 }
-                            } else {
-                                if (!_.isEmpty(obj.present) || obj.present === true) {
+                            }else{
+                                if(!_.isEmpty(obj.option) || obj.option === true){
                                     $scope.infra_display.push(obj);
                                 }
                             }
@@ -211,7 +211,7 @@
                                     !_.isEmpty(infra_obj.present)) {
                                     $scope.fac_infra.infrastructure.push({
                                         infrastructure: infra_obj.id,
-                                        present: service_obj.present
+                                        present: infra_obj.present
                                     });
                                 }
                                 if (!_.isUndefined(infra_obj.present) &&
@@ -245,6 +245,21 @@
                                     $scope.errors = err.error;
                                 });
                         };
+                        $scope.upgradePrompt = function () {
+                            var update_msg = {
+                                title : "Facility Updated",
+                                msg : "Facility successfully updated"
+                            };
+                            toasty.success(update_msg);
+                            if($scope.facility.approved){
+                                $state.go("facilities.facility_view_changes",
+                                    {facility_id: $stateParams.facility_id});
+                            }
+                            else{
+                                $state.go("facilities");
+                            }
+        
+                        };
                     }
                 }]
         )
@@ -255,7 +270,7 @@
          * @name mfl.facility_mgmt.controllers.infrastructure
          * 
          * @description
-         * Handles listing of facilities' human resources summary
+         * Handles listing of facilities' infrastructure summary
          */
         .controller("mfl.facility_mgmt.controllers.facilities.infrastructure", [
             "$scope", "$controller", function ($scope, $controller) {

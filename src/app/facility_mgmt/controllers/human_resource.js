@@ -26,7 +26,7 @@
          * @name mfl.facility_mgmt.controllers.hr_helper
          * 
          * @description
-         * The helper controller to manage services in add/edit a facility
+         * The helper controller to manage hr in add/edit a facility
          */
 
         .controller("mfl.facility_mgmt.controllers.hr_helper",
@@ -34,7 +34,7 @@
                 "$state", "toasty", "$stateParams",
                 function ($log, wrappers, errorMessages, $state, toasty, $stateParams) {
                     var loadData = function ($scope) {
-                        // fetching services
+                        // fetching hr
                         wrappers.hr.filter({ page_sizE: 100, ordering: "name" })
                             .success(function (data) {
                                 $scope.hr = data.results;
@@ -44,7 +44,7 @@
                                 $scope.service_error = errorMEssages.errors +
                                     errorMessages.fetching_services;
                             });
-                        wrappers.facility_hr.filter({ page_sizE: 100, ordering: "name" })
+                        wrappers.facility_hr.filter({facility: $scope.facility_id, page_sizE: 100, ordering: "name" })
                             .success(function (data) {
                                 $scope.facility_hr = data.results;
                             })
@@ -63,10 +63,45 @@
                             });
                     };
 
+                    ////----s0
+                    var addHR = function ($scope, hr, present) {
+                        var payload = {
+                            facility: $scope.facility_id,
+                            hr: hr,
+                            present: present
+                        };
+                        return wrappers.facility_hr.create(payload)
+                            .success(function (data) {
+                                $scope.facility.facility_hr.push(data);
+                            })
+                            .error(function (data) {
+                                $log.error(data);
+                                $scope.service_error = errorMessages.errors +
+                                    errorMessages.services;
+                                $scope.alert = data.error;
+                            });
+                    };
+
+                    var removeHR = function ($scope, fi) {
+                        return wrappers.facility_hr.remove(fi.id)
+                            .success(function () {
+                                $scope.facility.facility_hr = _.without(
+                                    $scope.facility.facility_hr, fi
+                                );
+                            })
+                            .error(function (data) {
+                                $log.error(data);
+                                $scope.service_error = errorMessages.errors +
+                                    errorMessages.delete_services;
+                                $scope.alert = data.error;
+                            });
+                    };
+                    ////----e0
+
                     this.bootstrap = function ($scope) {
                         loadData($scope);
-                        $scope.new_service = {
-                            service: "",
+                        $scope.new_hr = {
+                            hr: "",
                             count: "",
                         };
                         $scope.changeView = function (name) {
@@ -80,6 +115,18 @@
                                 $state.go("facilities.facility_edit.hr." + name);
                             }
                         }
+                        $scope.hrNumber = function (hr) {
+                            _.each(hr, function (hr_obj) {
+                                if ($scope.facility_hr.length > 0) {
+                                    _.each($scope.facility_hr,
+                                        function (fac_hr) {
+                                            if (fac_hr.id === hr_obj.id) {
+                                                hr_obj.fac_hr = fac_hr.id;
+                                            }
+                                        });
+                                }
+                            });
+                        };
                         $scope.showHR = function (cat) {
                             if (cat.selected === false) {
                                 cat.selected = true;
@@ -102,6 +149,7 @@
                                     one_hr.present = false;
                                 }
                             });
+                            $scope.hrNumber($scope.cat_hr);
                         }
                         $scope.hr = [];
                         $scope.fac_hr = {
@@ -126,6 +174,41 @@
                                 });
                             }
                         };
+                        ////-----s
+                        $scope.addHR = function (a, present) {
+                            addHR($scope, a, present).then(function () {
+                                $scope.new_hr.hr = "";
+                                $scope.new_hr.present = "";
+                            });
+                        };
+                        $scope.removeChild = function (a) {
+                            removeHR($scope, a);
+                        };
+                        $scope.fac_hr = {
+                            hr: []
+                        };
+                        $scope.hr_display = [];
+                        $scope.removeHR = function (hr_obj) {
+                            // if (_.isUndefined(hr_obj.fac_hr)) {
+                            if (_.isUndefined(hr_obj)) {
+                                hr_obj.hr = "";
+                                $scope.hr_display = _.without(
+                                    $scope.hr_display, hr_obj);
+                            } else {
+                                // wrappers.facility_hr.remove(hr_obj.fac_hr)
+                                wrappers.facility_hr.remove(hr_obj)
+                                    .success(function () {
+                                        toasty.success({
+                                            title: "Facility hr",
+                                            msg: "HR successfully removed"
+                                        });
+                                    })
+                                    .error(function (data) {
+                                        $scope.errors = data;
+                                    });
+                            }
+                        };
+                        ////-----e
                         $scope.hrDisplay = function (obj) {
                             if(_.where($scope.facility_hr, obj).length > 0) {
                                 if(_.isEmpty(obj.option) || _.isUndefined(obj.option)){

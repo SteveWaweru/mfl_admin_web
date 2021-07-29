@@ -87,7 +87,7 @@
                         templateUrl: "facility_mgmt/tpls/facility_create.tab-headers.tpl.html"
                     },
                     "form-view@facilities.facility_create": {
-                        templateUrl: "facility_mgmt/tpls/facility_edit.services.tpl.html",
+                        templateUrl: "facility_mgmt/tpls/facility_edit.infra.tpl.html",
                         controller: "mfl.facility_mgmt.controllers.facility_edit.services"
                     }
                 },

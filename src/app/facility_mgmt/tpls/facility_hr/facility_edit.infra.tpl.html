@@ -18,10 +18,10 @@
             </div>
             <div class="col-sm-11 text-left pad-l-0">
                 <p class="fs-16 margin-t-10 margin-b-0 text-black">
-                    Changes to Facility HR successful.
+                    Changes to Facility infrastructure successful.
                 </p>
                 <p class="fs-14 text-muted">
-                     Would you like to upgrade/downgrade or save edited facility HR?
+                     Would you like to upgrade/downgrade or save edited facility infrastructure?
                 </p>
             </div>
         </div>
@@ -33,25 +33,25 @@
                 Upgrade Facility
             </a>
             <button class="btn btn-info margin-l-10" ng-click="upgradePrompt()">
-                Save Facility HR
+                Save Facility infrastructure
             </button>
         </div>
         </div>
     </div>
     <div class="col-xs-12">
         <!-- Beginning of create navigation buttons -->
-        <a ui-sref="facilities.facility_create.hr({facility_id : new_facility})" ng-if="create"
+        <a ui-sref="facilities.facility_create.infrastructure({facility_id : new_facility})" ng-if="create"
         class="btn btn-primary margin-t-20 margin-b-10">
-            <i class="fa fa-angle-double-left"></i> Human resource
+            <i class="fa fa-angle-double-left"></i> Infrastructure
         </a>
-        <button ng-click="facilityHR()" ng-if="create"  class="btn btn-primary margin-t-20 margin-b-10 pull-right">
+        <button ng-click="facilityInfrastructure()" ng-if="create"  class="btn btn-primary margin-t-20 margin-b-10 pull-right">
              Submit <i class="fa fa-angle-double-right"></i>
         </button>
         <!-- End of navigation buttons -->
-        <a ui-sref="facilities.facility_edit.hr" ng-if="!create && !updown" class="btn btn-primary margin-t-20 margin-b-10">
-            <i class="fa fa-angle-double-left"></i> Human resource
+        <a ui-sref="facilities.facility_edit.infrastructure" ng-if="!create && !updown" class="btn btn-primary margin-t-20 margin-b-10">
+            <i class="fa fa-angle-double-left"></i> Infrastructure
         </a>
-        <button ng-click="facilityHR()" ng-if="!create && !updown"  class="btn btn-primary margin-t-20 margin-b-10 pull-right">
+        <button ng-click="facilityInfrastructure()" ng-if="!create && !updown"  class="btn btn-primary margin-t-20 margin-b-10 pull-right">
              {{create ? 'Submit' : 'Save & Finish'}} <i class="fa fa-angle-double-right"></i>
         </button>
     </div>
