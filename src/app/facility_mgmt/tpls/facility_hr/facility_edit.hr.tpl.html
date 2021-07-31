@@ -40,17 +40,17 @@
     </div>
     <div class="col-xs-12">
         <!-- Beginning of create navigation buttons -->
-        <a ui-sref="facilities.facility_create.hr({facility_id : new_facility})" ng-if="create"
+        <a ui-sref="facilities.facility_create.infrastructure({facility_id : new_facility})" ng-if="create"
         class="btn btn-primary margin-t-20 margin-b-10">
-            <i class="fa fa-angle-double-left"></i> Human resource
+            <i class="fa fa-angle-double-left"></i> Infrastructure
         </a>
         <button ng-click="facilityHR()" ng-if="create"  class="btn btn-primary margin-t-20 margin-b-10 pull-right">
              Submit <i class="fa fa-angle-double-right"></i>
         </button>
         <!-- End of navigation buttons -->
-        <a ui-sref="facilities.facility_edit.hr" ng-if="!create && !updown" class="btn btn-primary margin-t-20 margin-b-10">
+        <!-- <a ui-sref="facilities.facility_edit.humanresources" ng-if="!create && !updown" class="btn btn-primary margin-t-20 margin-b-10">
             <i class="fa fa-angle-double-left"></i> Human resource
-        </a>
+        </a> -->
         <button ng-click="facilityHR()" ng-if="!create && !updown"  class="btn btn-primary margin-t-20 margin-b-10 pull-right">
              {{create ? 'Submit' : 'Save & Finish'}} <i class="fa fa-angle-double-right"></i>
         </button>

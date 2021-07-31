@@ -106,13 +106,13 @@
                         };
                         $scope.changeView = function (name) {
                             if ($scope.create) {
-                                $state.go("facilities.facility_create.hr." + name,
+                                $state.go("facilities.facility_create.humanresources." + name,
                                     {
                                         furthest: $scope.furthest,
                                         facility_id: $scope.new_facility
                                     });
                             } else {
-                                $state.go("facilities.facility_edit.hr." + name);
+                                $state.go("facilities.facility_edit.humanresources." + name);
                             }
                         }
                         $scope.hrNumber = function (hr) {

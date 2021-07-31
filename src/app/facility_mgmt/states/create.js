@@ -61,6 +61,20 @@
                 redirectTo : "facilities.facility_create.services.edit",
                 permission: "facilities.add_facility"
             })
+            .state("facilities.facility_create.humanresources", {
+                url: ":facility_id/humanresources/",
+                views: {
+                    "tab-header@facilities.facility_create": {
+                        templateUrl: "facility_mgmt/tpls/facility_create.tab-headers.tpl.html"
+                    },
+                    "form-view@facilities.facility_create": {
+                        templateUrl: "facility_mgmt/tpls/facility_hr/facility_edit.hr.tpl.html",
+                        controller: "mfl.facility_mgmt.controllers.facilities.hr"
+                    }
+                },
+                redirectTo : "facilities.facility_create.humanresources.edit",
+                permission: "facilities.add_facility"
+            })
 
             .state("facilities.facility_create.services.view", {
                 url: "view/",
@@ -79,7 +93,7 @@
                     }
                 }
             })
-            // facility infrastructure creation
+            // facility infra creation
             .state("facilities.facility_create.infrastructure", {
                 url: ":facility_id/infrastructure/",
                 views: {
@@ -87,12 +101,20 @@
                         templateUrl: "facility_mgmt/tpls/facility_create.tab-headers.tpl.html"
                     },
                     "form-view@facilities.facility_create": {
-                        templateUrl: "facility_mgmt/tpls/facility_edit.infra.tpl.html",
-                        controller: "mfl.facility_mgmt.controllers.facility_edit.services"
+                        templateUrl: "facility_mgmt/tpls/facility_infrastructure/facility_edit.infrastructure.tpl.html",
+                        controller: "mfl.facility_mgmt.controllers.facilities.infrastructure"
                     }
                 },
                 redirectTo : "facilities.facility_create.infrastructure.edit",
                 permission: "facilities.add_facility"
+            })
+            .state("facilities.facility_create.humanresources.view", {
+                url: "view/",
+                views: {
+                    "service-content@facilities.facility_create.humanresources": {
+                        templateUrl : "facility_mgmt/tpls/facility_hr/facility_hr.view.tpl.html"
+                    }
+                }
             })
             .state("facilities.facility_create.infrastructure.view", {
                 url: "view/",
@@ -107,6 +129,14 @@
                 views: {
                     "service-content@facilities.facility_create.infrastructure": {
                         templateUrl : "facility_mgmt/tpls/facility_infrastructure/facility_infrastructure.edit.tpl.html"
+                    }
+                }
+            })
+            .state("facilities.facility_create.humanresources.edit", {
+                url: "edit/",
+                views: {
+                    "service-content@facilities.facility_create.humanresources": {
+                        templateUrl : "facility_mgmt/tpls/facility_hr/facility_hr.edit.tpl.html"
                     }
                 }
             })

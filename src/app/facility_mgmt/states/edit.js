@@ -152,7 +152,7 @@
                 }
             })
             // facility human resource
-            .state("facilities.facility_edit.hr", {
+            .state("facilities.facility_edit.humanresources", {
                 url: "humanresources/",
                 views: {
                     "tab-header@facilities.facility_edit": {
@@ -163,21 +163,21 @@
                         controller: "mfl.facility_mgmt.controllers.facilities.hr"
                     }
                 },
-                redirectTo: "facilities.facility_edit.hr.view",
+                redirectTo: "facilities.facility_edit.humanresources.view",
                 permission: "facilities.view_facility"
             })
-            .state("facilities.facility_edit.hr.view", {
+            .state("facilities.facility_edit.humanresources.view", {
                 url: "view/",
                 views: {
-                    "service-content@facilities.facility_edit.hr": {
+                    "service-content@facilities.facility_edit.humanresources": {
                         templateUrl: "facility_mgmt/tpls/facility_hr/facility_hr.view.tpl.html"
                     }
                 }
             })
-            .state("facilities.facility_edit.hr.edit", {
+            .state("facilities.facility_edit.humanresources.edit", {
                 url: "edit/",
                 views: {
-                    "service-content@facilities.facility_edit.hr": {
+                    "service-content@facilities.facility_edit.humanresources": {
                         templateUrl: "facility_mgmt/tpls/facility_hr/facility_hr.edit.tpl.html"
                     }
                 }
