@@ -44,15 +44,10 @@
         class="btn btn-primary margin-t-20 margin-b-10">
             <i class="fa fa-angle-double-left"></i> Infrastructure
         </a>
-        <button ng-click="facilityHR()" ng-if="create"  class="btn btn-primary margin-t-20 margin-b-10 pull-right">
-             Submit <i class="fa fa-angle-double-right"></i>
+        <button ng-click="facilityHR()"  class="btn btn-primary margin-t-20 margin-b-10 pull-right">
+             <span ng-if="create"> Submit <i class="fa fa-angle-double-right"></i> </span>
+             <span ng-if="!create"> Save changes <i class="fa fa-angle-double-right"></i> </span>
         </button>
         <!-- End of navigation buttons -->
-        <!-- <a ui-sref="facilities.facility_edit.humanresources" ng-if="!create && !updown" class="btn btn-primary margin-t-20 margin-b-10">
-            <i class="fa fa-angle-double-left"></i> Human resource
-        </a> -->
-        <button ng-click="facilityHR()" ng-if="!create && !updown"  class="btn btn-primary margin-t-20 margin-b-10 pull-right">
-             {{create ? 'Submit' : 'Save & Finish'}} <i class="fa fa-angle-double-right"></i>
-        </button>
     </div>
 </div>

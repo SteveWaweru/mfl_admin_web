@@ -54,6 +54,15 @@
                                     errorMessages.fetching_services;
                             });
 
+                            if($scope.facility_id){
+                                wrappers.facilities.get($scope.facility_id)
+                                .success(function (data) {
+                                    $scope.facility = data;
+                                })
+                                .error(function (data) {
+                                    $scope.errors = data;
+                                });
+                            }
                         wrappers.hr_categories.filter({ "fields": "id,name" })
                             .success(function (data) {
                                 $scope.hr_categories = data.results;

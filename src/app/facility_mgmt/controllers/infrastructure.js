@@ -46,7 +46,7 @@
                                 $scope.alert = err.error;
                             });
 
-                        wrappers.facility_infrastructure.filter({facility: $scope.facility_id, page_sizE: 100, ordering: "name" })
+                        wrappers.facility_infrastructure.filter({ facility: $scope.facility_id, page_sizE: 100, ordering: "name" })
                             .success(function (data) {
                                 $scope.facility_infrastructure = data.results;
                             })
@@ -55,6 +55,16 @@
                                 $scope.service_error = errorMEssages.errors +
                                     errorMessages.fetching_services;
                             });
+
+                        if ($scope.facility_id) {
+                            wrappers.facilities.get($scope.facility_id)
+                                .success(function (data) {
+                                    $scope.facility = data;
+                                })
+                                .error(function (data) {
+                                    $scope.errors = data;
+                                });
+                        }
 
                         wrappers.infrastructure_categories.filter({ "fields": "id,name" })
                             .success(function (data) {
@@ -195,12 +205,12 @@
                             }
                         };
                         $scope.infrastructureDisplay = function (obj) {
-                            if(_.where($scope.facility_infrastructure, obj).length > 0) {
-                                if(_.isEmpty(obj.option) || _.isUndefined(obj.option)){
+                            if (_.where($scope.facility_infrastructure, obj).length > 0) {
+                                if (_.isEmpty(obj.option) || _.isUndefined(obj.option)) {
                                     $scope.infra_display = _.without($scope.facility_infrastructure, obj);
                                 }
-                            }else{
-                                if(!_.isEmpty(obj.option) || obj.option === true){
+                            } else {
+                                if (!_.isEmpty(obj.option) || obj.option === true) {
                                     $scope.infra_display.push(obj);
                                 }
                             }
@@ -247,18 +257,18 @@
                         };
                         $scope.upgradePrompt = function () {
                             var update_msg = {
-                                title : "Facility Updated",
-                                msg : "Facility successfully updated"
+                                title: "Facility Updated",
+                                msg: "Facility successfully updated"
                             };
                             toasty.success(update_msg);
-                            if($scope.facility.approved){
+                            if ($scope.facility.approved) {
                                 $state.go("facilities.facility_view_changes",
-                                    {facility_id: $stateParams.facility_id});
+                                    { facility_id: $stateParams.facility_id });
                             }
-                            else{
+                            else {
                                 $state.go("facilities");
                             }
-        
+
                         };
                     }
                 }]

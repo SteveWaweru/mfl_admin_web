@@ -13,7 +13,8 @@
                 </td>
                 <td data-title="Present:" class="col-md-2 col-xs-3 text-center">
                     {{infra.option_display_value}}
-                    <span ng-if="infra.present">
+                    <span ng-if="infra.present || true">
+                        <!-- TODO: clean up -->
                         Yes
                     </span>
                     &nbsp;&nbsp;&nbsp;
