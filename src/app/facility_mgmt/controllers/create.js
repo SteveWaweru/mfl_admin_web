@@ -165,7 +165,7 @@
                             $scope.facility_hr = data.results;
                         })
                         .error(function (data) {
-                            $log.error(data);
+                            console.error(data);
                             $scope.service_error = errorMEssages.errors +
                                 errorMessages.fetching_services;
                         });
@@ -174,7 +174,7 @@
                             $scope.facility_infrastructure = data.results;
                         })
                         .error(function (data) {
-                            $log.error(data);
+                            console.error(data);
                             $scope.service_error = errorMEssages.errors +
                                 errorMessages.fetching_services;
                         });
