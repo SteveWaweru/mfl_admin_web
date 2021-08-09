@@ -221,8 +221,11 @@
                                 $scope.prompt_msg = true;
                             }else{
                                 $state.go("facilities.facility_create."+
-                                    "facility_cover_letter", {facility_id :
+                                    "infrastructure", {facility_id :
                                     $scope.new_facility}, {reload : true});
+                                // $state.go("facilities.facility_create."+
+                                //     "facility_cover_letter", {facility_id :
+                                //     $scope.new_facility}, {reload : true});
                             }
                         })
                         .error(function (err) {

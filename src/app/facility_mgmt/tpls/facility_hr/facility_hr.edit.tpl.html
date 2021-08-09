@@ -30,7 +30,7 @@
         </div>
         <div class="col-sm-8 col-xs-12 fade-content">
             <div class="col-xs-12 category-title pad-0">
-                <h4>HR Specialties</h4>
+                <h4>HR Specialities</h4>
                 <div class="form-group">
                     <input class="form-control" ng-model="hr.query" placeholder="Search Specialties">
                 </div>
@@ -39,7 +39,7 @@
                 <div class="service-item col-xs-12 pad-0" ng-repeat="speclt in cat_hr | filter : hr.query">
                     <div class="col-xs-5 margin-t-15 margin-b-10">
                         <span>{{ speclt.name || speclt.abbreviation || speclt.description }}</span>
-                        <br /> <small>({{speclt.description || ""}})</small>
+                        <!-- <br /> <small>({{speclt.description || ""}})</small> -->
                     </div>
                     <div class="col-xs-6 pad-0 margin-t-10">
                         <div class="form-group checkbox margin-t-1">
