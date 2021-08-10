@@ -208,7 +208,6 @@
                         $scope.fac_hr = {
                             hr: []
                         };
-                        $scope.hr_display = [];
                         $scope.removeHR = function (hr_obj) {
                             // if (_.isUndefined(hr_obj.fac_hr)) {
                             if (_.isUndefined(hr_obj)) {
@@ -231,14 +230,6 @@
                         };
                         ////-----e
                         $scope.hrDisplay = function (obj) {
-                            // console.log("$scope.hr_display: -- ")
-                            // console.log($scope.hr_display)  // == ""
-
-                            // console.log("obj: -- ")
-                            // console.log(obj)  // == "each change"
-
-                            // console.log("$scope.facility_hr: -- ")
-                            // console.log($scope.facility_hr) // == "the already-saved/selected ones"
 
                             if (_.where($scope.facility_hr, obj).length > 0) {
                                 if (_.isEmpty(obj.option) || _.isUndefined(obj.option)) {

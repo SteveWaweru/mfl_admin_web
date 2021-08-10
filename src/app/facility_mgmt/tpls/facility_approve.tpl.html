@@ -237,17 +237,25 @@
             <h4>Facility HR</h4>
             <table class="table table-hover table-condensed fs-14">
                 <thead>
-                    <th class="col-xs-7">
+                    <th class="col-xs-6">
                         Speciality Name
                     </th>
-                    <th class="col-xs-5 text-center">
-                        Speciality Option
+                    <th class="col-xs-3 text-center">
+                        Present
+                    </th>
+                    <th class="col-xs-3 text-center">
+                        Number
                     </th>
                 </thead>
                 <tr ng-repeat="hr_changed in facility_changes.humanresources">
                     <td class="col-xs-7">{{hr_changed.name | titlecase}}</td>
-                    <td class="col-xs-5 text-center">{{hr_changed.display_name ? hr_changed.display_name : 'Yes' |
-                        titlecase}}</td>
+                    <td class="col-xs-3 text-center">
+                        {{hr_changed.display_name ? hr_changed.display_name : 'Yes' |
+                        titlecase}}
+                    </td>
+                    <td class="col-xs-3 text-center">
+                        {{hr_changed.count || 0}}
+                    </td>
                 </tr>
             </table>
         </div>

@@ -32,17 +32,17 @@
             <div class="col-xs-12 category-title pad-0">
                 <h4>HR Specialities</h4>
                 <div class="form-group">
-                    <input class="form-control" ng-model="hr.query" placeholder="Search Specialties">
+                    <input class="form-control" ng-model="h_r.query" placeholder="Search Specialties">
                 </div>
             </div>
             <div class="service-list col-xs-12 pad-0">
-                <div class="col-xs-12 pad-0 text-center" ng-if="cat_hr && cat_hr.length > 0" style="position: sticky; top: 0; z-index: 2; background-color: #e8e8e8; font-weight: 600;">
+                <div class="col-xs-12 pad-0 text-center" ng-if="cat_hr && cat_h_r.length > 0" style="position: sticky; top: 0; z-index: 2; background-color: #e8e8e8; font-weight: 600;">
                     <div class="text-uppercase text-black col-xs-5" style="padding: 7px 3px;"> Speciality </div>
                     <div class="text-uppercase text-black col-xs-4" style="padding: 7px 3px;"> Present </div>
                     <div class="text-uppercase text-black col-xs-2" style="padding: 7px 3px;"> Number </div>
                     <div class="text-uppercase text-black col-xs-1" style="padding: 7px 3px;"> &nbsp; </div>
                 </div>
-                <div class="service-item col-xs-12 pad-0" ng-repeat="speclt in cat_hr | filter : hr.query">
+                <div class="service-item col-xs-12 pad-0" ng-repeat="speclt in cat_hr | filter : h_r.query">
                     <div class="col-xs-5 margin-t-15 margin-b-10">
                         <span>{{ speclt.name || speclt.abbreviation || speclt.description }}</span>
                         <!-- <br /> <small>({{speclt || ""}})</small> -->
@@ -71,37 +71,38 @@
                         </a>
                     </div>
                 </div>
-                <div ng-if="cat_hr.length === 0 || !cat_hr" class="service-item col-xs-12 text-blue pad-t-10 pad-b-10">
+                <div ng-if="cat_h_r.length === 0 || !cat_hr" class="service-item col-xs-12 text-blue pad-t-10 pad-b-10">
                     <i class="fa fa-info-circle"></i> No specialties for the chosen category
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-xs-12 margin-t-20" ng-show="create">
+    <div class="col-xs-12 margin-t-20" ng-show="true">
         <div class="col-xs-12 pad-0">
             <table class="table table-fixed fs-14">
                 <thead class="table-head">
                     <th class="col-xs-5">Name</th>
-                    <th class="col-xs-5">Present&nbsp;&nbsp;</th>
-                    <th class="col-xs-2">Number&nbsp;&nbsp;</th>
+                    <th class="col-xs-5 text-center">Present&nbsp;&nbsp;</th>
+                    <th class="col-xs-2 text-center">Number&nbsp;&nbsp;</th>
                 </thead>
                 <tbody class="table-list fade-content">
-                    <tr class="table-item" ng-repeat="hr in hr track by $index" ng-show="hr.present">
+                    <tr class="table-item" ng-repeat="h_r in hr track by $index" ng-show="h_r.present">
+                    <!-- <tr class="table-item" ng-repeat="h_r in facility_hr track by $index" ng-show="h_r"> -->
                         <td data-title="Name:" class="col-xs-5">
-                            {{hr.name}}
+                            {{h_r.name || h_r.speciality_name}}
                         </td>
                         <td data-title="Present:" class="text-center col-xs-5">
-                            <span ng-if="hr.has_options">
-                                {{hr.option | optionName:hr.hr_options}}
+                            <span ng-if="h_r.has_options">
+                                {{h_r.option | optionName:h_r.hr_options}}
                             </span>
-                            <span ng-if="!hr.has_options">
+                            <span ng-if="!h_r.has_options">
                                 Yes
                             </span>
                             &nbsp;&nbsp;
                         </td>
-                        <td data-title="Abbreviation:" class="text-center col-xs-2">
-                            <span ng-if="hr.count">
-                                {{hr.count || 0}}
+                        <td data-title="Number:" class="text-center col-xs-2">
+                            <span ng-if="h_r.count">
+                                {{h_r.count || 0}}
                             </span>
                             &nbsp;&nbsp;
                         </td>
