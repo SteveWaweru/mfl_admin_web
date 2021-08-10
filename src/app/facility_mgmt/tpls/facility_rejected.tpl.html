@@ -228,19 +228,23 @@
             <table class="table table-hover table-condensed fs-14 table-stripped">
                 <thead>
                     <th class="col-xs-4">Infrastructure Name</th>
-                    <th class="col-xs-4">Infrastructure Category</th>
+                    <!-- <th class="col-xs-4">Infrastructure Category</th> -->
                     <th class="col-xs-4 text-center">Present</th>
+                    <th class="col-xs-4 text-center">Number</th>
                 </thead>
                 <tbody>
                     <tr ng-repeat="infrastructure in facility.facility_infrastructure">
                         <td>
                             {{infrastructure.name || infrastructure.infrastructure_name}}
                         </td>
-                        <td>
+                        <!-- <td>
                             {{infrastructure.category_name || infrastructure.category_name}}
-                        </td>
+                        </td> -->
                         <td class="text-center">
                             {{infrastructure.option_name || 'Yes'}}
+                        </td>
+                        <td class="text-center">
+                            {{infrastructure.count || 0}}
                         </td>
                     </tr>
                 </tbody>
@@ -252,20 +256,24 @@
         <div class="col-xs-12" ng-if="facility.facility_specialists.length !== 0">
             <table class="table table-hover table-condensed fs-14 table-stripped">
                 <thead>
-                    <th class="col-xs-4">Infrastructure Name</th>
-                    <th class="col-xs-4">Infrastructure Category</th>
+                    <th class="col-xs-4">Specialist Name</th>
+                    <!-- <th class="col-xs-4">Category</th> -->
                     <th class="col-xs-4 text-center">Present</th>
+                    <th class="col-xs-4 text-center">Number</th>
                 </thead>
                 <tbody>
                     <tr ng-repeat="h_r in facility.facility_specialists">
                         <td>
                             {{h_r.name || h_r.speciality_name}}
                         </td>
-                        <td>
+                        <!-- <td>
                             {{h_r.category_name || h_r.category_name}}
-                        </td>
+                        </td> -->
                         <td class="text-center">
                             {{h_r.option_name || 'Yes'}}
+                        </td>
+                        <td>
+                            {{h_r.count || 0}}
                         </td>
                     </tr>
                 </tbody>

@@ -120,7 +120,8 @@
                         loadData($scope);
                         $scope.new_infrastructure = {
                             infrastructure: "",
-                            present: "",
+                            present: false,
+                            count: 0,
                         };
                         $scope.changeView = function (name) {
                             if ($scope.create) {
@@ -161,6 +162,12 @@
                                 { "category": cat.id });
                             var facility_infra_ids = _.pluck($scope.facility_infrastructure, "infrastructure");
                             _.each($scope.cat_infrastructure, function (one_ifr) {
+                                var cont = _.where($scope.facility_infrastructure, { "speciality": one_ifr.id })[0];
+                                if (cont) {
+                                    one_ifr.count = cont.count || 0;
+                                } else {
+                                    one_ifr.count = 0;
+                                }
                                 if (_.contains(facility_infra_ids, one_ifr.id)) {
                                     one_ifr.present = true;
                                 } else {
@@ -217,17 +224,20 @@
                         };
                         $scope.facilityInfrastructure = function () {
                             _.each($scope.infrastructure, function (infra_obj) {
+                                var count = infra_obj?.count || 0
                                 if (!_.isUndefined(infra_obj.present) &&
                                     !_.isEmpty(infra_obj.present)) {
                                     $scope.fac_infra.infrastructure.push({
                                         infrastructure: infra_obj.id,
-                                        present: infra_obj.present
+                                        present: infra_obj.present,
+                                        count: count
                                     });
                                 }
                                 if (!_.isUndefined(infra_obj.present) &&
                                     infra_obj.present === true) {
                                     $scope.fac_infra.infrastructure.push({
-                                        infrastructure: infra_obj.id
+                                        infrastructure: infra_obj.id,
+                                        count: count
                                     });
                                 }
                             });
@@ -238,6 +248,13 @@
                                     $scope.fac_infra.infrastructure =
                                         _.without($scope.fac_infra.infrastructure, obj);
                                 });
+                            let update_payload = { "infrastructure": [] }
+                            _.each(_.filter($scope.infrastructure, function (obj) {
+                                return (obj.present === true && obj['$$hashKey']);
+                            }), function (upd) {
+                                var c_ount = upd.count || 0
+                                update_payload.infrastructure.push({ "infrastructure": upd.id, "count": c_ount });
+                            })
                             wrappers.facilities.update($scope.facility_id,
                                 $scope.fac_infra)
                                 .success(function () {
@@ -248,7 +265,7 @@
                                             "humanresources", {
                                             facility_id:
                                                 $scope.new_facility,
-                                                furthest: '7'
+                                            furthest: '7'
                                         }, { reload: true });
                                     }
                                 })

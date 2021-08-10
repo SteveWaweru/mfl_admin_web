@@ -2,22 +2,26 @@
     <ng-include src="'common/tpls/table_head.tpl.html'"></ng-include>
     <table class="table table-fixed table-hover fs-14">
         <thead class="table-head">
-                <th class="col-md-10 col-xs-9" sil-grid-sort field='name'>Name</th>
-                <th class="col-md-2 col-xs-3 text-center">Present&nbsp;&nbsp;</th>
+                <th class="col-md-6 col-xs-9" sil-grid-sort field='name'>Name</th>
+                <th class="col-md-3 col-xs-3 text-center">Present&nbsp;&nbsp;</th>
+                <th class="col-md-3 col-xs-3 text-center">Number&nbsp;&nbsp;</th>
         </thead>
         <tbody class="table-list fade-content">
             <tr class="table-item" ng-repeat="infra in infra_display" 
             ng-show="infra_display">
-                <td data-title="Name:" class="col-md-10 col-xs-9">
+                <td data-title="Name:" class="col-md-6 col-xs-6">
                     {{infra.name || infra.infrastructure_name || infra.id}}
                 </td>
-                <td data-title="Present:" class="col-md-2 col-xs-3 text-center">
+                <td data-title="Present:" class="col-md-3 col-xs-3 text-center">
                     {{infra.option_display_value}}
                     <span ng-if="infra.present || true">
                         <!-- TODO: clean up -->
                         Yes
                     </span>
                     &nbsp;&nbsp;&nbsp;
+                </td>
+                <td data-title="Name:" class="col-md-3 col-xs-3 text-center">
+                    {{infra.count || 0}}
                 </td>
             </tr>
             <tr class="table-item" ng-if="infra_display.length === 0" 

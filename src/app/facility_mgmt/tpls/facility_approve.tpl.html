@@ -218,17 +218,21 @@
             <h4>Facility Infrastructure</h4>
             <table class="table table-hover table-condensed fs-14">
                 <thead>
-                    <th class="col-xs-7">
+                    <th class="col-xs-6">
                         Infrastructure Name
                     </th>
-                    <th class="col-xs-5 text-center">
-                        Infrastructure Option
+                    <th class="col-xs-3 text-center">
+                        Present
+                    </th>
+                    <th class="col-xs-3 text-center">
+                        Number
                     </th>
                 </thead>
                 <tr ng-repeat="infra_changed in facility_changes.infrastructure">
-                    <td class="col-xs-7">{{infra_changed.name | titlecase}}</td>
-                    <td class="col-xs-5 text-center">{{infra_changed.display_name ? infra_changed.display_name : 'Yes' |
+                    <td class="col-xs-6">{{infra_changed.name | titlecase}}</td>
+                    <td class="col-xs-3 text-center">{{infra_changed.display_name ? infra_changed.display_name : 'Yes' |
                         titlecase}}</td>
+                    <td class="col-xs-3 text-center">{{infra_changed.count || 0}}</td>
                 </tr>
             </table>
         </div>

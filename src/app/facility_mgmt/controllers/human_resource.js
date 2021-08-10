@@ -115,7 +115,8 @@
                         loadData($scope);
                         $scope.new_hr = {
                             hr: "",
-                            count: "",
+                            present: false,
+                            count: 0,
                         };
                         $scope.changeView = function (name) {
                             if ($scope.create) {

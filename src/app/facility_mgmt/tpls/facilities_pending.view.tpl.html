@@ -125,13 +125,21 @@
                             <h4 class="fw-600">Infrastructure</h4>
                         </div>
                         <div class="col-xs-12 pad-0">
-                            <span class="col-xs-12 pad-0"
-                                ng-repeat="infra in facility.facility_infrastructure track by $index">
-                                <p>
-                                    <i class="fa fa-check"></i> &nbsp;
-                                    <span>{{infra.name || infra.infrastructure_name}}</span>
-                                </p>
-                            </span>
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Infrastructure name</th>
+                                        <th>Number</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="infra in facility.facility_infrastructure track by $index">
+                                        <td>{{infra.name || infra.speciality_name}}</td>
+                                        &nbsp;
+                                        <td>{{infra.count || 0}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="col-xs-12"
@@ -368,18 +376,22 @@
                     <h4>Facility Infrastructure</h4>
                     <table class="table table-hover table-condensed fs-14">
                         <thead>
-                            <th class="col-xs-7">
+                            <th class="col-xs-6">
                                 Infrastructure Name
                             </th>
-                            <th class="col-xs-5 text-center">
-                                Infrastructure Option
+                            <th class="col-xs-3 text-center">
+                                Present
+                            </th>
+                            <th class="col-xs-3 text-center">
+                                Number
                             </th>
                         </thead>
                         <tr ng-repeat="infra_changed in facility_changes.infrastructure">
-                            <td class="col-xs-7">{{infra_changed.name | titlecase}}</td>
-                            <td class="col-xs-5 text-center">{{infra_changed.display_name ? infra_changed.display_name :
+                            <td class="col-xs-6">{{infra_changed.name | titlecase}}</td>
+                            <td class="col-xs-3 text-center">{{infra_changed.display_name ? infra_changed.display_name :
                                 'Yes' |
                                 titlecase}}</td>
+                            <td class="col-xs-3 text-center">{{infra_changed.count || 0}}</td>
                         </tr>
                     </table>
                 </div>
@@ -389,7 +401,7 @@
                     <table class="table table-hover table-condensed fs-14">
                         <thead>
                             <th class="col-xs-7">
-                                Speciality 
+                                Speciality
                             </th>
                             <th class="col-xs-5 text-center">
                                 Number
@@ -397,7 +409,7 @@
                         </thead>
                         <tr ng-repeat="hr_changed in facility_changes.humanresources">
                             <td class="col-xs-7">{{hr_changed.name | titlecase}}</td>
-                            <td class="col-xs-7">{{hr_changed.count || 0}}</td>
+                            <td class="col-xs-7 text-center">{{hr_changed.count || 0}}</td>
                             <!-- <td class="col-xs-5 text-center">{{hr_changed.display_name ? hr_changed.display_name : 'Yes'
                                 |
                                 titlecase}}</td> -->
