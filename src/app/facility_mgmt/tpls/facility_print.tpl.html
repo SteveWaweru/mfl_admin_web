@@ -234,10 +234,10 @@
         <table class="table table-hover table-condensed fs-14">
             <thead>
                 <th class="col-xs-7">
-                    Infrastructure Name
+                    Infrastructure
                 </th>
                 <th class="col-xs-5 text-center">
-                    Infrastructure Option
+                    Present
                 </th>
             </thead>
             <tr ng-repeat="infra_changed in facility_infrastructure">
@@ -252,16 +252,20 @@
         <table class="table table-hover table-condensed fs-14">
             <thead>
                 <th class="col-xs-7">
-                    Speciality Name
+                    Speciality
                 </th>
                 <th class="col-xs-5 text-center">
-                    Speciality Option
+                    Present
+                </th>
+                <th class="col-xs-5 text-center">
+                    Number
                 </th>
             </thead>
             <tr ng-repeat="hr_changed in facility_hr">
                 <td class="col-xs-7">{{hr_changed.name || hr_changed.speciality_name | titlecase}}</td>
                 <td class="col-xs-5 text-center">{{hr_changed.display_name ? hr_changed.display_name : 'Yes' |
                     titlecase}}</td>
+                <td class="col-xs-5 text-center">{{hr_changed.count || 0}}</td>
             </tr>
         </table>
     </div>

@@ -247,7 +247,8 @@
                                         $state.go("facilities.facility_create." +
                                             "humanresources", {
                                             facility_id:
-                                                $scope.new_facility
+                                                $scope.new_facility,
+                                                furthest: '7'
                                         }, { reload: true });
                                     }
                                 })

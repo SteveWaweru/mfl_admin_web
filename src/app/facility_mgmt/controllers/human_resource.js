@@ -44,25 +44,29 @@
                                 $scope.service_error = errorMEssages.errors +
                                     errorMessages.fetching_services;
                             });
-                        wrappers.facility_hr.filter({facility: $scope.facility_id, page_sizE: 100, ordering: "name" })
-                            .success(function (data) {
-                                $scope.facility_hr = data.results;
-                            })
-                            .error(function (data) {
-                                $log.error(data);
-                                $scope.service_error = errorMEssages.errors +
-                                    errorMessages.fetching_services;
-                            });
+                        if ($scope.facility_id) {
+                            wrappers.facility_hr.filter({ facility: $scope.facility_id, page_sizE: 100, ordering: "name" })
+                                .success(function (data) {
+                                    $scope.facility_hr = data.results;
+                                })
+                                .error(function (data) {
+                                    $log.error(data);
+                                    $scope.service_error = errorMEssages.errors +
+                                        errorMessages.fetching_services;
+                                });
+                        } else {
+                            $scope.facility_hr = [];
+                        }
 
-                            if($scope.facility_id){
-                                wrappers.facilities.get($scope.facility_id)
+                        if ($scope.facility_id) {
+                            wrappers.facilities.get($scope.facility_id)
                                 .success(function (data) {
                                     $scope.facility = data;
                                 })
                                 .error(function (data) {
                                     $scope.errors = data;
                                 });
-                            }
+                        }
                         wrappers.hr_categories.filter({ "fields": "id,name" })
                             .success(function (data) {
                                 $scope.hr_categories = data.results;
@@ -152,7 +156,15 @@
                             );
                             var facility_hr_ids = _.pluck($scope.facility_hr, "speciality");
                             _.each($scope.cat_hr, function (one_hr) {
-                                if(_.contains(facility_hr_ids, one_hr.id)) {
+                                var cont = _.where($scope.facility_hr, { "speciality": one_hr.id })[0];
+                                // one_hr.present = false;
+                                if (cont) {
+                                    // one_hr.present = true;
+                                    one_hr.count = cont.count || 0;
+                                } else {
+                                    one_hr.count = 0;
+                                }
+                                if (_.contains(facility_hr_ids, one_hr.id)) {
                                     one_hr.present = true;
                                 } else {
                                     one_hr.present = false;
@@ -162,25 +174,25 @@
                         }
                         $scope.hr = [];
                         $scope.fac_hr = {
-                            specialities : []
+                            specialities: []
                         };
-                        $scope.hr_display =  []; //$scope.facility_hr
+                        $scope.hr_display = []; //$scope.facility_hr
                         $scope.removeOption = function (hr_obj) {
-                            if(_.isUndefined(hr_obj.id)){
+                            if (_.isUndefined(hr_obj.id)) {
                                 hr_obj.option = "";
                                 $scope.hr_display = _.without($scope.hr_display, hr_obj);
-                            }else{
+                            } else {
                                 wrappers.facility_hr.remove(hr_obj.fac_hr)
-                                .success(function () {
-                                    toasty.success({
-                                        title: "Facility Specialities",
-                                        msg: "Speciality successfully deleted"
+                                    .success(function () {
+                                        toasty.success({
+                                            title: "Facility Specialities",
+                                            msg: "Speciality successfully deleted"
+                                        });
+                                        hr_obj.option = "";
+                                    })
+                                    .error(function (data) {
+                                        $scope.errors = data;
                                     });
-                                    hr_obj.option = "";
-                                })
-                                .error(function (data) {
-                                    $scope.errors = data;
-                                });
                             }
                         };
                         ////-----s
@@ -219,29 +231,41 @@
                         };
                         ////-----e
                         $scope.hrDisplay = function (obj) {
-                            if(_.where($scope.facility_hr, obj).length > 0) {
-                                if(_.isEmpty(obj.option) || _.isUndefined(obj.option)){
+                            // console.log("$scope.hr_display: -- ")
+                            // console.log($scope.hr_display)  // == ""
+
+                            // console.log("obj: -- ")
+                            // console.log(obj)  // == "each change"
+
+                            // console.log("$scope.facility_hr: -- ")
+                            // console.log($scope.facility_hr) // == "the already-saved/selected ones"
+
+                            if (_.where($scope.facility_hr, obj).length > 0) {
+                                if (_.isEmpty(obj.option) || _.isUndefined(obj.option)) {
                                     $scope.hr_display = _.without($scope.facility_hr, obj);
                                 }
-                            }else{
-                                if(!_.isEmpty(obj.option) || obj.option === true){
+                            } else {
+                                if (!_.isEmpty(obj.option) || obj.option === true) {
                                     $scope.hr_display.push(obj);
                                 }
                             }
                         };
                         $scope.facilityHR = function () {
                             _.each($scope.hr, function (hr_obj) {
+                                var count = hr_obj?.count || 0
                                 if (!_.isUndefined(hr_obj.option) &&
                                     !_.isEmpty(hr_obj.option)) {
                                     $scope.fac_hr.specialities.push({
-                                        speciality : hr_obj.id,
-                                        option : hr_obj.option
+                                        speciality: hr_obj.id,
+                                        option: hr_obj.option,
+                                        count: count
                                     });
                                 }
                                 if (!_.isUndefined(hr_obj.option) &&
                                     hr_obj.option === true) {
                                     $scope.fac_hr.specialities.push({
-                                        speciality : hr_obj.id
+                                        speciality: hr_obj.id,
+                                        count: count
                                     });
                                 }
                             });
@@ -251,24 +275,26 @@
                                         { "speciality": facility_hr1.id });
                                     $scope.fac_hr.specialities =
                                         _.without($scope.fac_hr.specialities, obj);
-                            });
-                            let update_payload = {"specialities":[]}
+                                });
+
+                            let update_payload = { "specialities": [] }
                             _.each(_.filter($scope.hr, function (obj) {
-                                return obj.present === true;
+                                return (obj.present === true && obj['$$hashKey']);
                             }), function (upd) {
-                                update_payload.specialities.push({"speciality":upd.id});
+                                var c_ount = upd.count || 0
+                                update_payload.specialities.push({ "speciality": upd.id, "count": c_ount });
                             })
                             wrappers.facilities.update($scope.facility_id,
                                 update_payload
-                                )
+                            )
                                 .success(function () {
                                     if (!$scope.create) {
                                         $scope.prompt_msg = true;
                                     } else {
                                         $state.go("facilities.facility_create." +
                                             "facility_cover_letter", {
-                                                facility_id:
-                                                    $scope.new_facility
+                                            facility_id:
+                                                $scope.new_facility
                                         }, { reload: true });
                                     }
                                 })
@@ -278,18 +304,18 @@
                         };
                         $scope.upgradePrompt = function () {
                             var update_msg = {
-                                title : "Facility Updated",
-                                msg : "Facility successfully updated"
+                                title: "Facility Updated",
+                                msg: "Facility successfully updated"
                             };
                             toasty.success(update_msg);
-                            if($scope.facility.approved){
+                            if ($scope.facility.approved) {
                                 $state.go("facilities.facility_view_changes",
-                                    {facility_id: $stateParams.facility_id});
+                                    { facility_id: $stateParams.facility_id });
                             }
-                            else{
+                            else {
                                 $state.go("facilities");
                             }
-        
+
                         };
                     }
                 }]

@@ -335,13 +335,14 @@
                                 Speciality Name
                             </th>
                             <th class="col-xs-5 text-center">
-                                Speciality Option
+                                Number
                             </th>
                         </thead>
                         <tr ng-repeat="hr_changed in facility_changes.humanresources">
                             <td class="col-xs-7">{{hr_changed.name | titlecase}}</td>
-                            <td class="col-xs-5 text-center">{{hr_changed.display_name ? hr_changed.display_name : 'Yes' |
-                                titlecase}}</td>
+                            <td class="col-xs-7">{{hr_changed.count || 0}}</td>
+                            <!-- <td class="col-xs-5 text-center">{{hr_changed.display_name ? hr_changed.display_name : 'Yes' |
+                                titlecase}}</td> -->
                         </tr>
                     </table>
                 </div>

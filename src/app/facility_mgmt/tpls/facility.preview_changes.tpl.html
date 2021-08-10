@@ -174,16 +174,20 @@ facility_changes.services || facility_changes.geo_codes.longitude || facility_ch
         <h4>Facility HR</h4>
         <table class="table table-hover table-condensed fs-14">
             <thead>
-                <th class="col-xs-7">
+                <th class="col-xs-6">
                     Speciality Name
                 </th>
-                <th class="col-xs-5 text-center">
-                    Speciality Option
+                <th class="col-xs-3 text-center">
+                    Number
+                </th>
+                <th class="col-xs3 text-center">
+                    Present
                 </th>
             </thead>
             <tr ng-repeat="hr_changed in facility_changes.humanresources">
-                <td class="col-xs-7">{{hr_changed.name | titlecase}}</td>
-                <td class="col-xs-5 text-center">{{hr_changed.display_name ? hr_changed.display_name : 'Yes' |
+                <td class="col-xs-6">{{hr_changed.name | titlecase}}</td>
+                <td class="col-xs-3 text-center">{{hr_changed.count || 0}}</td>
+                <td class="col-xs-3 text-center">{{hr_changed.display_name ? hr_changed.display_name : 'Yes' |
                     titlecase}}</td>
             </tr>
         </table>
