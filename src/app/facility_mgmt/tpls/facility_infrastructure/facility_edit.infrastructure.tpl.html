@@ -44,13 +44,13 @@
             class="btn btn-primary margin-t-20 margin-b-10">
             <i class="fa fa-angle-double-left"></i> Services
         </a>
-        <a ui-sref="facilities.facility_create.humanresources({facility_id : new_facility})" ng-if="create || updown"
+        <!-- <a ui-sref="facilities.facility_create.humanresources({facility_id : new_facility})" ng-if="create || updown"
             class="btn btn-primary margin-t-20 margin-b-10 pull-right">
             Human Resources <i class="fa fa-angle-double-right"></i>
-        </a>
-        <button ng-click="facilityInfrastructure()" ng-if="!create"
+        </a> -->
+        <button ng-click="facilityInfrastructure()"
             class="btn btn-primary margin-t-20 margin-b-10 pull-right">
-            {{create ? 'Submit' : 'Save & Finish'}} <i class="fa fa-angle-double-right"></i>
+            {{create ? 'Human Resources' : 'Save & Finish'}} <i class="fa fa-angle-double-right"></i>
         </button>
         <!-- End of navigation buttons -->
     </div>

@@ -245,7 +245,7 @@
                                         $scope.prompt_msg = true;
                                     } else {
                                         $state.go("facilities.facility_create." +
-                                            "facility_cover_letter", {
+                                            "humanresources", {
                                             facility_id:
                                                 $scope.new_facility
                                         }, { reload: true });
