@@ -106,15 +106,16 @@
 
             <div class="form-group col-xs-12">
                 <label class="control-label">
-                    Number of Authorized Inpatient Beds &#42;
+                    Number of functional general beds &#42;
                 </label>
-                <input type="number" min="0" class="form-control" name="number_of_beds" ng-model="facility.number_of_beds" placeholder="Number of Authorized Inpatient Beds" api-checker/>
+                <input type="number" min="0" class="form-control" name="number_of_beds" ng-model="facility.number_of_beds" 
+                placeholder="Number of functional general beds" api-checker/>
             </div>
             <div class="form-group col-xs-12">
                 <label class="control-label" for="number_of_cots">
-                    Number of Authorized Cots &#42;
+                    Number of functional cots &#42;
                 </label>
-                <input type="number" min="0" class="form-control" name="number_of_cots" ng-model="facility.number_of_cots"  placeholder="Number of Authorized Cots" api-checker />
+                <input type="number" min="0" class="form-control" name="number_of_cots" ng-model="facility.number_of_cots"  placeholder="Number of functional cots" api-checker />
             </div>
             <div class="form-group col-xs-12">
                 <label class="control-label" for="number_of_cots">
@@ -140,6 +141,25 @@
                  ng-model="facility.number_of_hdu_beds"  
                  placeholder="Number of High Dependency Unit (HDU) Beds" api-checker />
             </div>
+            <!-- <Additions> -->
+            <div class="form-group col-xs-12">
+                <label class="control-label" for="number_of_maternity_beds">
+                    Number of maternity beds &#42;
+                </label>
+                <input type="number" min="0" class="form-control" name="number_of_maternity_beds"
+                ng-model="facility.number_of_maternity_beds"  
+                placeholder="Number of maternity beds" api-checker />
+            </div>
+            <div class="form-group col-xs-12">
+                <label class="control-label" for="number_of_isolation_beds">
+                    Number of isolation beds &#42;
+                </label>
+                <input type="number" min="0" class="form-control" name="number_of_isolation_beds"
+                ng-model="facility.number_of_isolation_beds"  
+                placeholder="Number of isolation beds" api-checker />
+            </div>
+            <hr/>
+            <!-- </Additions> -->
             <div class="form-group col-xs-12">
                 <label class="control-label" for="number_of_general_theatres">
                     Number of General Theatres &#42;
@@ -177,6 +197,48 @@
                             <div class="radio">
                                 <label class="radio-inline">
                                     <input type="radio" name="reporting_in_dhis" ng-click=""  ng-value="false" ng-model="facility.reporting_in_dhis" required>
+                                    No
+                                </label>
+                            </div>
+                        </ng-form>
+                    </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group checkbox">
+                    <label style="padding-left:0">
+                        *Facility admitting General and Maternity?
+                    </label>
+                        <ng-form name="admitting_maternity_general">
+                            <div class="radio">
+                                <label class="radio-inline">
+                                    <input type="radio" name="admitting_maternity_general" ng-click="" ng-disabled="facility.admitting_maternity_only" ng-value="true" ng-model="facility.admitting_maternity_general" required>
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label class="radio-inline">
+                                    <input type="radio" name="admitting_maternity_general" ng-click="" ng-disabled="facility.admitting_maternity_only" ng-value="false" ng-model="facility.admitting_maternity_general" required>
+                                    No
+                                </label>
+                            </div>
+                        </ng-form>
+                    </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group checkbox">
+                    <label style="padding-left:0">
+                        *Facility admitting Maternity only?
+                    </label>
+                        <ng-form name="admitting_maternity_only">
+                            <div class="radio">
+                                <label class="radio-inline">
+                                    <input type="radio" name="admitting_maternity_only" ng-click="" ng-disabled="facility.admitting_maternity_general"  ng-value="true" ng-model="facility.admitting_maternity_only" required>
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label class="radio-inline">
+                                    <input type="radio" name="admitting_maternity_only" ng-click="" ng-disabled="facility.admitting_maternity_general"  ng-value="false" ng-model="facility.admitting_maternity_only" required>
                                     No
                                 </label>
                             </div>

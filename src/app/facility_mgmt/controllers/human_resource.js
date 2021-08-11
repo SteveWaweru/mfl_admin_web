@@ -35,7 +35,7 @@
                 function ($log, wrappers, errorMessages, $state, toasty, $stateParams) {
                     var loadData = function ($scope) {
                         // fetching hr
-                        wrappers.hr.filter({ page_sizE: 100, ordering: "name" })
+                        wrappers.hr.filter({ page_size: 350, ordering: "name" })
                             .success(function (data) {
                                 $scope.hr = data.results;
                             })
@@ -45,7 +45,7 @@
                                     errorMessages.fetching_services;
                             });
                         if ($scope.facility_id) {
-                            wrappers.facility_hr.filter({ facility: $scope.facility_id, page_sizE: 100, ordering: "name" })
+                            wrappers.facility_hr.filter({ facility: $scope.facility_id, page_size: 350, ordering: "name" })
                                 .success(function (data) {
                                     $scope.facility_hr = data.results;
                                 })
@@ -72,7 +72,9 @@
                                 $scope.hr_categories = data.results;
                             })
                             .error(function (err) {
-                                $scope.alert = err.error;
+                                $scope.alert = err.error || {
+                                    "msg": "Error while updating facility HR categories"
+                                };
                             });
                     };
 
@@ -173,7 +175,7 @@
                             });
                             $scope.hrNumber($scope.cat_hr);
                         }
-                        $scope.hr = [];
+                        // $scope.hr = [];
                         $scope.fac_hr = {
                             specialities: []
                         };
@@ -291,7 +293,9 @@
                                     }
                                 })
                                 .error(function (err) {
-                                    $scope.errors = err.error;
+                                    $scope.errors = err.error || {
+                                        "msg": "Error while updating facility HR"
+                                    };
                                 });
                         };
                         $scope.upgradePrompt = function () {

@@ -27,7 +27,7 @@
         </span>
     </span>
     <span class="pull-left col-xs-12 pad-0">
-        <label class="text-black">Open from  8 A.M to 5 P.M </label>
+        <label class="text-black">Open from 8 A.M to 5 P.M </label>
         <span ng-if="facility.open_normal_day" class="text-success">
             <i class="fa fa-check-circle-o fa-1x fs-15"></i>
         </span>
@@ -59,11 +59,11 @@
 </div>
 <div class="col-md-6 col-xs-12">
     <span class="content-right pad-0 col-xs-12">
-        <label class="text-black">Authorized Inpatient Beds: </label>
+        <label class="text-black">Functional general Beds: </label>
         {{facility.number_of_beds}}
     </span>
     <span class="content-right pad-0 col-xs-12">
-        <label class="text-black">Authorized Cots: </label>
+        <label class="text-black">Functional cots: </label>
         {{facility.number_of_cots}}
     </span>
     <span class="content-right pad-0 col-xs-12">
@@ -78,6 +78,20 @@
         <label class="text-black">High Dependency Unit (HDU) Beds: </label>
         {{facility.number_of_hdu_beds}}
     </span>
+    <!-- <Additions> -->
+    <span class="content-right pad-0 col-xs-12">
+        <label class="text-black">Maternity beds: </label>
+        {{facility.number_of_maternity_beds}}
+    </span>
+    <span class="content-right pad-0 col-xs-12">
+        <label class="text-black">Isolation beds: </label>
+        {{facility.number_of_isolation_beds}}
+    </span>
+    <span class="content-right pad-0 col-xs-12">
+        <u class="text-black">TOTAL inpatient beds:</u> &nbsp;
+        <span style="font-weight: 700;">{{( (facility.number_of_isolation_beds ||0) + (facility.number_of_maternity_beds ||0) + (facility.number_of_hdu_beds ||0) + (facility.number_of_icu_beds ||0) + (facility.number_of_emergency_casualty_beds ||0) + (facility.number_of_beds ||0) + (facility.number_of_cots ||0) || 0)}}</span>
+    </span>
+    <!-- </Additions> -->
     <span class="content-right pad-0 col-xs-12">
         <label class="text-black">General Theatres: </label>
         {{facility.number_of_general_theatres}}

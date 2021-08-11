@@ -126,6 +126,24 @@
             },
             permission: "facilities.add_facilityapproval,facilities.view_facility"
         })
+        .state("facilities_approve.approve.infrastructure", {
+            url: "infrastructure/",
+            views: {
+                "form-view@facilities_approve.approve" : {
+                    templateUrl: "facility_mgmt/tpls/facility_approve.infrastructure.tpl.html"
+                }
+            },
+            permission: "facilities.add_facilityapproval,facilities.view_facility"
+        })
+        .state("facilities_approve.approve.humanresources", {
+            url: "humanresources/",
+            views: {
+                "form-view@facilities_approve.approve" : {
+                    templateUrl: "facility_mgmt/tpls/facility_approve.humanresources.tpl.html"
+                }
+            },
+            permission: "facilities.add_facilityapproval,facilities.view_facility"
+        })
 
         .state("facilities_approve.approve.units", {
             url: "units/",
@@ -233,6 +251,24 @@
             views: {
                 "form-view@facilities_pending_publishing.approve" : {
                     templateUrl: "facility_mgmt/tpls/facility_approve.services.tpl.html"
+                }
+            },
+            permission: "facilities.add_facilityapproval,facilities.view_facility"
+        })
+        .state("facilities_pending_publishing.approve.infrastructure", {
+            url: "infrastructure/",
+            views: {
+                "form-view@facilities_pending_publishing.approve" : {
+                    templateUrl: "facility_mgmt/tpls/facility_approve.infrastructure.tpl.html"
+                }
+            },
+            permission: "facilities.add_facilityapproval,facilities.view_facility"
+        })
+        .state("facilities_pending_publishing.approve.humanresources", {
+            url: "humanresources/",
+            views: {
+                "form-view@facilities_pending_publishing.approve" : {
+                    templateUrl: "facility_mgmt/tpls/facility_approve.humanresources.tpl.html"
                 }
             },
             permission: "facilities.add_facilityapproval,facilities.view_facility"

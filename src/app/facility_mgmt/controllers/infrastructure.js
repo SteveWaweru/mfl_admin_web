@@ -35,7 +35,7 @@
                 function ($log, wrappers, errorMessages, $state, toasty, $stateParams) {
                     var loadData = function ($scope) {
                         // fetching infrastructure
-                        wrappers.infrastructure.filter({ page_sizE: 100, ordering: "name" })
+                        wrappers.infrastructure.filter({ page_size: 350, ordering: "name" })
                             .success(function (data) {
                                 $scope.infrastructure = data.results;
                             })
@@ -46,7 +46,7 @@
                                 $scope.alert = err.error;
                             });
 
-                        wrappers.facility_infrastructure.filter({ facility: $scope.facility_id, page_sizE: 100, ordering: "name" })
+                        wrappers.facility_infrastructure.filter({ facility: $scope.facility_id, page_size: 350, ordering: "name" })
                             .success(function (data) {
                                 $scope.facility_infrastructure = data.results;
                             })
@@ -71,7 +71,9 @@
                                 $scope.categories = data.results;
                             })
                             .error(function (err) {
-                                $scope.alert = err.error;
+                                $scope.alert = err.error || {
+                                    "msg": "Error while updating facility infrastructure categories"
+                                };
                             });
                         // TODO: Remove options from this implementation
                         wrappers.options.list()
@@ -79,7 +81,9 @@
                                 $scope.options = data.results;
                             })
                             .error(function (err) {
-                                $scope.alert = err.error;
+                                $scope.alert = err.error || {
+                                    "msg": "Error while updating facility options"
+                                };
                             });
                     };
                     // implemented as adding facility infrastructure
@@ -270,7 +274,9 @@
                                     }
                                 })
                                 .error(function (err) {
-                                    $scope.errors = err.error;
+                                    $scope.errors = err || {
+                                        "msg": "Error while updating facility infrastructure"
+                                    };
                                 });
                         };
                         $scope.upgradePrompt = function () {
