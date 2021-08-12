@@ -9,7 +9,7 @@
                 "title": "tooltip",
                 "checked": false,
             };
-            $scope.edit_view = (($state.current_name).indexOf("edit") > -1);
+            $scope.edit_view = (($state.current_name).indexOf("edit") > -1) || true;
         }])
 
         .controller("mfl.infrastructure_mgmt.controllers.main.toc", [angular.noop]);

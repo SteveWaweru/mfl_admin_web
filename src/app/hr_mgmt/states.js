@@ -62,7 +62,7 @@
                     templateUrl: "hr_mgmt/tpls/categories_edit.tpl.html",
                 }
             },
-            permission: "facilities.view_servicecategories",
+            permission: "facilities.add_servicecategory",
         })
 
         .state("hr_mgmt.categories_list.categories_edit.delete", {
@@ -113,7 +113,7 @@
                     templateUrl: "hr_mgmt/tpls/specialists_edit.tpl.html"
                 }
             },
-            permission: "facilities.view_service",
+            permission: "facilities.add_service",
         })
 
         .state("hr_mgmt.specialists_list.specialists_edit.delete", {
