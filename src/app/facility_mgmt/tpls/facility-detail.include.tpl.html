@@ -78,32 +78,32 @@
 <div class="col-md-6 col-xs-12">
     <span class="content-right pad-0 col-xs-12">
         <label class="text-black">Functional general Beds: </label>
-        {{facility.number_of_beds}}
+        <b>{{facility.number_of_beds}}</b>
     </span>
     <span class="content-right pad-0 col-xs-12">
         <label class="text-black">Functional cots: </label>
-        {{facility.number_of_cots}}
+        <b>{{facility.number_of_cots}}</b>
     </span>
     <span class="content-right pad-0 col-xs-12">
         <label class="text-black"> Emergency Casualty Beds: </label>
-        {{facility.number_of_emergency_casualty_beds}}
+        <b>{{facility.number_of_emergency_casualty_beds}}</b>
     </span>
     <span class="content-right pad-0 col-xs-12">
         <label class="text-black">Intensive Care Unit (ICU) Beds: </label>
-        {{facility.number_of_icu_beds}}
+        <b>{{facility.number_of_icu_beds}}</b>
     </span>
     <span class="content-right pad-0 col-xs-12">
         <label class="text-black">High Dependency Unit (HDU) Beds: </label>
-        {{facility.number_of_hdu_beds}}
+        <b>{{facility.number_of_hdu_beds}}</b>
     </span>
     <!-- <Additions> -->
     <span class="content-right pad-0 col-xs-12">
         <label class="text-black">Maternity beds: </label>
-        {{facility.number_of_maternity_beds}}
+        <b>{{facility.number_of_maternity_beds}}</b>
     </span>
     <span class="content-right pad-0 col-xs-12">
         <label class="text-black">Isolation beds: </label>
-        {{facility.number_of_isolation_beds}}
+        <b>{{facility.number_of_isolation_beds}}</b>
     </span>
     <span class="content-right pad-0 col-xs-12">
         <u class="text-black">TOTAL inpatient beds:</u> &nbsp;
@@ -111,11 +111,29 @@
     </span>
     <!-- </Additions> -->
     <span class="content-right pad-0 col-xs-12">
+        <label class="text-black">Facility admitting General &amp; Maternity patients: </label>
+        <span ng-if="facility.admitting_maternity_general" class="text-success">
+            <b><i class="fa fa-check-circle-o fa-1x fs-15"></i> Yes</b>
+        </span>
+        <span ng-if="!facility.admitting_maternity_general" class="text-danger">
+            <b><i class="fa fa-times-circle-o fa-1x fs-15"></i> No</b>
+        </span>
+    </span>
+    <span class="content-right pad-0 col-xs-12">
+        <label class="text-black">Facility admitting Maternity patients <u>only</u>: </label>
+        <span ng-if="facility.admitting_maternity_only" class="text-success">
+            <b><i class="fa fa-check-circle-o fa-1x fs-15"></i> Yes</b>
+        </span>
+        <span ng-if="!facility.admitting_maternity_only" class="text-danger">
+            <b><i class="fa fa-times-circle-o fa-1x fs-15"></i> No</b>
+        </span>
+    </span>
+    <span class="content-right pad-0 col-xs-12">
         <label class="text-black">General Theatres: </label>
-        {{facility.number_of_general_theatres}}
+        <b>{{facility.number_of_general_theatres}}</b>
     </span>
     <span class="content-right pad-0 col-xs-12">
         <label class="text-black">Maternity Theatres: </label>
-        {{facility.number_of_maternity_theatres}}
+        <b>{{facility.number_of_maternity_theatres}}</b>
     </span>
 </div>
