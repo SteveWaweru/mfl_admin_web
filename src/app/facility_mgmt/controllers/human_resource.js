@@ -35,7 +35,7 @@
                 function ($log, wrappers, errorMessages, $state, toasty, $stateParams) {
                     var loadData = function ($scope) {
                         // fetching hr
-                        wrappers.hr.filter({ page_size: 350, ordering: "name" })
+                        wrappers.hr.filter({ page_size: 2000, ordering: "name" })
                             .success(function (data) {
                                 $scope.hr = data.results;
                             })
@@ -45,7 +45,7 @@
                                     errorMessages.fetching_services;
                             });
                         if ($scope.facility_id) {
-                            wrappers.facility_hr.filter({ facility: $scope.facility_id, page_size: 350, ordering: "name" })
+                            wrappers.facility_hr.filter({ facility: $scope.facility_id, page_size: 2000, ordering: "name" })
                                 .success(function (data) {
                                     $scope.facility_hr = data.results;
                                 })

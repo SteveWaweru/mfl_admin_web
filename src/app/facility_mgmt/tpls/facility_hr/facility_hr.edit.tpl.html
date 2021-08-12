@@ -63,7 +63,7 @@
                         <div class="form-group checkbox margin-t-1">
                             <label for="service_option_no">
                                 <input type="number" ng-disabled="!speclt.present" id="speclt-count-{{$index}}" name="speclt{{$index}}"
-                                    ng-model="speclt.count" ng-value="speclt.count" ng-change="hrDisplay(speclt)">
+                                    min="0" ng-model="speclt.count" ng-value="speclt.count" ng-change="hrDisplay(speclt)">
                             </label>
                         </div>
                     </div>

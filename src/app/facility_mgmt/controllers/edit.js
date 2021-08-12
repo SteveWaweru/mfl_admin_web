@@ -673,7 +673,7 @@
                         }
                     };
 
-                    var active_filter = { is_active: true, page_size: 1000 };
+                    var active_filter = { is_active: true, page_size: 10000 };
                     $scope.contacts = [{ type: "", contact: "" }];
                     $scope.login_user = loginService.getUser();
                     $scope.selectReload(wrappers.facility_owners, "", "owners", active_filter);

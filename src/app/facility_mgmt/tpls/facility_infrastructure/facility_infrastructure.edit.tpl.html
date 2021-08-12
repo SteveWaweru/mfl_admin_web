@@ -46,7 +46,7 @@
                         <div class="form-group checkbox margin-t-1">
                             <label for="infra_present_yes">
                                 <input type="checkbox" id="infras{{$index}}" name="infras{{$index}}"
-                                    ng-model="infras.present" ng-checked="infras.present"
+                                    ng-model="infras.present" ng-checked="infras.present" min="0" ng-max="infras.number ? 1000000 : 1" 
                                     ng-change="infrastructureDisplay(infras)">
                                 Yes
                             </label>
