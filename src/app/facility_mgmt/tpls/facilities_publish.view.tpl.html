@@ -198,7 +198,9 @@
                         <td class="col-xs-3 text-center">{{infra.display_name ? infra.display_name :
                             'Yes' |
                             titlecase}}</td>
-                        <td class="col-xs-3 text-center">{{infra.count || 0}}</td>
+                        <td class="col-xs-3 text-center">
+                            <span ng-if="infra.numbers">{{infra.count || 0}}</span>
+                        </td>
                     </tr>
                 </table>
             </div>

@@ -244,7 +244,7 @@
                             {{infrastructure.option_name || 'Yes'}}
                         </td>
                         <td class="text-center">
-                            {{infrastructure.count || 0}}
+                            <span ng-if="infrastructure.numbers">{{infrastructure.count || 0}}</span>
                         </td>
                     </tr>
                 </tbody>

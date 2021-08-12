@@ -19,7 +19,7 @@
                         Yes
                     </td>
                     <td data-title="Number" class="text-center">
-                        {{infrastructure.count || 0}}
+                        <span ng-if="infrastructure.numbers">{{infrastructure.count || 0}}</span>
                     </td>
                 </tr>
                 <tr ng-if="facility.facility_infrastructures.length < 1">

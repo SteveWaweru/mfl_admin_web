@@ -21,7 +21,7 @@
                     &nbsp;&nbsp;&nbsp;
                 </td>
                 <td data-title="Name:" class="col-md-3 col-xs-3 text-center">
-                    {{infra.count || 0}}
+                    <span ng-if="infra.numbers">{{infra.count || 0}}</span>
                 </td>
             </tr>
             <tr class="table-item" ng-if="infra_display.length === 0" 

@@ -10,7 +10,7 @@
 
     .controller("mfl.infrastructure_mgmt.controllers.infrastructure_list", ["$scope", function($scope) {
         $scope.filters = {
-            "fields": "id,name,category_name"
+            "fields": "id,name,category_name,numbers"
         };
     }])
 

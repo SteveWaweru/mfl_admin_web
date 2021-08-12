@@ -52,8 +52,8 @@
                     <div class="col-xs-3 pad-0 margin-t-10">
                         <div class="form-group checkbox margin-t-1">
                             <label for="service_option_no">
-                                <input type="number" ng-disabled="!infras.present" id="infras-count-{{$index}}"
-                                    name="infras{{$index}}" ng-model="infras.count" ng-value="infras.count"
+                                <input type="number" ng-disabled="!infras.present" ng-if="infras.numbers" id="infras-count-{{$index}}"
+                                    name="infras{{$index}}" ng-model="infras.count" min="0" ng-max="{{!infras.numbers ? 1 : 10000000}}" ng-value="infras.count"
                                     ng-change="infrastructureDisplay(infras)">
                             </label>
                         </div>

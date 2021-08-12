@@ -167,6 +167,7 @@
                             var facility_infra_ids = _.pluck($scope.facility_infrastructure, "infrastructure");
                             _.each($scope.cat_infrastructure, function (one_ifr) {
                                 var cont = _.where($scope.facility_infrastructure, { "infrastructure": one_ifr.id })[0];
+                                if(!one_ifr.numbers && one_ifr.present){cont.count = 1}
                                 if (cont) {
                                     one_ifr.count = cont.count || 0;
                                 } else {
@@ -236,6 +237,7 @@
                                     $scope.infra_display = _.without($scope.facility_infrastructure, obj);
                                 }
                             } else {
+                                if(obj.present && !obj.numbers){obj.count = 1}else{obj.count = 0}
                                 if (!_.isEmpty(obj.option) || obj.option === true) {
                                     $scope.infra_display.push(obj);
                                 }
