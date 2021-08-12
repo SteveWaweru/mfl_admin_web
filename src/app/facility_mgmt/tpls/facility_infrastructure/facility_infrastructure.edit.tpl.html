@@ -21,7 +21,10 @@
                 <div class="category-item col-xs-12"
                     ng-repeat="cat in categories | filter : category.query | orderBy:'name'"
                     ng-click="showInfrastructure(cat)" ng-class="{'active-item' : cat.selected}">
-                    <span class="col-xs-10">{{cat.name}}</span>
+                    <span class="col-xs-10">
+                        <span class="col-xs-12 text-black">{{cat.name}}</span>
+                        <span class="col-xs-12 text-gray">(<b>{{sumCat(cat)}}</b> selected)</span>
+                    </span>
                     <span class="col-xs-2 pointer">
                         <i class="fa fa-chevron-right pull-right"></i>
                     </span>
@@ -52,18 +55,19 @@
                     <div class="col-xs-3 pad-0 margin-t-10">
                         <div class="form-group checkbox margin-t-1">
                             <label for="service_option_no">
-                                <input type="number" ng-disabled="!infras.present" ng-if="infras.numbers" id="infras-count-{{$index}}"
-                                    name="infras{{$index}}" ng-model="infras.count" min="0" ng-max="{{!infras.numbers ? 1 : 10000000}}" ng-value="infras.count"
+                                <input type="number" ng-disabled="!infras.present" ng-if="infras.numbers"
+                                    id="infras-count-{{$index}}" name="infras{{$index}}" ng-model="infras.count" min="0"
+                                    zng-max="{{infras.numbers ? 1000000000 : 1}}" ng-value="infras.count"
                                     ng-change="infrastructureDisplay(infras)">
                             </label>
                         </div>
                     </div>
                     <div class="col-xs-1 pad-0 margin-t-5 text-center">
-                    <a ng-click="removeInfrastructure(infras)" style="cursor: pointer;" 
-                    ng-if="infras.present" tooltip="Delete Infrastructure">
-                        <i class="fa fa-times-circle fa-2x grid-inputs text-danger"></i>
-                    </a>
-                </div>
+                        <a ng-click="removeInfrastructure(infras)" style="cursor: pointer;" ng-if="infras.present"
+                            tooltip="Delete Infrastructure">
+                            <i class="fa fa-times-circle fa-2x grid-inputs text-danger"></i>
+                        </a>
+                    </div>
                 </div>
                 <div ng-if="cat_infrastructure.length === 0 || !cat_infrastructure"
                     class="service-item col-xs-12 text-blue pad-t-10 pad-b-10">

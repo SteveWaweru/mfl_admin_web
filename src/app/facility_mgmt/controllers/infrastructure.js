@@ -237,12 +237,23 @@
                                     $scope.infra_display = _.without($scope.facility_infrastructure, obj);
                                 }
                             } else {
-                                if(obj.present && !obj.numbers){obj.count = 1}else{obj.count = 0}
+                                if(obj.present===true && obj.numbers===false){obj.count = 1}else if(obj.present === false && obj.numbers === false){obj.count = 0}
                                 if (!_.isEmpty(obj.option) || obj.option === true) {
                                     $scope.infra_display.push(obj);
                                 }
                             }
                         };
+
+                        $scope.sumCat = function (cat) {
+                            var filtered = _.filter($scope.infrastructure, function(oj){
+                                return oj.category == cat.id
+                            })
+                            let sum = 0
+                            _.each(filtered, function(ft){
+                                sum += parseInt(ft.count || 0)
+                            })
+                            return sum
+                        }
                         $scope.facilityInfrastructure = function () {
                             _.each($scope.infrastructure, function (infra_obj) {
                                 var count = infra_obj?.count || 0

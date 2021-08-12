@@ -259,6 +259,17 @@
                                 }
                             }
                         };
+
+                        $scope.sumCat = function (cat) {
+                            var filtered = _.filter($scope.hr, function(oj){
+                                return oj.category == cat.id
+                            })
+                            let sum = 0
+                            _.each(filtered, function(ft){
+                                sum += parseInt(ft.count || 0)
+                            })
+                            return sum
+                        }
                         $scope.facilityHR = function () {
                             _.each($scope.hr, function (hr_obj) {
                                 var count = hr_obj?.count || 0

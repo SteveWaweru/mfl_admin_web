@@ -21,7 +21,10 @@
                 <div class="category-item col-xs-12"
                     ng-repeat="cat in hr_categories | filter : category.query | orderBy:'name'" ng-click="showHR(cat)"
                     ng-class="{'active-item' : cat.selected}">
-                    <span class="col-xs-10">{{cat.name}}</span>
+                    <span class="col-xs-10">
+                        <span class="col-xs-12 text-black">{{cat.name}}</span>
+                        <span class="col-xs-12 text-gray">(<b>{{sumCat(cat)}}</b> selected)</span>
+                    </span>
                     <span class="col-xs-2 pointer">
                         <i class="fa fa-chevron-right pull-right"></i>
                     </span>
