@@ -185,7 +185,7 @@
                                 hr_obj.option = "";
                                 $scope.hr_display = _.without($scope.hr_display, hr_obj);
                             } else {
-                                wrappers.facility_hr.remove(hr_obj.fac_hr)
+                                wrappers.facility_hr.remove(hr_obj.id)
                                     .success(function () {
                                         toasty.success({
                                             title: "Facility Specialities",
@@ -219,16 +219,31 @@
                                     $scope.hr_display, hr_obj);
                             } else {
                                 // wrappers.facility_hr.remove(hr_obj.fac_hr)
-                                wrappers.facility_hr.remove(hr_obj)
-                                    .success(function () {
-                                        toasty.success({
-                                            title: "Facility hr",
-                                            msg: "HR successfully removed"
-                                        });
-                                    })
-                                    .error(function (data) {
-                                        $scope.errors = data;
+                                var to_upd = _.find($scope.hr, function(oj){
+                                    return oj.id === hr_obj.id;
+                                })
+                                if(
+                                    (to_upd) &&
+                                    ( (to_upd.present = false) ||
+                                    (to_upd.count = 0) )
+                                ){
+
+                                    toasty.success({
+                                        title: "Facility HR",
+                                        msg: "Speciality successfully removed"
                                     });
+                                }
+
+                                // wrappers.facility_hr.remove(hr_obj.id)
+                                //     .success(function () {
+                                //         toasty.success({
+                                //             title: "Facility hr",
+                                //             msg: "HR successfully removed"
+                                //         });
+                                //     })
+                                //     .error(function (data) {
+                                //         $scope.errors = data;
+                                //     });
                             }
                         };
                         ////-----e

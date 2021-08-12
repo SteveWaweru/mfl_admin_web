@@ -166,7 +166,7 @@
                                 { "category": cat.id });
                             var facility_infra_ids = _.pluck($scope.facility_infrastructure, "infrastructure");
                             _.each($scope.cat_infrastructure, function (one_ifr) {
-                                var cont = _.where($scope.facility_infrastructure, { "speciality": one_ifr.id })[0];
+                                var cont = _.where($scope.facility_infrastructure, { "infrastructure": one_ifr.id })[0];
                                 if (cont) {
                                     one_ifr.count = cont.count || 0;
                                 } else {
@@ -203,18 +203,33 @@
                                     $scope.infra_display, infra_obj);
                             } else {
                                 // wrappers.facility_infrastructure.remove(infra_obj.fac_infra)
-                                wrappers.facility_infrastructure.remove(infra_obj)
-                                    .success(function () {
-                                        toasty.success({
-                                            title: "Facility infrastructure",
-                                            msg: "Infrastructure successfully removed"
-                                        });
-                                    })
-                                    .error(function (data) {
-                                        $scope.errors = data;
+                                var to_upd = _.find($scope.infrastructure, function(oj){
+                                    return oj.id === infra_obj.id;
+                                })
+                                if(
+                                    (to_upd) &&
+                                    ( (to_upd.present = false) ||
+                                    (to_upd.count = 0) )
+                                ){
+
+                                    toasty.success({
+                                        title: "Facility infrastructure",
+                                        msg: "Infrastructure successfully removed"
                                     });
+                                }
+                                // wrappers.facility_infrastructure.remove(infra_obj)
+                                //     .success(function () {
+                                //         toasty.success({
+                                //             title: "Facility infrastructure",
+                                //             msg: "Infrastructure successfully removed"
+                                //         });
+                                //     })
+                                //     .error(function (data) {
+                                //         $scope.errors = data;
+                                //     });
                             }
                         };
+                        
                         $scope.infrastructureDisplay = function (obj) {
                             if (_.where($scope.facility_infrastructure, obj).length > 0) {
                                 if (_.isEmpty(obj.option) || _.isUndefined(obj.option)) {
