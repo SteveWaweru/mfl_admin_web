@@ -71,7 +71,27 @@
                   <input class="form-control" name="date_established" ng-model="facility.date_established" type="text"  placeholder="dd-mm-yy"  api-checker/>
                 </div>
             </div>
-
+            <div class="col-xs-12">
+                <div class="form-group checkbox">
+                    <label style="padding-left:0">
+                        *Is the facility accredited Lab ISO 15189?
+                    </label>
+                        <ng-form name="accredited_lab_iso_15189">
+                            <div class="radio">
+                                <label class="radio-inline">
+                                    <input type="radio" name="accredited_lab_iso_15189" ng-click=""  ng-value="true" ng-model="facility.accredited_lab_iso_15189" required>
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label class="radio-inline">
+                                    <input type="radio" name="accredited_lab_iso_15189" ng-click=""  ng-value="false" ng-model="facility.accredited_lab_iso_15189" required>
+                                    No
+                                </label>
+                            </div>
+                        </ng-form>
+                    </div>
+            </div>
             <div class="form-group col-xs-12">
                 <label class="control-label">Owner Category &#42;</label>
                  <ui-select ng-model="select_values.owner_type" required name="owner_type" api-checker register-custom-form-control>

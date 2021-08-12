@@ -38,6 +38,10 @@
                 <label class="text-black fw-600">Operation status: </label>
                 {{facility.operation_status_name| titlecase}}
             </div>
+            <div class="col-md-6 col-xs-12 content-right fs-16">
+                <label class="text-black fw-600">Lab ISO 15189 accreditation?: </label>
+                {{facility.accredited_lab_iso_15189| titlecase}}
+            </div>
             <div class="col-md-6 col-xs-12 fs-16">
                 <label class="text-black fw-600">Regulatory status: </label>
                 {{facility.regulatory_status_name}}

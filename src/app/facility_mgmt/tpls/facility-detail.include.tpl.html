@@ -44,6 +44,15 @@
         {{facility.facility_catchment_population}}
     </span>
     <span class="col-xs-12 pad-0">
+        <label class="text-black">Facility accredited Lab ISO 15189 : </label>
+        <span ng-if="facility.accredited_lab_iso_15189" class="text-success">
+            <b><i class="fa fa-check-circle-o fa-1x fs-15"></i> Yes</b>
+        </span>
+        <span ng-if="!facility.accredited_lab_iso_15189" class="text-danger">
+            <b><i class="fa fa-times-circle-o fa-1x fs-15"></i> No</b>
+        </span>
+    </span>
+    <span class="col-xs-12 pad-0">
         <label class="text-black">Has NHIF Accreditation : </label>
         <span ng-if="facility.nhif_accreditation" class="text-success">
             <b><i class="fa fa-check-circle-o fa-1x fs-15"></i> Yes</b>
