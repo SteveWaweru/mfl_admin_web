@@ -85,10 +85,12 @@
                 "approved_national_level": true,
                 "rejected": false,
                 "reporting_in_dhis": true,
+                "admitting_maternity_general": true,
+                "admitting_maternity_only": true,
                 "fields": "id,code,official_name,name,facility_type_name,owner_name,county," +
                           "sub_county,constituency,ward_name,updated,approved,rejected," +
                           "operation_status_name,date_requested,date_approved,sub_county_name," +
-                          "is_complete,approved_national_level,reporting_in_dhis"
+                          "is_complete,approved_national_level,reporting_in_dhis,admitting_maternity_general,admitting_maternity_only"
             };
         }]
     )

@@ -856,7 +856,7 @@
             //     "name": ""
             // };
             var type_filters = {
-                page_size: 1000,
+                page_size: 10000,
                 fields: "id,name,sub_division"
             };
 

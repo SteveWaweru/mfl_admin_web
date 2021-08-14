@@ -4,19 +4,21 @@
         <thead>
             <tr>
                 <th field='name'>Name</th>
-                <th field='category'>Category</th>
+                <th class="text-center" field='category'>Category</th>
+                <th class="text-center" field='numbers'>Tracking numbers?</th>
                 <th class="text-right pad-r-20">Actions </th>
             </tr>
         </thead>
         <tbody class="fade-content">
             <tr ng-repeat="infra in infrastructure">
                 <td data-title="Name:" class="pad-t-15">{{infra.name}}</td>
-                <td data-title="Category:" class="pad-t-15">{{infra.category_name}}</td>
+                <td data-title="Category:" class="pad-t-15 text-center">{{infra.category_name}}</td>
+                <td data-title="Tracking numbers?:" class="pad-t-15 text-center">{{infra.numbers ? 'Yes' : 'No'}}</td>
                 <td data-title="Actions:" class="text-right">
-                    <a class="btn btn-success" tooltip-placement="bottom" tooltip="View service" 
+                    <a class="btn btn-success" tooltip-placement="bottom" tooltip="Edit service" 
                     ui-sref="infrastructure_mgmt.infrastructure_list.infrastructure_edit({infrastructure_id: infra.id})" 
                     ui-sref-opts="{reload:true}" class="btn btn-action">
-                        View
+                        Edit
                     </a>
                 </td>
             </tr>

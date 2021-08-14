@@ -10,7 +10,7 @@
 
     .controller("mfl.infrastructure_mgmt.controllers.infrastructure_list", ["$scope", function($scope) {
         $scope.filters = {
-            "fields": "id,name,category_name"
+            "fields": "id,name,category_name,numbers"
         };
     }])
 
@@ -22,7 +22,7 @@
             $scope.infrastructure_id = $stateParams.infrastructure_id;
             $scope.wrappers = wrappers.infrastructure;
             $scope.edit_view = true;
-            wrappers.categories.filter({page_size: 1000}).success(function(data) {
+            wrappers.categories.filter({page_size: 10000}).success(function(data) {
                 $scope.categories = data.results;
             }).error(function(data) {
                 $scope.errors = data;
@@ -79,7 +79,7 @@
         function ($scope, $state, $stateParams, $log, wrappers, toasty) {
             $scope.create = true;
             $scope.infrastructure = wrappers.newInfrastructure();
-            wrappers.categories.filter({page_size: 1000}).success(function (data) {
+            wrappers.categories.filter({page_size: 10000}).success(function (data) {
                 $scope.categories = data.results;
             }).error(function (data) {
                 $log.warn(data);

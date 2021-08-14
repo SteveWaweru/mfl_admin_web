@@ -65,7 +65,7 @@
                     templateUrl: "infrastructure_mgmt/tpls/categories_edit.tpl.html",
                 }
             },
-            permission: "facilities.view_servicecategories",
+            permission: "facilities.add_servicecategory",
         })
 
         .state("infrastructure_mgmt.categories_list.categories_edit.delete", {

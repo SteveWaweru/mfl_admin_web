@@ -1,6 +1,11 @@
 (function (window) {
     "use strict";
 
+    var timeout = {"kickout": 900, "warning": 60};
+    if(window && (window.location.href.includes('localhost') || window.location.href.includes('127.0.0.1') || window.location.href.includes('localhost'))){
+        timeout = {"kickout": 9000000, "warning": 6000000};
+    }
+
     var setts = {
         "SERVER_URL": "http://localhost:8061/",
         "CREDZ": {
@@ -12,7 +17,7 @@
             "token_url": "o/token/",
             "revoke_url": "o/revoke_token/"
         },
-        "TIMEOUT": {"kickout": 900, "warning": 60}
+        "TIMEOUT": timeout
     };
 
     setts.CREDZ.token_url = setts.SERVER_URL + setts.CREDZ.token_url;

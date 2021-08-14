@@ -29,8 +29,8 @@
                     <thead>
                        <th class="col-xs-3 text-wrap">Facility Code</th>
                         <th class="col-xs-3 text-wrap">Facility Name</th>
-                        <th class="col-xs-3 text-center text-wrap">No. of Authorized Inpatient Beds</th>
-                        <th class="col-xs-3 text-center text-wrap">No. of Authorized Cots</th>
+                        <th class="col-xs-3 text-center text-wrap">No. of functional general beds</th>
+                        <th class="col-xs-3 text-center text-wrap">No. of functional cots</th>
                     </thead>
                     <tbody class="fade-content">
                         <tr ng-repeat="facility in data | filter:search">
@@ -39,8 +39,8 @@
                               <a ui-sref="facilities.facility_view({facility_id: facility.facility_id})">{{::facility.facility_name}}
                               </a>
                             </td>
-                            <td  class="text-center" data-title="Authorized Inpatient Beds:">{{::facility.number_of_beds}}</td>
-                            <td  class="text-center" data-title="Authorized Cots:">
+                            <td  class="text-center" data-title="Functional general beds:">{{::facility.number_of_beds}}</td>
+                            <td  class="text-center" data-title="Functional cots:">
                               {{::facility.number_of_cots}}</td>
                         </tr>
                     </tbody>

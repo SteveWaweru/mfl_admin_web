@@ -2,24 +2,29 @@
     <ng-include src="'common/tpls/table_head.tpl.html'"></ng-include>
     <table class="table table-fixed table-hover fs-14">
         <thead class="table-head">
-                <th class="col-md-10 col-xs-9" sil-grid-sort field='name'>Name</th>
-                <th class="col-md-2 col-xs-3 text-center">Present&nbsp;&nbsp;</th>
+                <th class="col-md-6 col-xs-9" sil-grid-sort field='name'>Name</th>
+                <th class="col-md-3 col-xs-3 text-center">Present&nbsp;&nbsp;</th>
+                <th class="col-md-3 col-xs-3 text-center">Number&nbsp;&nbsp;</th>
         </thead>
         <tbody class="table-list fade-content">
-            <tr class="table-item" ng-repeat="infra in infrastructure" 
-            ng-show="infrastructure">
-                <td data-title="Name:" class="col-md-10 col-xs-9">
-                    {{infra.infrastructure_name}}
+            <tr class="table-item" ng-repeat="infra in infra_display" 
+            ng-show="infra_display">
+                <td data-title="Name:" class="col-md-6 col-xs-6">
+                    {{infra.name || infra.infrastructure_name || infra.id}}
                 </td>
-                <td data-title="Present:" class="col-md-2 col-xs-3 text-center">
+                <td data-title="Present:" class="col-md-3 col-xs-3 text-center">
                     {{infra.option_display_value}}
-                    <span ng-if="infra.present === null">
+                    <span ng-if="infra.present || true">
+                        <!-- TODO: clean up -->
                         Yes
                     </span>
                     &nbsp;&nbsp;&nbsp;
                 </td>
+                <td data-title="Name:" class="col-md-3 col-xs-3 text-center">
+                    <span ng-if="infra.numbers">{{infra.count || 0}}</span>
+                </td>
             </tr>
-            <tr class="table-item" ng-if="infrastructure.length === 0" 
+            <tr class="table-item" ng-if="infra_display.length === 0" 
             class="alert alert-info">
                 <td colspan="4" class="col-xs-12">
                 <i class="fa fa-info-circle"></i> No infrastructure assigned to this facility

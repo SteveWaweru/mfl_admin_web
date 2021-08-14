@@ -19,9 +19,12 @@
             </div>
             <div class="category-list fade-content">
                 <div class="category-item col-xs-12"
-                    ng-repeat="cat in hr_categories | filter : category.query | orderBy:'name'"
-                    ng-click="showServices(cat)" ng-class="{'active-item' : cat.selected}">
-                    <span class="col-xs-10">{{cat.name}}</span>
+                    ng-repeat="cat in hr_categories | filter : category.query | orderBy:'name'" ng-click="showHR(cat)"
+                    ng-class="{'active-item' : cat.selected}">
+                    <span class="col-xs-10">
+                        <span class="col-xs-12 text-black">{{cat.name}}</span>
+                        <span class="col-xs-12 text-gray">(<b>{{sumCat(cat)}}</b> selected)</span>
+                    </span>
                     <span class="col-xs-2 pointer">
                         <i class="fa fa-chevron-right pull-right"></i>
                     </span>
@@ -30,58 +33,81 @@
         </div>
         <div class="col-sm-8 col-xs-12 fade-content">
             <div class="col-xs-12 category-title pad-0">
-                <h4>HR Specialties</h4>
+                <h4>HR Specialities</h4>
                 <div class="form-group">
-                    <input class="form-control" ng-model="service.query" placeholder="Search Specialties">
+                    <input class="form-control" ng-model="h_r.query" placeholder="Search Specialties">
                 </div>
             </div>
             <div class="service-list col-xs-12 pad-0">
-                <div class="service-item col-xs-12 pad-0" ng-repeat="serv in cat_hr | filter : service.query">
-                    <div class="col-xs-5 margin-t-15 margin-b-10">{{serv.name}}</div>
-                    <div class="col-xs-6 pad-0 margin-t-10">
-                        <div ng-if="2 === 2"
-                            class="form-group checkbox margin-t-1">
+                <div class="col-xs-12 pad-0 text-center" ng-if="cat_hr && cat_hr.length > 0" style="position: sticky; top: 0; z-index: 2; background-color: #e8e8e8; font-weight: 600;">
+                    <div class="text-uppercase text-black col-xs-5" style="padding: 7px 3px;"> Speciality </div>
+                    <div class="text-uppercase text-black col-xs-4" style="padding: 7px 3px;"> Present </div>
+                    <div class="text-uppercase text-black col-xs-2" style="padding: 7px 3px;"> Number </div>
+                    <div class="text-uppercase text-black col-xs-1" style="padding: 7px 3px;"> &nbsp; </div>
+                </div>
+                <div class="service-item col-xs-12 pad-0" ng-repeat="speclt in cat_hr | filter : h_r.query">
+                    <div class="col-xs-5 margin-t-15 margin-b-10">
+                        <span>{{ speclt.name || speclt.abbreviation || speclt.description }}</span>
+                        <!-- <br /> <small>({{speclt || ""}})</small> -->
+                    </div>
+                    <div class="col-xs-4 pad-0 margin-t-10">
+                        <div class="form-group checkbox margin-t-1">
                             <label for="service_option_yes">
-                                <input type="checkbox" id="serv{{$index}}" name="serv{{$index}}"
-                                    ng-model="serv.present" ng-checked="serv.present"
-                                    ng-change="servicesDisplay(serv)">
-                                Yes
+                                <input type="checkbox" id="speclt{{$index}}" name="speclt{{$index}}"
+                                    ng-model="speclt.present" ng-checked="speclt.present" ng-change="hrDisplay(speclt)">
+                                    Yes
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-2 pad-0 margin-t-10">
+                        <div class="form-group checkbox margin-t-1">
+                            <label for="service_option_no">
+                                <input type="number" ng-disabled="!speclt.present" id="speclt-count-{{$index}}" name="speclt{{$index}}"
+                                    min="0" ng-model="speclt.count" ng-value="speclt.count" ng-change="hrDisplay(speclt)">
                             </label>
                         </div>
                     </div>
                     <div class="col-xs-1 pad-0 margin-t-5 text-center">
-                        <a ng-click="removeOption(serv)" style="cursor: pointer;" ng-if="serv.option"
-                            tooltip="Delete Service">
+                        <a ng-click="removeHR(speclt)" style="cursor: pointer;" ng-if="speclt.present"
+                            tooltip="Delete HR item">
                             <i class="fa fa-times-circle fa-2x grid-inputs text-danger"></i>
                         </a>
                     </div>
                 </div>
-                <div ng-if="cat_hr.length === 0 || !cat_hr" class="service-item col-xs-12 text-blue pad-t-10 pad-b-10">
+                <div ng-if="cat_h_r.length === 0 || !cat_hr" class="service-item col-xs-12 text-blue pad-t-10 pad-b-10">
                     <i class="fa fa-info-circle"></i> No specialties for the chosen category
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-xs-12 margin-t-20" ng-show="create">
+    <div class="col-xs-12 margin-t-20" ng-show="true">
         <div class="col-xs-12 pad-0">
             <table class="table table-fixed fs-14">
                 <thead class="table-head">
-                    <th class="col-xs-10">Name</th>
-                    <th class="col-xs-2">Service Option&nbsp;&nbsp;</th>
+                    <th class="col-xs-5">Name</th>
+                    <th class="col-xs-5 text-center">Present&nbsp;&nbsp;</th>
+                    <th class="col-xs-2 text-center">Number&nbsp;&nbsp;</th>
                 </thead>
                 <tbody class="table-list fade-content">
-                    <tr class="table-item" ng-repeat="service in service_display track by $index" ng-show="hr">
-                        <td data-title="Name:" class="col-xs-10">
-                            {{service.name}}
+                    <tr class="table-item" ng-repeat="h_r in hr track by $index" ng-show="h_r.present">
+                    <!-- <tr class="table-item" ng-repeat="h_r in facility_hr track by $index" ng-show="h_r"> -->
+                        <td data-title="Name:" class="col-xs-5">
+                            {{h_r.name || h_r.speciality_name}}
                         </td>
-                        <td data-title="Abbreviation:" class="text-center col-xs-2">
-                            <span ng-if="service.has_options">
-                                {{service.option | optionName:service.serv_options}}
+                        <td data-title="Present:" class="text-center col-xs-5">
+                            <span ng-if="h_r.has_options">
+                                {{h_r.option | optionName:h_r.hr_options}}
                             </span>
-                            <span ng-if="!service.has_options">
+                            <span ng-if="!h_r.has_options">
                                 Yes
                             </span>
-                            &nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;
+                        </td>
+                        <td data-title="Number:" class="text-center col-xs-2">
+                            <span ng-if="h_r.count">
+                                {{h_r.count || 0}}
+                            </span>
+                            &nbsp;&nbsp;
                         </td>
                     </tr>
                     <tr class="table-item" ng-if="hr.length === 0" class="alert alert-info">

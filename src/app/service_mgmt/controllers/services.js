@@ -77,13 +77,13 @@
         function ($scope, $state, $log, wrappers, forms, toasty) {
             $scope.steps[0].active = true;
             $scope.steps[1].active = false;
-            wrappers.categories.filter({page_size: 1000}).success(function (data) {
+            wrappers.categories.filter({page_size: 2000}).success(function (data) {
                 $scope.categories = data.results;
             }).error(function (data) {
                 $log.warn(data);
                 $scope.errors = data;
             });
-            wrappers.option_groups.filter({page_size: 1000}).success(function (data) {
+            wrappers.option_groups.filter({page_size: 2000}).success(function (data) {
                 $scope.option_groups = data.results;
             }).error(function (data) {
                 $scope.errors = data;
@@ -127,12 +127,12 @@
             $scope.options = [];
             $scope.new_option_id = "";
             $scope.service_id = $scope.service_id || $state.params.service_id;
-            wrappers.options.filter({page_size: 1000}).success(function (data) {
+            wrappers.options.filter({page_size: 10000}).success(function (data) {
                 $scope.options = data.results;
             }).error(function (data) {
                 $log.warn(data);
             });
-            wrappers.service_options.filter({page_size: 1000, service: $scope.service_id})
+            wrappers.service_options.filter({page_size: 10000, service: $scope.service_id})
             .success(function (data) {
                 $scope.service_options = data.results;
             })
@@ -179,7 +179,7 @@
             $scope.tab = 0;
             $scope.furthest = $stateParams.furthest;
             $scope.service = wrappers.newService();
-            wrappers.categories.filter({page_size: 1000}).success(function (data) {
+            wrappers.categories.filter({page_size: 10000}).success(function (data) {
                 $scope.categories = data.results;
             }).error(function (data) {
                 $log.warn(data);
@@ -222,7 +222,7 @@
         function ($scope, $state, $log, wrappers, formChanges, toasty) {
             $scope.$parent.tab = 1;
             $scope.nextState();
-            wrappers.option_groups.filter({page_size: 1000}).success(function (data) {
+            wrappers.option_groups.filter({page_size: 10000}).success(function (data) {
                 $scope.option_groups = data.results;
             }).error(function (data) {
                 $scope.errors = data;
