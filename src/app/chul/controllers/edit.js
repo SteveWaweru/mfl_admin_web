@@ -176,8 +176,48 @@
                     }
                 });
                 if(!$scope.create) {
-                    if($scope.unit.contacts.length > 0){
-                        changes.contacts = $scope.unit.contacts;
+                    // if($scope.unit.contacts.length > 0){
+                    //     changes.contacts = $scope.unit.contacts;
+                    // }
+                    changes.basic = {}
+                    if(!_.isUndefined(changes.name) && !_.isNull(changes.name)){
+                        console.log('changes.name == ', changes.name)
+                        changes.basic.name = changes.name
+                        // delete changes.name
+                    }
+                    if(!_.isUndefined(changes.households_monitored) && !_.isNull(changes.households_monitored)){
+                        console.log('changes.households_monitored == ', changes.households_monitored)
+                        changes.basic.households_monitored = changes.households_monitored
+                        // delete changes.households_monitored
+                    }
+                    if(!_.isUndefined(changes.number_of_chvs) && !_.isNull(changes.number_of_chvs)){
+                        console.log('changes.number_of_chvs == ', changes.number_of_chvs)
+                        changes.basic.number_of_chvs = changes.number_of_chvs
+                        // delete changes.number_of_chvs
+                    }
+                    if(!_.isUndefined(changes.date_operational) && !_.isNull(changes.date_operational)){
+                        console.log('changes.date_operational == ', changes.date_operational)
+                        changes.basic.date_operational = changes.date_operational
+                        // delete changes.date_operational
+                    }
+                    if(!_.isUndefined(changes.date_established) && !_.isNull(changes.date_established)){
+                        console.log('changes.date_established == ', changes.date_established)
+                        changes.basic.date_established = changes.date_established
+                        // delete changes.date_established
+                    }
+                    if(!_.isUndefined(changes.status) && !_.isNull(changes.status)){
+                        console.log('changes.status == ', changes.status)
+                        changes.basic.status = changes.status
+                        // delete changes.status
+                    }
+                    if(!_.isUndefined(changes.location) && !_.isNull(changes.location)){
+                        console.log('changes.location == ', changes.location)
+                        changes.basic.location = changes.location
+                        // delete changes.location
+                    }
+                    if(!_.isUndefined(changes.facility) && !_.isNull(changes.facility)){
+                        changes.basic.facility = changes.facility
+                        delete changes.facility
                     }
                     wrappers.chuls.update($scope.unit_id, changes)
                     .success(function () {
