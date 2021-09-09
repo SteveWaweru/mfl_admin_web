@@ -278,16 +278,34 @@
                 $scope.workers.health_unit_workers =
                     $scope.unit.health_unit_workers;
                 if($scope.workers.health_unit_workers.length > 0){
-                    wrappers.chuls.update($scope.unit_id, $scope.workers)
-                    .success(function () {
-                        $state.go("community_units.create_unit.services",
-                            {unit_id : $state.params.unit_id, furthest : 3},
-                            {reload : true}
-                        );
-                    })
-                    .error(function (data) {
-                        $scope.errors = data;
-                    });
+                    if($scope.create){
+                        wrappers.chuls.update($scope.unit_id, $scope.workers)
+                        .success(function () {
+                            $state.go("community_units.create_unit.services",
+                                {unit_id : $state.params.unit_id, furthest : 3},
+                                {reload : true}
+                            );
+                        })
+                        .error(function (data) {
+                            $scope.errors = data;
+                        });
+                    } else {
+                        wrappers.chuls.update($scope.unit_id, $scope.workers)
+                        .success(function () {
+                            // $state.go("community_units.edit_unit.services",
+                            //     {unit_id : $state.params.unit_id, furthest : 3},
+                            //     {reload : true}
+                            // );
+                            toasty.success({
+                                title: "Community Unit CHEWs Update",
+                                msg: "Community Unit workers successfully updated"
+                            });
+                            $state.go($scope.finish, {reload : true});
+                        })
+                        .error(function (data) {
+                            $scope.errors = data;
+                        });
+                    }
                 }
             };
             /*Wait for unit to be defined*/
