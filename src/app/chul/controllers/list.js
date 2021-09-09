@@ -48,7 +48,7 @@
     .controller("mfl.chul.controllers.updated_units_pending_approvals",
         ["$scope", function ($scope) {
             $scope.filters = {
-                "is_approved":false,
+                "is_approved":true,
                 "has_edits":true,
                 "fields": "id,code,name,status_name,facility_name,has_edits,"+
                 "facility_county,facility_subcounty,facility_ward,date_established"
