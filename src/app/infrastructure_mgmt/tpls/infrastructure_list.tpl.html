@@ -13,7 +13,7 @@
             <tr ng-repeat="infra in infrastructure">
                 <td data-title="Name:" class="pad-t-15">{{infra.name}}</td>
                 <td data-title="Category:" class="pad-t-15 text-center">{{infra.category_name}}</td>
-                <td data-title="Tracking numbers?:" class="pad-t-15 text-center">{{infra.numbers ? 'Yes' : 'No'}}</td>
+                <td data-title="Tracking numbers?:" class="pad-t-15 text-center">{{infra.count ? 'Yes' : 'No'}}</td>
                 <td data-title="Actions:" class="text-right">
                     <a class="btn btn-success" tooltip-placement="bottom" tooltip="Edit service" 
                     ui-sref="infrastructure_mgmt.infrastructure_list.infrastructure_edit({infrastructure_id: infra.id})" 
