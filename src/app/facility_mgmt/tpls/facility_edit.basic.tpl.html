@@ -226,41 +226,21 @@
             <div class="col-xs-12">
                 <div class="form-group checkbox">
                     <label style="padding-left:0">
-                        *Facility admitting General and Maternity?
+                        *Admissions
                     </label>
                         <ng-form name="admitting_maternity_general">
                             <div class="radio">
                                 <label class="radio-inline">
                                     <input type="radio" name="admitting_maternity_general" ng-click="" zng-disabled="facility.admitting_maternity_only" ng-value="true" ng-model="facility.admitting_maternity_general">
-                                    Yes
+                                    Facility admitting General and Maternity?
                                 </label>
                             </div>
                             <div class="radio">
                                 <label class="radio-inline">
                                     <input type="radio" name="admitting_maternity_general" ng-click="" zng-disabled="facility.admitting_maternity_only" ng-value="false" ng-model="facility.admitting_maternity_general">
-                                    No
+                                    Facility admitting Maternity only?
                                 </label>
-                            </div>
-                        </ng-form>
-                    </div>
-            </div>
-            <div class="col-xs-12">
-                <div class="form-group checkbox">
-                    <label style="padding-left:0">
-                        *Facility admitting Maternity only?
-                    </label>
-                        <ng-form name="admitting_maternity_only">
-                            <div class="radio">
-                                <label class="radio-inline">
-                                    <input type="radio" name="admitting_maternity_only" ng-click="" zng-disabled="facility.admitting_maternity_only"  ng-value="true" ng-model="facility.admitting_maternity_only">
-                                    Yes
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label class="radio-inline">
-                                    <input type="radio" name="admitting_maternity_only" ng-click="" zng-disabled="facility.admitting_maternity_only"  ng-value="false" ng-model="facility.admitting_maternity_only">
-                                    No
-                                </label>
+                                <input type="hidden" name="admitting_maternity_only" ng-value="!facility.admitting_maternity_general" ng-model="facility.admitting_maternity_only">
                             </div>
                         </ng-form>
                     </div>
