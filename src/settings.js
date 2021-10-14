@@ -4,12 +4,14 @@
     var timeout = {"kickout": 900, "warning": 60};
     if(window && (window.location.href.includes('localhost') || window.location.href.includes('kmhfltest') || window.location.href.includes('127.0.0.1') || window.location.href.includes('localhost'))){
         timeout = {"kickout": 9000000, "warning": 6000000};
-        setTimeout(() => {
+        document.addEventListener('DOMContentLoaded', function(){
+        // setTimeout(() => {
             // let hdCol = '#d7740b';
             let hdCol = '#222';
             document.querySelector('#nav_bar').style.backgroundColor = hdCol;
-            document.head.appendChild(document.createElement('style')).innerHTML = `.header-color{ background-color: ${hdCol} !important; }`;
-        }, 3000);
+            document.head.appendChild(document.createElement('style')).innerHTML = `.header-color{ background-color: ${hdCol} !important; } nav.header{ background-color: ${hdCol} !important; }`;
+        // }, 3000);
+        });
     }
 
     var setts = {
