@@ -1025,6 +1025,94 @@
         }
     ])
 
+//////////////////////////////////////////
+
+    /**
+     * @ngdoc controller
+     *
+     * @name mfl.setup.controller.facility_admission_statuses.list
+     *
+     * @description
+     * The controller used to list facility admission statuses
+     */
+     .controller("mfl.setup.controller.facility_admission_statuses.list", ["$scope", function($scope) {
+        $scope.filters = { "fields": "id,name" };
+    }])
+
+    /**
+     * @ngdoc controller
+     *
+     * @name mfl.setup.controller.facility_admission_statuses.view
+     *
+     * @description
+     * The controller used to view/edit a facility admission status
+     */
+    .controller("mfl.setup.controller.facility_admission_statuses.view", ["$scope", "adminApi",
+        "$stateParams", "$state", "mfl.common.forms.changes", "toasty",
+        function($scope, adminApi, $stateParams, $state, formChanges, toasty) {
+            $scope.wrapper = adminApi.facility_admission_statuses;
+
+            if (!_.isUndefined($stateParams.status_id)) {
+                $scope.state = true;
+                adminApi.facility_admission_statuses.get($stateParams.status_id)
+                    .success(function(data) {
+                        $scope.facility_admission_status = data;
+                        $scope.deleteText = data.name;
+                    })
+                    .error(function(err) {
+                        $scope.errors = err;
+                    });
+                $scope.remove = function() {
+                    adminApi.facility_admission_statuses.remove($stateParams.status_id).success(function() {
+                        toasty.success({
+                            title: "Facility status deleted",
+                            msg: "Facility status has been deleted"
+                        });
+                        $state.go("setup.facility_admission_statuses");
+                    }).error(function(error) {
+                        $scope.errors = error;
+                        $state.go("setup.facility_admission_statuses");
+                    });
+                };
+                $scope.cancel = function() {
+                    $state.go("setup.facility_admission_statuses");
+                };
+            } else {
+                $scope.state = false;
+            }
+            $scope.saveFrm = function(frm) {
+                if (_.isUndefined($stateParams.status_id)) {
+                    adminApi.facility_admission_statuses.create(frm)
+                        .success(function() {
+                            toasty.success({
+                                title: "Facility status added",
+                                msg: "Facility status has been added"
+                            });
+                            $state.go("setup.facility_admission_statuses");
+                        })
+                        .error(function(err) {
+                            $scope.errors = err;
+                        });
+                } else {
+                    var changes = formChanges.whatChanged(frm);
+                    if (!_.isEmpty(changes)) {
+                        adminApi.facility_admission_statuses.update($stateParams.status_id, changes)
+                            .success(function() {
+                                toasty.success({
+                                    title: "Facility status updated",
+                                    msg: "Facility status has been updated"
+                                });
+                                $state.go("setup.facility_admission_statuses");
+                            })
+                            .error(function(err) {
+                                $scope.errors = err;
+                            });
+                    }
+                }
+            };
+        }
+    ])
+//////////////////////////////////////////
     /**
      * @ngdoc controller
      *

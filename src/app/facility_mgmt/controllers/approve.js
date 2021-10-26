@@ -25,7 +25,7 @@
             $scope.filters = {
                 "rejected": true,
                 "fields": "id,code,official_name,facility_type_name,owner_name,county,"+
-                          "operation_status_name,sub_county,constituency,ward_name,updated,"+
+                          "operation_status_name,admission_status_name,sub_county,constituency,ward_name,updated,"+
                           "sub_county_name,name,rejected,approved"
             };
             $scope.title = {
@@ -40,7 +40,7 @@
             $scope.filters = {
                 "rejected_national": true,
                 "fields": "id,code,official_name,facility_type_name,owner_name,county,rejected,"+
-                          "operation_status_name,sub_county,constituency,ward_name,updated,"+
+                          "operation_status_name,admission_status_name,sub_county,constituency,ward_name,updated,"+
                           "sub_county_name,name,approved_national_level,approved,is_complete"
             };
             $scope.title = {
@@ -117,7 +117,7 @@
                 "has_edits" : true,
                 "pending_approval" : true,
                 "fields": "id,code,official_name,facility_type_name,owner_name,county," +
-                          "sub_county,ward_name,updated,operation_status_name,"+
+                          "sub_county,ward_name,updated,operation_status_name,admission_status_name,"+
                           "sub_county_name,name,is_complete,in_complete_details,"+
                           "approved_national_level,has_edits,approved,rejected"
             };
@@ -135,7 +135,7 @@
                 "pending_approval" : true,
                 "has_edits" : false,
                 "fields": "id,code,official_name,facility_type_name,owner_name,county," +
-                          "sub_county,ward_name,updated,operation_status_name,"+
+                          "sub_county,ward_name,updated,operation_status_name,admission_status_name,"+
                           "sub_county_name,name,is_complete,in_complete_details,"+
                           "approved_national_level,has_edits,approved,rejected"
             };
@@ -406,7 +406,7 @@
             $scope.filters = {
                 "incomplete" : true,
                 "fields": "id,code,official_name,facility_type_name,owner_name,county," +
-                          "constituency_name,ward_name,created,operation_status_name,"+
+                          "constituency_name,ward_name,created,operation_status_name,admission_status_name,"+
                           "sub_county_name,name,is_complete,in_complete_details,approved"
             };
 

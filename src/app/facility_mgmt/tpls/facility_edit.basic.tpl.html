@@ -225,9 +225,9 @@
             </div>
             <div class="col-xs-12">
                 <div class="form-group checkbox">
-                    <label style="padding-left:0">
-                        *Admissions
-                    </label>
+                        <!-- <label style="padding-left:0">
+                            *Admissions
+                        </label>
                         <ng-form name="admitting_maternity_general">
                             <div class="radio">
                                 <label class="radio-inline">
@@ -242,7 +242,19 @@
                                 </label>
                                 <input type="hidden" name="admitting_maternity_only" ng-value="!facility.admitting_maternity_general" ng-model="facility.admitting_maternity_only">
                             </div>
-                        </ng-form>
+                        </ng-form> -->
+
+                        <div class="form-group col-xs-12" style="padding:2px">
+                            <label style="padding-left:0" class="control-label">Facility admissions &#42;</label>
+                            <ui-select ng-model="select_values.admission_status" required name="admission_status" api-checker register-custom-form-control>
+                                <ui-select-match placeholder="Select an admission status...">
+                                    <span>{{$select.selected.name}}</span>
+                                </ui-select-match>
+                                <ui-select-choices repeat="ads.id as ads in admission_status | filter:$select.search">
+                                    <span>{{ads.name}}</span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
                     </div>
             </div>
             <div class="col-xs-12">

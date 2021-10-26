@@ -83,6 +83,10 @@
                                     "id": $scope.facility.operation_status,
                                     "name": $scope.facility.operation_status_name
                                 },
+                                admission_status: {
+                                    "id": $scope.facility.admission_status,
+                                    "name": $scope.facility.admission_status_name
+                                },
                                 regulatory_body: {
                                     "id": $scope.facility.regulatory_body,
                                     "name": $scope.facility.regulatory_body_name

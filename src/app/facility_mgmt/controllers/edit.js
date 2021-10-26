@@ -347,6 +347,10 @@
                                     "id": $scope.facility.operation_status,
                                     "name": $scope.facility.operation_status_name
                                 },
+                                admission_status: {
+                                    "id": $scope.facility.admission_status,
+                                    "name": $scope.facility.admission_status_name
+                                },
                                 regulatory_body: {
                                     "id": $scope.facility.regulatory_body,
                                     "name": $scope.facility.regulatory_body_name
@@ -686,6 +690,8 @@
                     $scope.selectReload(
                         wrappers.regulating_bodies, "", "regulating_bodies", active_filter);
                     $scope.selectReload(
+                        wrappers.admission_status, "", "admission_status", active_filter);
+                    $scope.selectReload(
                         wrappers.regulation_status, "", "regulation_statuses", active_filter);
                     $scope.selectReload(wrappers.facility_types, "", "facility_types", active_filter);
                     $scope.selectReload(wrappers.towns, "", "towns", active_filter);
@@ -736,6 +742,7 @@
                         $scope.facility.facility_type = $scope.select_values.facility_type_details;
                         $scope.facility.owner = $scope.select_values.owner;
                         $scope.facility.operation_status = $scope.select_values.operation_status;
+                        $scope.facility.admission_status = $scope.select_values.admission_status;
                         $scope.facility.regulatory_body = $scope.select_values.regulatory_body;
                         $scope.facility.town = $scope.select_values.town;
                         $scope.facility.sub_county = $scope.select_values.sub_county.id;

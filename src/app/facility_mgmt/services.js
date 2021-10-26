@@ -113,6 +113,7 @@
 
             this.facility_updates = api.setBaseUrl("api/facilities/facility_updates/");
             this.operation_status = api.setBaseUrl("api/facilities/facility_status/");
+            this.admission_status = api.setBaseUrl("api/facilities/facility_admission_status/");
             this.facility_approvals = api.setBaseUrl("api/facilities/facility_approvals/");
             this.facility_officers = api.setBaseUrl("api/facilities/facility_officers/");
             this.facility_officers_incharge = api.setBaseUrl("api/facilities/officers_incharge/");

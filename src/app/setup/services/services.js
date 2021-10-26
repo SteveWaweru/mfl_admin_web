@@ -56,6 +56,7 @@
                 facilityOwners: api.setBaseUrl("api/facilities/owners/"),
                 facility_types: api.setBaseUrl("api/facilities/facility_types/"),
                 facility_statuses: api.setBaseUrl("api/facilities/facility_status/"),
+                facility_admission_statuses: api.setBaseUrl("api/facilities/facility_admission_status/"),
                 regulation_statuses: api.setBaseUrl("api/facilities/regulation_status/"),
                 regulatoryBodyContacts: api.setBaseUrl("api/common/contacts/"),
                 facilityRegulatoryBodies: api.setBaseUrl("api/facilities/regulating_bodies/"),

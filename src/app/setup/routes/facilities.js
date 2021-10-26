@@ -756,6 +756,87 @@
                 userFeature: "is_national,is_staff"
             })
 
+////////////////////////////////////////
+        /**
+         * @ngdoc state
+         *
+         * @name setup.facility_admission_statuses
+         *
+         * @description
+         * The state used to list facility admission statuses
+         */
+        .state("setup.facility_admission_statuses", {
+                url: "/facility_admission_statuses",
+                views: {
+                    "body@setup" : {
+                        "templateUrl" : "setup/tpls/dashboard/body.tpl.html"
+                    },
+                    "main-content@setup.facility_admission_statuses": {
+                        templateUrl: "setup/tpls/facilities/admissions/admission_statuses_grid.tpl.html",
+                        controller:"mfl.setup.controller.facility_admission_statuses.list"
+                    }
+                },
+                userFeature: "is_national,is_staff"
+            })
+
+        /**
+         * @ngdoc state
+         *
+         * @name setup.facility_admission_statuses.create
+         *
+         * @description
+         * The state used to create a facility admission status
+         */
+        .state("setup.facility_admission_statuses.create", {
+                url: "/create",
+                views: {
+                    "main-content@setup.facility_admission_statuses": {
+                        templateUrl: "setup/tpls/facilities/admissions/admission_statuses_view.tpl.html",
+                        controller:"mfl.setup.controller.facility_admission_statuses.view"
+                    }
+                },
+                userFeature: "is_staff,is_national"
+            })
+
+        /**
+         * @ngdoc state
+         *
+         * @name setup.facility_admission_statuses.edit
+         *
+         * @description
+         * The state used to edit a facility admission status
+         */
+        .state("setup.facility_admission_statuses.edit", {
+                url: "/edit/:status_id",
+                views: {
+                    "main-content@setup.facility_admission_statuses": {
+                        templateUrl: "setup/tpls/facilities/admissions/admission_statuses_view.tpl.html",
+                        controller:"mfl.setup.controller.facility_admission_statuses.view"
+                    }
+                },
+                userFeature: "is_national,is_staff"
+            })
+
+        /**
+         * @ngdoc state
+         *
+         * @name setup.facility_admission_statuses.edit.delete
+         *
+         * @description
+         * The state used to delete a facility admission status
+         */
+        .state("setup.facility_admission_statuses.edit.delete", {
+                url: "/delete",
+                views: {
+                    "delete@setup.facility_admission_statuses.edit": {
+                        controller:"mfl.setup.controller.facility_admission_statuses.view",
+                        templateUrl: "common/tpls/delete.tpl.html"
+                    }
+                },
+                userFeature: "is_national,is_staff"
+            })
+//////////////////////////////////////////
+
         /**
          * @ngdoc state
          *
