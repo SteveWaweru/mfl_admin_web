@@ -111,32 +111,17 @@
     </span>
     <!-- </Additions> -->
     <span class="content-right pad-0 col-xs-12">
-        <label class="text-black">Facility admissions: </label>
-        <span ng-if="facility.admission_status_name" class="text-success">
-            <b><i class="fa fa-check-circle-o fa-1x fs-15"></i> {{facility.admission_status_name}}</b>
-        </span>
-        <!-- <span ng-if="facility.admitting_maternity_general" class="text-success">
-            <b><i class="fa fa-check-circle-o fa-1x fs-15"></i> Yes</b>
-        </span>
-        <span ng-if="!facility.admitting_maternity_general" class="text-danger">
-            <b><i class="fa fa-times-circle-o fa-1x fs-15"></i> No</b>
-        </span> -->
-    </span>
-    <span class="content-right pad-0 col-xs-12">
-        <label class="text-black">Facility admitting Maternity patients <u>only</u>: </label>
-        <span ng-if="facility.admitting_maternity_only" class="text-success">
-            <b><i class="fa fa-check-circle-o fa-1x fs-15"></i> Yes</b>
-        </span>
-        <span ng-if="!facility.admitting_maternity_only" class="text-danger">
-            <b><i class="fa fa-times-circle-o fa-1x fs-15"></i> No</b>
-        </span>
-    </span>
-    <span class="content-right pad-0 col-xs-12">
         <label class="text-black">General Theatres: </label>
         <b>{{facility.number_of_general_theatres}}</b>
     </span>
     <span class="content-right pad-0 col-xs-12">
         <label class="text-black">Maternity Theatres: </label>
         <b>{{facility.number_of_maternity_theatres}}</b>
+    </span>
+    <span class="content-right pad-0 col-xs-12">
+        <label class="text-black">Facility admissions: </label><br/>
+        <span ng-if="facility.admission_status_name">
+            <b>{{facility.admission_status_name}}</b>
+        </span>
     </span>
 </div>
