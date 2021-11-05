@@ -10,6 +10,11 @@
              <!-- Facility regulation-->
              <fieldset>
             <legend><h4 class="fw-600 fs-18">Facility Regulation</h4></legend>
+            <small>{{facility.owner_type}}</small>
+            <ul>
+                <li ng-repeat="rb in regbodies">
+                    {{rb}} ~ {{rb.name}}
+                </li>
             <div class="form-group col-xs-12">
                 <label class="control-label">Regulatory Body &#42;</label>
                 <ui-select ng-model="select_values.regulatory_body" required name="regulatory_body" api-checker register-custom-form-control>

@@ -1174,6 +1174,15 @@
                     $scope.fac_depts = [];
                     $scope.fac_units = [];
                     /*Facility departments*/
+                    wrappers.facility.filter({
+                        facility: $scope.facility_id,
+                    }).success(function (data) {
+                        console.log(data);
+                        $scope.fac_ility = data.results;
+                    }).error(function (error) {
+                        console.log("ERR::: ", error);
+                        // $scope.errors = error;
+                    });
                     wrappers.facility_depts.filter({
                         fields: "id,name,regulatory_body,regulatory_body_name"
                     }).success(function (data) {
@@ -1183,8 +1192,8 @@
                     });
                     /*regulating bodies*/
                     wrappers.regulating_bodies.filter({ fields: "id,name" })
-                        .success(function (data) {
-                            $scope.regbodies = data.results;
+                    .success(function (data) {
+                            $scope.regbodies = data.results
                         })
                         .error(function (error) {
                             $scope.errors = error;
