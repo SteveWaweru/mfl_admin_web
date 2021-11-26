@@ -16,13 +16,16 @@
         </thead>
         <tbody class="fade-content">
             <tr ng-repeat="unit in chuls">
-                <td data-title="Code:" ><span class="text-danger">Pending Approval</span></td>
+                <td data-title="Code:" >
+                    <!-- <span class="text-danger">Pending Approval</span> -->
+                    {{unit.code}}
+                </td>
                 <td data-title="Name:">
                     <a ui-sref="chu_pending_approvals.view({unit_id : unit.id})" ui-sref-opts="{reload : true}">
                         {{unit.name}}
                     </a>
                 </td>
-                <td data-title="Abbreviation:">{{unit.status_name}}</td>
+                <td data-title="Abbreviation:">{{unit.status_name}}, <span class="text-danger">Pending Approval</span></td>
                 <td data-title="Linked Facility:">{{unit.facility_name}}</td>
                 <td data-title="County:">{{unit.facility_county | titlecase}}</td>
                 <td data-title="Sub County:">{{unit.facility_subcounty | titlecase}}</td>
